@@ -5,4 +5,8 @@
         <RootNamespace>PV179_Project</RootNamespace>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\DataAccessLayer\DataAccessLayer.csproj" />
+    </ItemGroup>
+
 </Project>
