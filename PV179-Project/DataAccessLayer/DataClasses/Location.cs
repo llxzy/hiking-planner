@@ -1,8 +1,7 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using DataAccessLayer.Enums;
 
-namespace DataAccessLayer
+namespace DataAccessLayer.DataClasses
 {
     public class Location
     {

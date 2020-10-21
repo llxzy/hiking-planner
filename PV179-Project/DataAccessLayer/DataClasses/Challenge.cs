@@ -7,7 +7,7 @@ namespace DataAccessLayer.DataClasses
     public class Challenge
     {
         public int Id { get; set; }
-        [ForeignKey("UserId")]
+        [ForeignKey(nameof(UserId))]
         public int UserId { get; set; }
         public ChallengeType Type { get; set; }
         public int TripCount { get; set; }

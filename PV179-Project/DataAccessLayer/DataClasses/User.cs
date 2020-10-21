@@ -1,9 +1,8 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using DataAccessLayer.DataClasses;
 using DataAccessLayer.Enums;
 
-namespace DataAccessLayer
+namespace DataAccessLayer.DataClasses
 {
     public class User
     {

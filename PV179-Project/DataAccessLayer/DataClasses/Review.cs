@@ -1,14 +1,14 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace DataAccessLayer
+namespace DataAccessLayer.DataClasses
 {
     public class Review
     {
         public int Id { get; set; }
-        [ForeignKey("TripId")]
+        [ForeignKey(nameof(TripId))]
         public int TripId { get; set; }
-        [ForeignKey("AuthorId")]
+        [ForeignKey(nameof(AuthorId))]
         public int AuthorId { get; set; }
         public User Author { get; set; }
         [MaxLength(300)]

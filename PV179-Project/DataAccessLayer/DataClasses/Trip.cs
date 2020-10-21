@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace DataAccessLayer
+namespace DataAccessLayer.DataClasses
 {
     public class Trip
     {
@@ -13,7 +13,7 @@ namespace DataAccessLayer
         public bool Done { get; set; }
         public ICollection<Review> Reviews { get; set; }
         public IList<TripLocation> TripLocations { get; set; }
-        [ForeignKey("CreatorId")]
+        [ForeignKey(nameof(CreatorId))]
         public int CreatorId { get; set; }
         public ICollection<User> Participants { get; set; }
         [MaxLength(300)]
