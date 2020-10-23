@@ -3,13 +3,14 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DataAccessLayer.DataClasses
 {
-    public class TripLocation
+    public class TripLocation : BaseEntity
     {
-        public int Id { get; set; }
-        [ForeignKey(nameof(TripId))]
-        public int TripId { get; set; }
-        [ForeignKey(nameof(LocationId))]
-        public int LocationId { get; set; }
-        public DateTime Time { get; set; }
+        public int AssociatedTripId { get; set; }
+        [ForeignKey(nameof(AssociatedTripId))]
+        public Trip AssociatedTrip { get; set; }
+        public int AssociatedLocationId { get; set; }
+        [ForeignKey(nameof(AssociatedLocationId))]
+        public Location AssociatedLocation { get; set; }
+        public DateTime ArrivalTime { get; set; }
     }
 }

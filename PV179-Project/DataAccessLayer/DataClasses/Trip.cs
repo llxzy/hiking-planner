@@ -5,21 +5,28 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DataAccessLayer.DataClasses
 {
-    public class Trip
+    public class Trip : BaseEntity
     {
-        public int Id { get; set; }
         public DateTime StartDate { get; set; }
         // public DateTime EndDate { get; set; } possible for statistics
         public bool Done { get; set; }
         public ICollection<Review> Reviews { get; set; }
         public IList<TripLocation> TripLocations { get; set; }
-        [ForeignKey(nameof(CreatorId))]
-        public int CreatorId { get; set; }
-        public ICollection<User> Participants { get; set; }
+        public int AuthorId { get; set; }
+        [ForeignKey(nameof(AuthorId))] 
+        public User Author { get; set; }
+        public ICollection<UserTrip> Participants { get; set; }
+        public ICollection<User> TripUsers { get; set; }
+        
         [MaxLength(300)]
         public string Description { get; set; }
         [MaxLength(40)]
         public string TripTitle { get; set; }
+
+        public Trip()
+        {
+            TripUsers = new List<User>();
+        }
         
     }
 }

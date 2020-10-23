@@ -4,11 +4,11 @@ using DataAccessLayer.Enums;
 
 namespace DataAccessLayer.DataClasses
 {
-    public class Challenge
+    public class Challenge : BaseEntity
     {
-        public int Id { get; set; }
-        [ForeignKey(nameof(UserId))]
         public int UserId { get; set; }
+        [ForeignKey(nameof(UserId))]
+        public User ChallengeUser { get; set; }
         public ChallengeType Type { get; set; }
         public int TripCount { get; set; }
         public bool Finished { get; set; }

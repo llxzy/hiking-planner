@@ -4,18 +4,19 @@ using DataAccessLayer.Enums;
 
 namespace DataAccessLayer.DataClasses
 {
-    public class User
+    public class User : BaseEntity
     {
-        public int Id { get; set; }
+        [Required]
         [MaxLength(40)]
         public string Name { get; set; }
+        [Required]
         [MaxLength(50)]
         public string MailAddress { get; set; }
-        // add max length
         public string PasswordHash { get; set; }
-        public ICollection<Trip> UserTrips { get; set; }
+        public ICollection<Trip> Trips { get; set; }
+        public ICollection<UserTrip> UserTrips { get; set; }
         public ICollection<Challenge> UserChallenges { get; set; }
         public UserRole Role { get; set; }
-            
+
     }
 }
