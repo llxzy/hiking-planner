@@ -23,7 +23,7 @@ namespace DataAccessLayer
             modelBuilder.Entity<UserTrip>().HasKey(k => new { k.UserId, k.TripId });
             modelBuilder.Entity<UserTrip>()
                 .HasOne<User>(trip => trip.User)
-                .WithMany(u => u.UserTrips)
+                .WithMany(u => u.Trips)
                 .HasForeignKey(a => a.UserId);
 
             modelBuilder.Entity<UserTrip>()
@@ -36,6 +36,7 @@ namespace DataAccessLayer
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+            //todo replace with remote db probably and put connection string into appsettings
             optionsBuilder.UseNpgsql(@"Host=localhost;Database=tripdb;Username=postgres;Password=postgres;Port=5432");
             base.OnConfiguring(optionsBuilder);
         }

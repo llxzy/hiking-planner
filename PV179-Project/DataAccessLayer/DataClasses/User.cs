@@ -13,9 +13,8 @@ namespace DataAccessLayer.DataClasses
         [MaxLength(50)]
         public string MailAddress { get; set; }
         public string PasswordHash { get; set; }
-        public ICollection<Trip> Trips { get; set; }
-        public ICollection<UserTrip> UserTrips { get; set; }
-        public ICollection<Challenge> UserChallenges { get; set; }
+        public ICollection<UserTrip> Trips { get; set; }
+        public ICollection<Challenge> Challenges { get; set; }
         public UserRole Role { get; set; }
 
     }

@@ -8,7 +8,7 @@ namespace DataAccessLayer.DataClasses
     public class Trip : BaseEntity
     {
         public DateTime StartDate { get; set; }
-        // public DateTime EndDate { get; set; } possible for statistics
+        // public DateTime EndDate { get; set; } possibly keep for statistics
         public bool Done { get; set; }
         public ICollection<Review> Reviews { get; set; }
         public IList<TripLocation> TripLocations { get; set; }
@@ -16,17 +16,9 @@ namespace DataAccessLayer.DataClasses
         [ForeignKey(nameof(AuthorId))] 
         public User Author { get; set; }
         public ICollection<UserTrip> Participants { get; set; }
-        public ICollection<User> TripUsers { get; set; }
-        
         [MaxLength(300)]
         public string Description { get; set; }
         [MaxLength(40)]
-        public string TripTitle { get; set; }
-
-        public Trip()
-        {
-            TripUsers = new List<User>();
-        }
-        
+        public string Title { get; set; }
     }
 }
