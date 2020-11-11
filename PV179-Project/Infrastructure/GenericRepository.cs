@@ -13,17 +13,11 @@ namespace DataAccessLayer.Infrastructure
         public GenericRepository(IUnitOfWorkProvider uowProvider)
         {
             _uowProvider = uowProvider;
-            var x = _context.Set<TEntity>();
         }
         
         public Task<TEntity> GetByIdAsync(int id)
         {
             return _context.Set<TEntity>().FindAsync(id).AsTask();
-        }
-
-        public Task<List<TEntity>> GetAllAsync()
-        {
-            return _context.Set<TEntity>().ToListAsync();
         }
 
         public async Task CreateAsync(TEntity entity)
