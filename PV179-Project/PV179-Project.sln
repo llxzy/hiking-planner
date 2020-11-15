@@ -1,8 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
+# 
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "Application\Application.csproj", "{4BB76C32-8FB2-45F9-AB49-19FBC191DD0C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccessLayer", "DataAccessLayer\DataAccessLayer.csproj", "{61D0C2D1-DEEE-421B-B7B5-78C837AEA3DD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{3C320FD9-82DD-4AAB-9346-294005821248}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,5 +21,9 @@ Global
 		{61D0C2D1-DEEE-421B-B7B5-78C837AEA3DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{61D0C2D1-DEEE-421B-B7B5-78C837AEA3DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{61D0C2D1-DEEE-421B-B7B5-78C837AEA3DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C320FD9-82DD-4AAB-9346-294005821248}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C320FD9-82DD-4AAB-9346-294005821248}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C320FD9-82DD-4AAB-9346-294005821248}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C320FD9-82DD-4AAB-9346-294005821248}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
