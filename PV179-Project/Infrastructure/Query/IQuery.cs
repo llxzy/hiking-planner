@@ -1,13 +1,13 @@
-namespace DataAccessLayer.Infrastructure
+using DataAccessLayer.Infrastructure;
+using Infrastructure.Query.Predicates;
+
+namespace Infrastructure.Query
 {
-    public interface IQuery
+    public interface IQuery<TEntity> where TEntity : class, new()
     {
-        IQuery Where(IPredicate p);
-        // add another parameter without name indicating the collectioin it is to be called over?
-        // https://docs.microsoft.com/en-us/dotnet/api/system.linq.enumerable.where?view=netcore-3.1 like here
-        // takes an enumerable
-        IQuery SortBy(string accordingTo, bool ascendingOrder);
-        IQuery Page(int pageToFetch, int pageSize);
-        QueryResult ExecuteAsync();
+        IQuery<TEntity> Where(IPredicate predicate);
+        IQuery<TEntity> SortBy(string accordingTo, bool ascendingOrder);
+        IQuery<TEntity> Page(int pageToFetch, int pageSize);
+        QueryResult<TEntity> ExecuteAsync(); // TODO ADD ASYNC LATER
     }
 }

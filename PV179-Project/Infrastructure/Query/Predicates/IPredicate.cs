@@ -1,4 +1,4 @@
-namespace DataAccessLayer.Infrastructure
+namespace Infrastructure.Query.Predicates
 {
     public interface IPredicate
     {

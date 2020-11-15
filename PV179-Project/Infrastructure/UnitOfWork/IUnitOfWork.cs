@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 
-namespace DataAccessLayer.Infrastructure
+namespace Infrastructure.UnitOfWork
 {
     public interface IUnitOfWork
     {

@@ -2,7 +2,7 @@ using System;
 using System.Threading;
 using Microsoft.EntityFrameworkCore;
 
-namespace DataAccessLayer.Infrastructure
+namespace Infrastructure.UnitOfWork
 {
     public class UnitOfWorkProvider : IUnitOfWorkProvider
     {
