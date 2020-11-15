@@ -1,11 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using System.Threading.Tasks;
-using DataAccessLayer.DataClasses;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Microsoft.EntityFrameworkCore.Internal;
 
-namespace DataAccessLayer.Infrastructure
+namespace Infrastructure
 {
     public interface IRepository<TEntity> where TEntity : class, new()
     {

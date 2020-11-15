@@ -1,9 +1,9 @@
-using System.Collections.Generic;
 using System.Threading.Tasks;
+using DataAccessLayer.Infrastructure;
+using Infrastructure.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
 
-namespace DataAccessLayer.Infrastructure
+namespace Infrastructure
 {
     public class GenericRepository<TEntity> : IRepository<TEntity> where TEntity : class, new()
     {
