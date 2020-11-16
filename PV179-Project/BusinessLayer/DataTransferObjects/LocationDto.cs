@@ -1,6 +1,6 @@
 ﻿namespace BusinessLayer.DataTransferObjects
 {
-    class LocationDto
+    public class LocationDto
     {
     }
 }
