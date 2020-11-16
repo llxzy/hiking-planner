@@ -4,7 +4,7 @@ using Infrastructure.UnitOfWork;
 
 namespace Infrastructure.Query
 {
-    public abstract class QueryBase<TEntity> : IQuery<TEntity> where TEntity : class, new()
+    public class QueryBase<TEntity> : IQuery<TEntity> where TEntity : class, new()
     {
         public int PageSize { get; set; }
         public int DesiredPage { get; set; }
@@ -48,6 +48,9 @@ namespace Infrastructure.Query
             return this;
         }
 
-        public abstract QueryResult<TEntity> ExecuteAsync();
+        public QueryResult<TEntity> ExecuteAsync()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
