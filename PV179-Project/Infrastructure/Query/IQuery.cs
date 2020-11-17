@@ -1,4 +1,4 @@
-using DataAccessLayer.Infrastructure;
+using System.Threading.Tasks;
 using Infrastructure.Query.Predicates;
 
 namespace Infrastructure.Query
@@ -8,6 +8,6 @@ namespace Infrastructure.Query
         IQuery<TEntity> Where(IPredicate predicate);
         IQuery<TEntity> SortBy(string accordingTo, bool ascendingOrder);
         IQuery<TEntity> Page(int pageToFetch, int pageSize);
-        QueryResult<TEntity> ExecuteAsync(); // TODO ADD ASYNC LATER
+        Task<QueryResult<TEntity>> ExecuteAsync();
     }
 }
