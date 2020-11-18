@@ -3,7 +3,7 @@ using DataAccessLayer.Enums;
 
 namespace BusinessLayer.DataTransferObjects
 {
-    public class ChallengeDto
+    public class ChallengeDto : BaseDto
     {
         public UserDto ChallengeUserDTO { get; set; }
         public ChallengeType Type { get; set; }

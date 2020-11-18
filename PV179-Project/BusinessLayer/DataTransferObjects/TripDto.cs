@@ -1,6 +1,6 @@
 ﻿namespace BusinessLayer.DataTransferObjects
 {
-    public class TripDto
+    public class TripDto : BaseDto
     {
 
     }

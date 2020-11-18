@@ -1,6 +1,6 @@
 ﻿namespace BusinessLayer.DataTransferObjects
 {
-    public class ReviewDto
+    public class ReviewDto : BaseDto
     {
         public TripDto ReviewedTrip { get; set; }
 
