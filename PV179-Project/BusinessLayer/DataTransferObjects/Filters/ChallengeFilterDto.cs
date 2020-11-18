@@ -6,10 +6,10 @@ namespace BusinessLayer.DataTransferObjects.Filters
 {
     public class ChallengeFilterDto : FilterDtoBase
     {
-        public int UserId { get; set; }
-        public ChallengeType? Type { get; set; }
-        public bool Finished { get; set; }
-        public DateTime StartDate { get; set; }
+        public string UserId { get; set; }
+        public string Type { get; set; }
+        public string Finished { get; set; }
+        public string StartDate { get; set; }
         
     }
 }

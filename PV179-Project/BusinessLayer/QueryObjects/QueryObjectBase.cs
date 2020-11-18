@@ -25,13 +25,12 @@ namespace BusinessLayer.QueryObjects
 
         public QueryResultDto<TDto, TFilter> ExecuteQuery(TFilter filter)
         {
-            //query.Where, SortBy, Page ...
-            //var res = queryable.Skip((DesiredPage - 1) * PageSize).Take(PageSize).ToList();
-            // todo SORTING, PAGING
             Query = ApplyFilter(Query, filter);
+            Query = filter.RequestedPage == null 
+                ? Query 
+                : Query.Page(filter.RequestedPage.Value, filter.PageSize);
             
-            var result = Query.ExecuteAsync();
-            var queryResultDto = _mapper.Map<QueryResultDto<TDto, TFilter>>(result);
+            var queryResultDto = _mapper.Map<QueryResultDto<TDto, TFilter>>(Query.ExecuteAsync().Result);
             queryResultDto.Filter = filter;
             return queryResultDto;
         }

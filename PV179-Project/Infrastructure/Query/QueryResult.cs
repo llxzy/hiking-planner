@@ -8,7 +8,6 @@ namespace Infrastructure.Query
         public int? RequestedPageNumber { get; set; }
         public int PageSize { get; set; }
         public IList<TEntity> Items { get; set; }
-        public bool PagingEnabled { get; set; }
 
         public QueryResult(IList<TEntity> items, long totalItemsCount, int pageSize, int? requestedPageNumber)
         {
