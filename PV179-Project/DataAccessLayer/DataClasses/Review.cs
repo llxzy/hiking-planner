@@ -13,5 +13,8 @@ namespace DataAccessLayer.DataClasses
         public User Author { get; set; }
         [MaxLength(300)]
         public string Text { get; set; }
+        public bool Flagged { get; set; }
+        public int UpvoteCount { get; set; }
+        public int DownvoteCount { get; set; }
     }
 }
