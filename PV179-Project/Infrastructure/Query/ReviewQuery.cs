@@ -9,11 +9,6 @@ namespace Infrastructure.Query
         public ReviewQuery(IUnitOfWorkProvider provider) : base(provider)
         {
         }
-        // trip id
-        // authorid
-        // flagged
-        // upvoted
-        // downvoted
 
         public ReviewQuery FilterByTripId(int tripId)
         {
