@@ -36,4 +36,4 @@ namespace PV179_Project
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder => { webBuilder.UseStartup<Startup>(); });
     }
-} // TODO len skusame chacha :P ;P 
+}
