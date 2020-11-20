@@ -1,6 +1,15 @@
-﻿namespace BusinessLayer.DataTransferObjects
+﻿using DataAccessLayer.Enums;
+
+namespace BusinessLayer.DataTransferObjects
+
 {
     public class LocationDto : BaseDto
     {
+        public string Name { get; set; }
+        public LocationType Type { get; set; }
+        public double Lat { get; set; }
+        public double Long { get; set; }
+
+        public int VisitCount { get; set; }
     }
 }
