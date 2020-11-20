@@ -1,4 +1,17 @@
-$HEADER$namespace $NAMESPACE$
+using BusinessLayer.DataTransferObjects.QueryDTOs;
+
+namespace BusinessLayer.DataTransferObjects.Filters
 {
-  public class $CLASS$ {$END$}
+    public class TripFilterDto : FilterDtoBase
+    {
+        public string StartDate { get; set; }
+
+        public string Done { get; set; }
+
+        //public IList<TripLocation> TripLocations { get; set; }
+        
+        public string AuthorId { get; set; }
+        
+        public string Title { get; set; }
+    }
 }
