@@ -25,10 +25,9 @@ namespace Infrastructure
             await _context.Set<TEntity>().AddAsync(entity);
         }
 
-        public Task UpdateAsync(TEntity entity)
+        public void Update(TEntity entity)
         {
             _context.Entry(entity).State = EntityState.Modified;
-            return null; //TODO likely might not work or be bad practice
         }
 
         public async Task DeleteAsync(int id)

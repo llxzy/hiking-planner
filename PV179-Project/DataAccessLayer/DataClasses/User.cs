@@ -16,6 +16,7 @@ namespace DataAccessLayer.DataClasses
         public ICollection<UserTrip> Trips { get; set; }
         public ICollection<Challenge> Challenges { get; set; }
         public UserRole Role { get; set; }
+        public IEnumerable<int> VotedReviewIds { get; set; }
 
     }
 }

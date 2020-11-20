@@ -32,19 +32,19 @@ namespace BusinessLayer.Services
 
         // TODO ADD ASYNC
         
-        public void Create(TDto entityDto)
+        public async Task Create(TDto entityDto)
         {
-            Repository.CreateAsync(Mapper.Map<TEntity>(entityDto));
+            await Repository.CreateAsync(Mapper.Map<TEntity>(entityDto));
         }
 
         public void Update(TDto entityDto)
         {
-
+            Repository.Update(Mapper.Map<TEntity>(entityDto));
         }
 
-        public void Delete(int id)
+        public async Task Delete(int id)
         {
-            Repository.DeleteAsync(id);
+            await Repository.DeleteAsync(id);
         }
     }
 }

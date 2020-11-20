@@ -6,7 +6,7 @@ namespace Infrastructure
     {
         Task<TEntity> GetByIdAsync(int id);
         Task CreateAsync(TEntity entity);
-        Task UpdateAsync(TEntity entity);
+        void Update(TEntity entity);
         Task DeleteAsync(int id);
         
     }
