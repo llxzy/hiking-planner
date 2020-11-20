@@ -15,6 +15,7 @@ namespace BusinessLayer.QueryObjects
 
         public override IQuery<Trip> ApplyFilter(IQuery<Trip> query, TripFilterDto filter)
         {
+            // MM/DD/YYY
             /*query = string.IsNullOrWhiteSpace(filter.StartDate)
                 ? query
                 : ((TripQuery) query).FilterByStartDate();

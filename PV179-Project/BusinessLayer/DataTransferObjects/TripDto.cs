@@ -9,7 +9,7 @@ namespace BusinessLayer.DataTransferObjects
     {
         public DateTime StartDate { get; set; }
         public bool Done { get; set; }
-        //public IList<TripLocation> TripLocation { get; set; }
+        public List<TripLocation> TripLocation { get; set; }
         public UserDto Author { get; set; }
         public string Description { get; set; }
         public string Title { get; set; }

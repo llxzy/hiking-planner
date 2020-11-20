@@ -34,5 +34,13 @@ namespace Infrastructure.Query
             Queryable = Queryable.Where(t => t.Title == title);
             return this;
         }
+
+        public TripQuery FilterByLocation(int locationId)
+        {
+            Queryable = Queryable
+                .Where(t => t.TripLocations
+                    .Any(tl => tl.AssociatedLocationId == locationId));
+            return this;
+        }
     }
 }

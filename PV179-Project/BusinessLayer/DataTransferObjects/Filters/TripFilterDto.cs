@@ -8,7 +8,7 @@ namespace BusinessLayer.DataTransferObjects.Filters
 
         public string Done { get; set; }
 
-        //public IList<TripLocation> TripLocations { get; set; }
+        public string LocationId { get; set; }
         
         public string AuthorId { get; set; }
         
