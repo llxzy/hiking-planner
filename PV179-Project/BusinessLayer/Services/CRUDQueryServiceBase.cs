@@ -14,14 +14,14 @@ namespace BusinessLayer.Services
     {
         protected IRepository<TEntity> Repository;
         protected IMapper Mapper;
-        protected QueryObjectBase<TEntity, TDto, TFilter, IQuery<TEntity>> QueryObjectBase;
+        protected QueryObjectBase<TEntity, TDto, TFilter, IQuery<TEntity>> QueryObject;
 
         public CrudQueryServiceBase(IRepository<TEntity> repository, IMapper mapper, 
             QueryObjectBase<TEntity, TDto, TFilter, IQuery<TEntity>> qob)
         {
             Repository = repository;
             Mapper = mapper;
-            QueryObjectBase = qob;
+            QueryObject = qob;
         }
 
         public async Task<TDto> GetAsync(int id)

@@ -10,5 +10,9 @@ namespace DataAccessLayer.DataClasses
         public LocationType Type { get; set; }
         public double Lat { get; set; }
         public double Long { get; set; }
+        public int VisitCount { get; set; }
+
+        //user??
+        //submitted???
     }
 }

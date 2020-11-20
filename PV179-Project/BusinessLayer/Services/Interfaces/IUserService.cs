@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
 using BusinessLayer.DataTransferObjects;
 
-namespace BusinessLayer.Services
+namespace BusinessLayer.Services.Interfaces
 {
     public interface IUserService
     {

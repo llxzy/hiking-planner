@@ -23,9 +23,20 @@ namespace BusinessLayer.QueryObjects
         public abstract IQuery<TEntity> ApplyFilter(IQuery<TEntity> query, TFilter filter);
         // makes predicate based on filter, returns query.where(...)
 
+
+        public IQuery<TEntity> ApplySorting(IQuery<TEntity> query, TFilter filter)
+        {
+            if (!string.IsNullOrWhiteSpace(filter.SortAccordingTo))
+            {
+                query.SortBy(filter.SortAccordingTo, filter.UseAscendingOrder);
+            }
+            return query;
+        }
+
         public QueryResultDto<TDto, TFilter> ExecuteQuery(TFilter filter)
         {
             Query = ApplyFilter(Query, filter);
+            Query = ApplySorting(Query, filter);
             Query = filter.RequestedPage == null 
                 ? Query 
                 : Query.Page(filter.RequestedPage.Value, filter.PageSize);

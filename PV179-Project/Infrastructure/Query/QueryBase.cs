@@ -1,5 +1,7 @@
 using System;
 using System.Linq;
+using System.Linq.Expressions;
+using System.Reflection;
 using System.Threading.Tasks;
 using Infrastructure.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
@@ -47,6 +49,24 @@ namespace Infrastructure.Query
                 PageSize,
                 DesiredPage
             );
+        }
+
+        public IQuery<TEntity> SortBy(string propertyName, bool ascending)
+        {
+            var command = ascending == true ? "OrderBy" : "OrderByDescending";
+
+            ParameterExpression parameter = Expression.Parameter(Queryable.ElementType, "p");
+            MemberExpression property = Expression.Property(parameter, propertyName);
+
+            var lambda = Expression.Lambda(property, parameter);
+
+            var resultExpression = Expression.Call(typeof(Queryable), command,
+                new Type[] { typeof(TEntity), property.Type },
+                    Queryable.Expression, Expression.Quote(lambda)
+                );
+
+            Queryable = Queryable.Provider.CreateQuery<TEntity>(resultExpression);
+            return this;
         }
     }
 }
