@@ -19,7 +19,7 @@ namespace BusinessLayer.Services.Interfaces
 
         public Task<bool> RegisterNewUser(UserDto userDto);
 
-        public Task<bool> EmailAlreadyExistsAsync(string mail);
+        public bool EmailAlreadyExistsAsync(string mail);
 
         public Task<bool> VerifyUser(int userId, string pswdHash);
 
