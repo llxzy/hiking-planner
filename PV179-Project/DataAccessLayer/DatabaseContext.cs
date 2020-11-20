@@ -30,8 +30,8 @@ namespace DataAccessLayer
                 .HasOne<Trip>(trip => trip.Trip)
                 .WithMany(t => t.Participants)
                 .HasForeignKey(a => a.TripId);
-            
-            
+
+            modelBuilder.Entity<UserReviewVote>().HasKey(ut => new {ut.AssociatedUserId, ut.AssociatedReviewId});
             modelBuilder.Entity<UserReviewVote>()
                 .HasOne<User>(vote => vote.AssociatedUser)
                 .WithMany(u => u.UserReviewVotes)
