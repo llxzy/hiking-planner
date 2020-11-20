@@ -11,8 +11,6 @@ namespace DataAccessLayer.DataClasses
         public double Lat { get; set; }
         public double Long { get; set; }
         public int VisitCount { get; set; }
-
-        //user??
-        //submitted???
+        public bool PermanentlyAdded { get; set; }
     }
 }

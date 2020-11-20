@@ -9,8 +9,8 @@ using Infrastructure;
 using AutoMapper;
 using BusinessLayer.QueryObjects;
 using System.Linq;
+using BusinessLayer.Services.Interfaces;
 using Infrastructure.Query;
-using BusinessLayer.Service.Interfaces;
 
 namespace BusinessLayer.Services.Implementations
 {
