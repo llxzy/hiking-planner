@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -16,5 +17,6 @@ namespace DataAccessLayer.DataClasses
         public bool Flagged { get; set; }
         public int UpvoteCount { get; set; }
         public int DownvoteCount { get; set; }
+        public ICollection<UserReviewVote> UserReviewVotes { get; set; }
     }
 }

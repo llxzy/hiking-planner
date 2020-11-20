@@ -31,6 +31,17 @@ namespace DataAccessLayer
                 .WithMany(t => t.Participants)
                 .HasForeignKey(a => a.TripId);
             
+            
+            modelBuilder.Entity<UserReviewVote>()
+                .HasOne<User>(vote => vote.AssociatedUser)
+                .WithMany(u => u.UserReviewVotes)
+                .HasForeignKey(a => a.AssociatedUserId);
+            
+            modelBuilder.Entity<UserReviewVote>()
+                .HasOne<Review>(vote => vote.AssociatedReview)
+                .WithMany(u => u.UserReviewVotes)
+                .HasForeignKey(a => a.AssociatedReviewId);
+            
             base.OnModelCreating(modelBuilder);
         }
 
