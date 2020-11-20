@@ -22,5 +22,11 @@ namespace Infrastructure.Query
             Queryable = Queryable.Where(l => l.Type == type);
             return this;
         }
+
+        public LocationQuery FilterByAddedStatus(bool added)
+        {
+            Queryable = Queryable.Where(l => l.PermanentlyAdded == added);
+            return this;
+        }
     }
 }

@@ -25,7 +25,7 @@ namespace BusinessLayer.Services.Implementations
         
         public async Task<bool> EmailAlreadyExistsAsync(string mail)
         {
-            var res = QueryObjectBase.ExecuteQuery(new UserFilterDto { MailAddress = mail });
+            var res = QueryObject.ExecuteQuery(new UserFilterDto { MailAddress = mail });
             return (res.Items.Count() == 1);
         }
         

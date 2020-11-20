@@ -1,10 +1,8 @@
-﻿using BusinessLayer.DataTransferObjects;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using BusinessLayer.DataTransferObjects;
 
-namespace BusinessLayer.Service.Interfaces
+namespace BusinessLayer.Services.Interfaces
 {
     public interface ILocationService
     {

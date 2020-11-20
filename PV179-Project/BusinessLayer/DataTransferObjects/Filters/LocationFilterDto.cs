@@ -6,9 +6,10 @@ using System.Text;
 
 namespace BusinessLayer.DataTransferObjects.Filters
 {
-    class LocationFilterDto : FilterDtoBase
+    public class LocationFilterDto : FilterDtoBase
     {
         public string Name { get; set; }
         public string Type { get; set; }
+        public string Added { get; set; }
     }
 }
