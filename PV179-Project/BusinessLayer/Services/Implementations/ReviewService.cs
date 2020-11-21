@@ -43,18 +43,18 @@ namespace BusinessLayer.Services.Implementations
 
         public List<ReviewDto> ListReviewsByAuthor(int authorId)
         {
-            var result = QueryObject.ExecuteQuery(new ReviewFilterDto()
+            return QueryObject.ExecuteQuery(new ReviewFilterDto()
             {
                 AuthorId = authorId.ToString()
-            });
-            return result.Items.ToList();
+            }).Items.ToList();
         }
 
-        public List<ReviewDto> ListReviewsByTrip(int tripId)
+        public List<ReviewDto> ListReviewsByTrip(int tripId, int? authorId)
         {
             return QueryObject.ExecuteQuery(new ReviewFilterDto()
             {
-                ReviewedTripId = tripId.ToString()
+                ReviewedTripId = tripId.ToString(),
+                AuthorId = authorId?.ToString()
             }).Items.ToList();
         }
 
