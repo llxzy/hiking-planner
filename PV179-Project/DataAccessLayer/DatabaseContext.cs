@@ -18,6 +18,11 @@ namespace DataAccessLayer
             Database.EnsureCreated();
         }
 
+        public DatabaseContext(DbContextOptions options) : base(options)
+        {
+            Database.EnsureCreated();
+        }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<UserTrip>().HasKey(k => new { k.UserId, k.TripId });
@@ -44,11 +49,15 @@ namespace DataAccessLayer
             
             base.OnModelCreating(modelBuilder);
         }
-
+        
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            //todo replace with remote db probably and put connection string into appsettings
-            optionsBuilder.UseNpgsql(@"Host=localhost;Database=tripdb;Username=postgres;Password=postgres;Port=5432");
+            //todo move initialization into startup.cs
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseNpgsql(@"Host=localhost;Database=tripdb;Username=postgres;Password=postgres;Port=5432");
+            }
+            
             base.OnConfiguring(optionsBuilder);
         }
     }
