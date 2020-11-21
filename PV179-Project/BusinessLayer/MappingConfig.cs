@@ -1,7 +1,9 @@
 using AutoMapper;
 using BusinessLayer.DataTransferObjects;
+using BusinessLayer.DataTransferObjects.QueryDTOs;
 using BusinessLayer.Services.Implementations;
 using DataAccessLayer.DataClasses;
+using Infrastructure.Query;
 
 namespace BusinessLayer
 {
@@ -17,8 +19,6 @@ namespace BusinessLayer
             config.CreateMap<Challenge, ChallengeDto>().ReverseMap();
             config.CreateMap<TripLocation, TripLocationDto>().ReverseMap();
             config.CreateMap<UserReviewVote, UserReviewVoteDto>().ReverseMap();
-            
         }
-        
     }
 }

@@ -5,13 +5,13 @@ namespace BusinessLayer.Services.Interfaces
 {
     public interface IUserService
     {
-        public Task<UserDto> GetUser(string mailaddress);
+        public UserDto GetUser(string mailaddress);
 
         //public Task<string> GetPasswordHash(int userId);//added
 
         public bool EmailAlreadyExistsAsync(string mail);
 
-        public Task<bool> VerifyUser(int userId, string pswdHash);
+        //public Task<bool> VerifyUser(int userId, string pswdHash);
 
     }
 }

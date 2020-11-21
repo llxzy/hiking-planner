@@ -14,7 +14,7 @@ using Infrastructure.Query;
 
 namespace BusinessLayer.Services.Implementations
 {
-    class LocationService :
+    public class LocationService :
         CrudQueryServiceBase<Location, LocationDto, LocationFilterDto>,
         ILocationService
     {

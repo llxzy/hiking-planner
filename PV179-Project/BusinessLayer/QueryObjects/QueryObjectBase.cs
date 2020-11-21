@@ -22,8 +22,7 @@ namespace BusinessLayer.QueryObjects
 
         public abstract IQuery<TEntity> ApplyFilter(IQuery<TEntity> query, TFilter filter);
         // makes predicate based on filter, returns query.where(...)
-
-
+        
         public IQuery<TEntity> ApplySorting(IQuery<TEntity> query, TFilter filter)
         {
             if (!string.IsNullOrWhiteSpace(filter.SortAccordingTo))
@@ -45,7 +44,5 @@ namespace BusinessLayer.QueryObjects
             queryResultDto.Filter = filter;
             return queryResultDto;
         }
-
-
     }
 }

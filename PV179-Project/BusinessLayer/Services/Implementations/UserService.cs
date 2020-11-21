@@ -24,20 +24,19 @@ namespace BusinessLayer.Services.Implementations
             return userDto.MailAddress;
         }
 
-        public Task<UserDto> GetUser(string mailAddress)
+        public UserDto GetUser(string mailAddress)
         {
-            throw new System.NotImplementedException();
+            var user = QueryObject.ExecuteQuery(new UserFilterDto()
+            {
+                MailAddress = mailAddress
+            });
+            return user.Items?.First();
         }
 
         public bool EmailAlreadyExistsAsync(string mail)
         {
             var res = QueryObject.ExecuteQuery(new UserFilterDto { MailAddress = mail });
             return (res.Items.Count() == 1);
-        }
-
-        public Task<bool> VerifyUser(int userId, string pswdHash)
-        {
-            throw new System.NotImplementedException();
         }
 
     }
