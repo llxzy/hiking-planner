@@ -11,5 +11,7 @@ namespace BusinessLayer.DataTransferObjects.Filters
         public string Name { get; set; }
         public string Type { get; set; }
         public string Added { get; set; }
+        public string VisitCount { get; set; }
+
     }
 }

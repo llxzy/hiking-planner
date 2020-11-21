@@ -9,7 +9,7 @@ namespace BusinessLayer.DataTransferObjects
         public LocationType Type { get; set; }
         public double Lat { get; set; }
         public double Long { get; set; }
-
+        public bool PermanentlyAdded { get; set; }
         public int VisitCount { get; set; }
     }
 }

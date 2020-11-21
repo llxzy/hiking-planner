@@ -22,54 +22,54 @@ namespace BusinessLayer.Services.Implementations
         public LocationService(
             IRepository<Location> repository, 
             IMapper mapper,
-            LocationQueryObject qob
-            //QueryObjectBase<Location, LocationDto, LocationFilterDto, IQuery<Location>> qob
-            ) 
+            QueryObjectBase<Location, LocationDto, LocationFilterDto, IQuery<Location>> qob ) 
             : base(repository, mapper, qob) 
         {
         }
 
-        public async Task<LocationDto> GetLocation(int locationId)
+        public async Task AcceptSubmission(int locationId)
         {
-            var res = await Repository.GetByIdAsync(locationId);
-            return Mapper.Map<LocationDto>(res);
-        }
-
-        public Task<bool> AcceptSubmission(int locationId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void AddDate(int locationId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<LocationDto> GetAllNotSubmittedForUser(int userId)
-        {
-            //var res = QueryObject.ExecuteQuery(new LocationFilterDto { });
-            throw new NotImplementedException();
+            var loc = await GetAsync(locationId);
+            loc.PermanentlyAdded = true;
+            Update(loc);
         }
 
         public List<LocationDto> GetAllSubmitted(object range = null)
         {
-            throw new NotImplementedException();
+            return QueryObject.ExecuteQuery(new LocationFilterDto { Added = "false" }).Items.ToList();
         }
 
         public List<LocationDto> ListAllSortedByName(string locationName)
         {
-            throw new NotImplementedException();
+            var filter = new LocationFilterDto()
+            {
+                Name = locationName,
+            };
+            filter.SortAccordingTo = nameof(filter.Name);
+
+            return QueryObject.ExecuteQuery(filter).Items.ToList();
         }
 
         public List<LocationDto> ListAllSortedByType(string locationName)
         {
-            throw new NotImplementedException();
+            var filter = new LocationFilterDto()
+            {
+                Name = locationName,
+            };
+            filter.SortAccordingTo = nameof(filter.Type);
+
+            return QueryObject.ExecuteQuery(filter).Items.ToList();
         }
 
-        public List<LocationDto> ListAllSortedByVisit(string locationName)
+        public List<LocationDto> ListAllSortedByVisit()
         {
-            var result = QueryObject.ExecuteQuery(new LocationFilterDto { SortAccordingTo = "VisitCount", UseAscendingOrder = false });
-            return result.Items.ToList();
+            var filter = new LocationFilterDto
+            {
+                UseAscendingOrder = false
+            };
+            filter.SortAccordingTo = nameof(filter.VisitCount); 
+            
+            return QueryObject.ExecuteQuery(filter).Items.ToList();
         }
     }
 }
