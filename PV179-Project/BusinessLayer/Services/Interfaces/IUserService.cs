@@ -8,7 +8,6 @@ namespace BusinessLayer.Services.Interfaces
         public Task<UserDto> GetUser(string mailaddress);
 
         //public Task<string> GetPasswordHash(int userId);//added
-        public Task<bool> RegisterNewUser(UserDto userDto);
 
         public bool EmailAlreadyExistsAsync(string mail);
 
