@@ -15,7 +15,7 @@ namespace BusinessLayer.Services.Interfaces
 
         List<ReviewDto> ListReviewsByAuthor(int authorId);
 
-        List<ReviewDto> ListReviewsByTrip(int tripId);
+        List<ReviewDto> ListReviewsByTrip(int tripId, int? authorId);
         
         List<ReviewDto> ListFlaggedReviews(int? authorId, int? tripId);
         
