@@ -9,6 +9,8 @@ namespace BusinessLayer.Services.Interfaces
 
         public Task<string> GetUserEmail(int userId);
 
+        public Task<string> GetPasswordHash(int userId);//added
+
         public Task<bool> ChangePassword(int userId, string newPswdHash); // new password??
 
         public Task<bool> ChangeMailAddress(int userId, string newMailAddress);

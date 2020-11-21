@@ -13,11 +13,15 @@ namespace BusinessLayer.Services.Interfaces
 
         bool DownvoteReview(int userId, int reviewId);
 
-        List<ReviewDto> ListFlaggedReviews();
+        List<ReviewDto> ListReviewsByAuthor(int authorId);
+
+        List<ReviewDto> ListReviewsByTrip(int tripId);
         
-        List<ReviewDto> ListUpvotedReviews(int tripId);
+        List<ReviewDto> ListFlaggedReviews(int? authorId, int? tripId);
         
-        List<ReviewDto> ListDownvotedReviews(int tripId);
+        List<ReviewDto> ListUpvotedReviews(int? authorId, int? tripId);
+        
+        List<ReviewDto> ListDownvotedReviews(int? authorId, int? tripId);
 
     }
 }
