@@ -1,17 +1,15 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using BusinessLayer.DataTransferObjects;
+using BusinessLayer.DataTransferObjects.QueryDTOs;
 
 namespace BusinessLayer.Services.Interfaces
 {
     public interface IReviewService
     {
-        bool CreateReview(int userId, int tripId, string text);
-
-        bool EditReviewText(int userId, int reviewId, string nText);
-
-        bool UpvoteReview(int userId, int reviewId);
-
-        bool DownvoteReview(int userId, int reviewId);
+        Task CreateReview(string text, TripDto trip, UserDto user);
+        
+        //TODO UPVOTE DOWNOTE IN FACADE
 
         List<ReviewDto> ListReviewsByAuthor(int authorId);
 

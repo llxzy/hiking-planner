@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using BusinessLayer.DataTransferObjects;
 
 namespace BusinessLayer.Services.Interfaces
@@ -9,9 +10,10 @@ namespace BusinessLayer.Services.Interfaces
 
         List<TripDto> SortByNewest();
 
+        /* TODO
         bool AddParticipant(int participantId, int tripId);
 
-        bool RemoveParticipant(int participantId, int tripId);
+        bool RemoveParticipant(int participantId, int tripId);*/
 
     }
 }

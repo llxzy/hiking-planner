@@ -1,8 +1,10 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using AutoMapper;
 using BusinessLayer.DataTransferObjects;
 using BusinessLayer.DataTransferObjects.Filters;
+using BusinessLayer.DataTransferObjects.QueryDTOs;
 using BusinessLayer.QueryObjects;
 using BusinessLayer.Services.Interfaces;
 using DataAccessLayer.DataClasses;
@@ -19,26 +21,16 @@ namespace BusinessLayer.Services.Implementations
         {
         }
 
-        public bool CreateReview(int userId, int tripId, string text)
+        public async Task CreateReview(string text, TripDto trip, UserDto user)
         {
-            // can you work with UserClass or do you have to map from userdto?
-            // probably directly user 
-            throw new System.NotImplementedException();
-        }
-
-        public bool EditReviewText(int userId, int reviewId, string nText)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public bool UpvoteReview(int userId, int reviewId)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public bool DownvoteReview(int userId, int reviewId)
-        {
-            throw new System.NotImplementedException();
+            var result = new ReviewDto()
+            {
+                Text = text,
+                ReviewedTrip = trip,
+                Author = user,
+                UserReviewVotes = new List<UserReviewVoteDto>()
+            };
+            await Create(result);
         }
 
         public List<ReviewDto> ListReviewsByAuthor(int authorId)

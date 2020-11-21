@@ -1,9 +1,4 @@
-﻿
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-using DataAccessLayer.Enums;
+﻿using DataAccessLayer.Enums;
 
 namespace BusinessLayer.DataTransferObjects
 {

@@ -34,15 +34,5 @@ namespace BusinessLayer.Services.Implementations
             var result = QueryObject.ExecuteQuery(filter);
             return result.Items.ToList();
         }
-
-        public bool AddParticipant(int participantId, int tripId)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public bool RemoveParticipant(int participantId, int tripId)
-        {
-            throw new System.NotImplementedException();
-        }
     }
 }
