@@ -7,6 +7,7 @@ using Infrastructure.Query;
 namespace BusinessLayer.QueryObjects
 {
     public class TripQueryObject : QueryObjectBase<Trip, TripDto, TripFilterDto, IQuery<Trip>>
+    
     {
         public TripQueryObject(IMapper mapper, IQuery<Trip> query) : base(mapper, query)
         {
@@ -15,11 +16,9 @@ namespace BusinessLayer.QueryObjects
 
         public override IQuery<Trip> ApplyFilter(IQuery<Trip> query, TripFilterDto filter)
         {
-            // MM/DD/YYY
-            /*query = string.IsNullOrWhiteSpace(filter.StartDate)
+            query = string.IsNullOrWhiteSpace(filter.StartDate)
                 ? query
-                : ((TripQuery) query).FilterByStartDate();
-            */
+                : ((TripQuery) query).FilterByStartDate(Utils.Utils.ParseDate(filter.StartDate));
             query = string.IsNullOrWhiteSpace(filter.Done)
                 ? query
                 : ((TripQuery) query).FilterByDone(bool.Parse(filter.Done));

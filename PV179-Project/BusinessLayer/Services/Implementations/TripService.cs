@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using AutoMapper;
 using BusinessLayer.DataTransferObjects;
 using BusinessLayer.DataTransferObjects.Filters;
@@ -17,13 +18,21 @@ namespace BusinessLayer.Services.Implementations
         }
 
         public List<TripDto> GetTripsByLocation(int locationId)
-        {
-            throw new System.NotImplementedException();
+        { 
+            var trips = QueryObject.ExecuteQuery(new TripFilterDto()
+            {
+                LocationId = locationId.ToString()
+            });
+            return trips.Items.ToList();
         }
 
         public List<TripDto> SortByNewest()
         {
-            throw new System.NotImplementedException();
+            var filter = new TripFilterDto();
+            filter.SortAccordingTo = nameof(filter.StartDate);
+            filter.UseAscendingOrder = false;
+            var result = QueryObject.ExecuteQuery(filter);
+            return result.Items.ToList();
         }
 
         public bool AddParticipant(int participantId, int tripId)
