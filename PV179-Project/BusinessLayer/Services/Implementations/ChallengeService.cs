@@ -16,7 +16,8 @@ namespace BusinessLayer.Services.Implementations
         CrudQueryServiceBase<Challenge, ChallengeDto, ChallengeFilterDto>,
         IChallengeService
     {
-        public ChallengeService(IRepository<Challenge> repository, IMapper mapper, QueryObjectBase<Challenge, ChallengeDto, ChallengeFilterDto, IQuery<Challenge>> qob) : base(repository, mapper, qob)
+        public ChallengeService(IRepository<Challenge> repository, 
+            QueryObjectBase<Challenge, ChallengeDto, ChallengeFilterDto, IQuery<Challenge>> qob) : base(repository, qob)
         {
         }
 

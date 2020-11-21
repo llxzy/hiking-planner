@@ -10,7 +10,7 @@ namespace BusinessLayer.QueryObjects
 {
     public class ChallengeQueryObject : QueryObjectBase<Challenge, ChallengeDto, ChallengeFilterDto, IQuery<Challenge>>
     {
-        public ChallengeQueryObject(IMapper mapper, IQuery<Challenge> query) : base(mapper, query)
+        public ChallengeQueryObject(IQuery<Challenge> query) : base( query)
         {
         }
         

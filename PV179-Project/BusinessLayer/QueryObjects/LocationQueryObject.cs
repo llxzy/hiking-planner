@@ -10,9 +10,9 @@ using Infrastructure.Query;
 
 namespace BusinessLayer.QueryObjects
 {
-    class LocationQueryObject : QueryObjectBase<Location, LocationDto, LocationFilterDto, IQuery<Location>>
+    public class LocationQueryObject : QueryObjectBase<Location, LocationDto, LocationFilterDto, IQuery<Location>>
     {
-        public LocationQueryObject(IMapper mapper, IQuery<Location> query) : base(mapper, query)
+        public LocationQueryObject(IQuery<Location> query) : base(query)
         {
         }
 

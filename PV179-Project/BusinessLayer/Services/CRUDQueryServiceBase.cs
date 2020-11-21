@@ -16,11 +16,11 @@ namespace BusinessLayer.Services
         protected IMapper Mapper;
         protected QueryObjectBase<TEntity, TDto, TFilter, IQuery<TEntity>> QueryObject;
 
-        public CrudQueryServiceBase(IRepository<TEntity> repository, IMapper mapper, 
+        public CrudQueryServiceBase(IRepository<TEntity> repository, 
             QueryObjectBase<TEntity, TDto, TFilter, IQuery<TEntity>> qob)
         {
             Repository = repository;
-            Mapper = mapper;
+            Mapper = new Mapper(new MapperConfiguration(MappingConfig.ConfigureMap));
             QueryObject = qob;
         }
 
@@ -30,8 +30,6 @@ namespace BusinessLayer.Services
             return e != null ? Mapper.Map<TDto>(e) : null;
         }
 
-        // TODO ADD ASYNC
-        
         public async Task Create(TDto entityDto)
         {
             await Repository.CreateAsync(Mapper.Map<TEntity>(entityDto));

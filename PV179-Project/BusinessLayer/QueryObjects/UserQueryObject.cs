@@ -9,7 +9,7 @@ namespace BusinessLayer.QueryObjects
 {
     public class UserQueryObject : QueryObjectBase<User, UserDto, UserFilterDto, IQuery<User>>
     {
-        public UserQueryObject(IMapper mapper, IQuery<User> query) : base(mapper, query)
+        public UserQueryObject(IQuery<User> query) : base(query)
         {
         }
 

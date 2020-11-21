@@ -8,7 +8,7 @@ namespace BusinessLayer.QueryObjects
 {
     public class ReviewQueryObject : QueryObjectBase<Review, ReviewDto, ReviewFilterDto, IQuery<Review>>
     {
-        public ReviewQueryObject(IMapper mapper, IQuery<Review> query) : base(mapper, query)
+        public ReviewQueryObject(IQuery<Review> query) : base(query)
         {
         }
 

@@ -16,8 +16,8 @@ namespace BusinessLayer.Services.Implementations
     public class ReviewService : CrudQueryServiceBase<Review, ReviewDto, ReviewFilterDto>, IReviewService
     {
         public ReviewService(IRepository<Review> repository, 
-            IMapper mapper, QueryObjectBase<Review, ReviewDto, ReviewFilterDto, IQuery<Review>> qob) 
-            : base(repository, mapper, qob)
+            QueryObjectBase<Review, ReviewDto, ReviewFilterDto, IQuery<Review>> qob) 
+            : base(repository, qob)
         {
         }
 

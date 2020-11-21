@@ -13,8 +13,8 @@ namespace BusinessLayer.Services.Implementations
 {
     public class UserService : CrudQueryServiceBase<User, UserDto, UserFilterDto>, IUserService
     {
-        public UserService (IRepository<User> repository, IMapper mapper, UserQueryObject userQueryObject) :
-            base(repository, mapper, userQueryObject) {}
+        public UserService (IRepository<User> repository, UserQueryObject userQueryObject) :
+            base(repository, userQueryObject) {}
 
 
         public async Task<string> GetUserEmail(int userId)
@@ -24,12 +24,7 @@ namespace BusinessLayer.Services.Implementations
             return userDto.MailAddress;
         }
 
-        public Task<UserDto> GetUser(string mailaddress)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public Task<bool> RegisterNewUser(UserDto userDto)
+        public Task<UserDto> GetUser(string mailAddress)
         {
             throw new System.NotImplementedException();
         }

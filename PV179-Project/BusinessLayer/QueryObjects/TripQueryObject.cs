@@ -9,7 +9,7 @@ namespace BusinessLayer.QueryObjects
     public class TripQueryObject : QueryObjectBase<Trip, TripDto, TripFilterDto, IQuery<Trip>>
     
     {
-        public TripQueryObject(IMapper mapper, IQuery<Trip> query) : base(mapper, query)
+        public TripQueryObject(IQuery<Trip> query) : base(query)
         {
             
         }

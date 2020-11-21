@@ -16,8 +16,8 @@ namespace BusinessLayer.Services.Implementations
         ITripLocationService
     {
         public TripLocationService(IRepository<TripLocation> repository,
-            IMapper mapper, QueryObjectBase<TripLocation, TripLocationDto, FilterDtoBase, IQuery<TripLocation>> qob)
-            : base(repository, mapper, qob)
+            QueryObjectBase<TripLocation, TripLocationDto, FilterDtoBase, IQuery<TripLocation>> qob)
+            : base(repository, qob)
         {
         }
 

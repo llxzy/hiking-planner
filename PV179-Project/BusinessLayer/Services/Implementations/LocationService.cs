@@ -20,10 +20,9 @@ namespace BusinessLayer.Services.Implementations
     {
 
         public LocationService(
-            IRepository<Location> repository, 
-            IMapper mapper,
+            IRepository<Location> repository,
             QueryObjectBase<Location, LocationDto, LocationFilterDto, IQuery<Location>> qob ) 
-            : base(repository, mapper, qob) 
+            : base(repository, qob) 
         {
         }
 
