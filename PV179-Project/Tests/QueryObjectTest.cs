@@ -20,6 +20,7 @@ namespace Tests
         [Fact]
         public async void ChallengeQueryObjectTest()
         {
+            Provider.Create();
             var repository = new GenericRepository<Challenge>(Provider);
             var uow = Provider.GetUnitOfWorkInstance();
             
