@@ -13,12 +13,12 @@ namespace Tests
     {
         private static readonly DbContextOptions<DatabaseContext> Options = new DbContextOptionsBuilder<DatabaseContext>()
             .UseInMemoryDatabase("test").Options;
+        private static readonly UnitOfWorkProvider Provider = new UnitOfWorkProvider((() => new DatabaseContext(Options)));
         
         [Fact]
         public void UnitOfWorkCreationTest()
         {
-            var provider = new UnitOfWorkProvider(() => new DatabaseContext(Options));
-            var uow = provider.Create();
+            var uow = Provider.Create();
             Assert.IsType<UnitOfWork>(uow);
             Assert.IsType<DatabaseContext>(uow.Context);
         }
@@ -26,22 +26,22 @@ namespace Tests
         [Fact]
         public void RepositoryTest()
         {
-            var provider = new UnitOfWorkProvider(() => new DatabaseContext(Options));
-            provider.Create();
-            var repository = new GenericRepository<User>(provider);
-            var uow = provider.GetUnitOfWorkInstance();
-            
             var user = new User()
             {
                 Id = 1,
                 Name = "Testy McTestface",
                 MailAddress = "notamailaddress@fakemailadresses.com",
-                PasswordHash = "0123456789ABCDEF"
+                PasswordHash = "0123456789ABCDEF",
             };
-
+        
+            Provider.Create();
+            var repository = new GenericRepository<User>(Provider);
+            var uow = Provider.GetUnitOfWorkInstance();
+            
             repository.CreateAsync(user);
             uow.CommitAsync();
             Assert.Equal(1, ((DatabaseContext) uow.Context).Users.Count());
+            Assert.Equal("Testy McTestface", repository.GetByIdAsync(1).Result.Name);
 
             var userOutOfDb = repository.GetByIdAsync(1).Result;
             Assert.Equal(user, userOutOfDb);
@@ -58,11 +58,6 @@ namespace Tests
         [Fact]
         public async void QueryTest()
         {
-            var provider = new UnitOfWorkProvider(() => new DatabaseContext(Options));
-            provider.Create();
-            var repository = new GenericRepository<User>(provider);
-            var uow = provider.GetUnitOfWorkInstance();
-            
             var user1 = new User()
             {
                 Name = "A",
@@ -73,11 +68,15 @@ namespace Tests
                 Name = "B",
                 MailAddress = "B@B.B"
             };
+            Provider.Create();
+            var repository = new GenericRepository<User>(Provider);
+            var uow = Provider.GetUnitOfWorkInstance();
+            
             await repository.CreateAsync(user1);
             await repository.CreateAsync(user2);
             await uow.CommitAsync();
             
-            var query = new UserQuery(provider);
+            var query = new UserQuery(Provider);
             var queriedItems = query.FilterByName("B").ExecuteAsync().Result.Items;
             Assert.NotEmpty(queriedItems);
             Assert.Equal(user2, queriedItems[0]);

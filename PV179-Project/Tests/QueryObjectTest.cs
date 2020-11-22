@@ -13,18 +13,18 @@ namespace Tests
 {
     public class QueryObjectTest
     {
+        private static readonly DbContextOptions<DatabaseContext> Options = new DbContextOptionsBuilder<DatabaseContext>()
+            .UseInMemoryDatabase("test").Options;
+        private static readonly UnitOfWorkProvider Provider = new UnitOfWorkProvider(() => new DatabaseContext(Options));
         [Fact]
         public async void ChallengeQueryObjectTest()
         {
             // setup, TODO maybe moof
             // missing MAPPING FROM QueryResult to QueryResultDto
             // pls fix
-            var options = new DbContextOptionsBuilder<DatabaseContext>()
-                .UseInMemoryDatabase("test").Options;
-            var provider = new UnitOfWorkProvider(() => new DatabaseContext(options));
-            provider.Create();
-            var repository = new GenericRepository<Challenge>(provider);
-            var uow = provider.GetUnitOfWorkInstance();
+            Provider.Create();
+            var repository = new GenericRepository<Challenge>(Provider);
+            var uow = Provider.GetUnitOfWorkInstance();
             
             var challenge = new Challenge()
             {
@@ -34,7 +34,7 @@ namespace Tests
             await repository.CreateAsync(challenge);
             await uow.CommitAsync();
             
-            var challengeQueryObj = new ChallengeQueryObject(new ChallengeQuery(provider));
+            var challengeQueryObj = new ChallengeQueryObject(new ChallengeQuery(Provider));
             var challengeFilter = new ChallengeFilterDto()
             {
                 Finished = "true"
@@ -44,7 +44,6 @@ namespace Tests
 
             await repository.DeleteAsync(challenge.Id);
             await uow.CommitAsync();
-
         }
     }
 }
