@@ -1,5 +1,6 @@
 using AutoMapper;
 using BusinessLayer.DataTransferObjects;
+using BusinessLayer.DataTransferObjects.Filters;
 using BusinessLayer.DataTransferObjects.QueryDTOs;
 using BusinessLayer.Services.Implementations;
 using DataAccessLayer.DataClasses;
@@ -19,6 +20,11 @@ namespace BusinessLayer
             config.CreateMap<Challenge, ChallengeDto>().ReverseMap();
             config.CreateMap<TripLocation, TripLocationDto>().ReverseMap();
             config.CreateMap<UserReviewVote, UserReviewVoteDto>().ReverseMap();
+            config.CreateMap<QueryResult<Trip>, QueryResultDto<TripDto, TripFilterDto>>().ReverseMap();
+            config.CreateMap<QueryResult<User>, QueryResultDto<UserDto, UserFilterDto>>().ReverseMap();
+            config.CreateMap<QueryResult<Review>, QueryResultDto<ReviewDto, ReviewFilterDto>>().ReverseMap();
+            config.CreateMap<QueryResult<Location>, QueryResultDto<LocationDto, LocationFilterDto>>().ReverseMap();
+            config.CreateMap<QueryResult<Challenge>, QueryResultDto<ChallengeDto, ChallengeFilterDto>>().ReverseMap();
         }
     }
 }
