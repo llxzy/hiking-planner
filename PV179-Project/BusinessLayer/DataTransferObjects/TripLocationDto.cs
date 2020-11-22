@@ -2,7 +2,7 @@
 
 namespace BusinessLayer.DataTransferObjects
 {
-    class TripLocationDto : BaseDto
+    public class TripLocationDto : BaseDto
     {
         public TripDto AssociatedTrip { get; set; }
 

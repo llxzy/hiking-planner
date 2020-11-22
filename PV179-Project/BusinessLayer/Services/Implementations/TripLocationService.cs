@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace BusinessLayer.Services.Implementations
 {
-    class TripLocationService :
+    public class TripLocationService :
         CrudQueryServiceBase<TripLocation, TripLocationDto, FilterDtoBase>,
         ITripLocationService
     {

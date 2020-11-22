@@ -16,13 +16,10 @@ namespace Tests
         private static readonly DbContextOptions<DatabaseContext> Options = new DbContextOptionsBuilder<DatabaseContext>()
             .UseInMemoryDatabase("test").Options;
         private static readonly UnitOfWorkProvider Provider = new UnitOfWorkProvider(() => new DatabaseContext(Options));
+        
         [Fact]
         public async void ChallengeQueryObjectTest()
         {
-            // setup, TODO maybe moof
-            // missing MAPPING FROM QueryResult to QueryResultDto
-            // pls fix
-            Provider.Create();
             var repository = new GenericRepository<Challenge>(Provider);
             var uow = Provider.GetUnitOfWorkInstance();
             
