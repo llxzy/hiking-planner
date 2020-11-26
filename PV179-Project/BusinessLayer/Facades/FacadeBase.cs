@@ -16,5 +16,10 @@ namespace BusinessLayer.Facades
             unitOfWorkProvider = provider;
         }
 
+        public void Dispose()
+        {
+            unitOfWorkProvider.Dispose();
+        }
+
     }
 }

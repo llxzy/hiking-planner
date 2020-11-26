@@ -27,10 +27,5 @@ namespace BusinessLayer.Facades.FacadeImplementations
                 uow.CommitAsync();
             }
         }
-
-        public void Dispose()
-        {
-            unitOfWorkProvider.GetUnitOfWorkInstance().Dispose();
-        }
     }
 }
