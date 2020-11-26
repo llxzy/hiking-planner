@@ -7,10 +7,11 @@ using Infrastructure.Query;
 
 namespace BusinessLayer.Services
 {
-    public class CrudQueryServiceBase<TEntity, TDto, TFilter>
+    public class CrudQueryServiceBase<TEntity, TDto, TFilter> : ICrudQueryServiceBase<TDto>
         where TEntity : class, new()
         where TDto : class
         where TFilter : FilterDtoBase
+        
     {
         protected IRepository<TEntity> Repository;
         protected IMapper Mapper;

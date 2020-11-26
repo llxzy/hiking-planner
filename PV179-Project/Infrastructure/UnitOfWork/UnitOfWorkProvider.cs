@@ -21,6 +21,12 @@ namespace Infrastructure.UnitOfWork
             return _unitOfWorkLocal.Value;
         }
 
+        public void Dispose()
+        {
+            _unitOfWorkLocal.Value?.Dispose();
+            _unitOfWorkLocal.Value = null;
+        }
+
         public IUnitOfWork GetUnitOfWorkInstance()
         {
             return _unitOfWorkLocal.Value ?? throw new InvalidOperationException("Not created.");

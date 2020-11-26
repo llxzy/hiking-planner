@@ -4,7 +4,7 @@ using BusinessLayer.DataTransferObjects;
 
 namespace BusinessLayer.Services.Interfaces
 {
-    public interface ILocationService
+    public interface ILocationService : ICrudQueryServiceBase<LocationDto>
     {
         public List<LocationDto> ListAllSortedByName(string locationName);
 

@@ -3,7 +3,7 @@ using BusinessLayer.DataTransferObjects;
 
 namespace BusinessLayer.Services.Interfaces
 {
-    public interface IUserService
+    public interface IUserService : ICrudQueryServiceBase<UserDto>
     {
         public UserDto GetUser(string mailaddress);
 

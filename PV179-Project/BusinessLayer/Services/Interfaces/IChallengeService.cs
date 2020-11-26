@@ -4,7 +4,7 @@ using DataAccessLayer.Enums;
 
 namespace BusinessLayer.Services.Interfaces
 {
-    public interface IChallengeService
+    public interface IChallengeService : ICrudQueryServiceBase<ChallengeDto>
     {
         bool SetAsFinished(int challengeId);
 

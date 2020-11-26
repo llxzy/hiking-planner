@@ -5,7 +5,7 @@ using BusinessLayer.DataTransferObjects.QueryDTOs;
 
 namespace BusinessLayer.Services.Interfaces
 {
-    public interface IReviewService
+    public interface IReviewService : ICrudQueryServiceBase<ReviewDto>
     {
         Task CreateReview(string text, TripDto trip, UserDto user);
         

@@ -1,6 +1,6 @@
 namespace Infrastructure.UnitOfWork
 {
-    public interface IUnitOfWorkProvider
+    public interface IUnitOfWorkProvider : System.IDisposable
     {
         IUnitOfWork Create();
         IUnitOfWork GetUnitOfWorkInstance();
