@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using AutoMapper;
 using BusinessLayer.DataTransferObjects;
 using BusinessLayer.DataTransferObjects.Filters;
 using BusinessLayer.QueryObjects;
@@ -27,13 +26,18 @@ namespace BusinessLayer.Services.Implementations
             return trips.Items.ToList();
         }
 
-        public List<TripDto> SortByNewest()
+        public List<TripDto> GetAllUserTrips(int userId)
         {
-            var filter = new TripFilterDto();
+            var filter = new TripFilterDto() { AuthorId = userId.ToString() };
             filter.SortAccordingTo = nameof(filter.StartDate);
-            filter.UseAscendingOrder = false;
-            var result = QueryObject.ExecuteQuery(filter);
-            return result.Items.ToList();
+            return QueryObject.ExecuteQuery(filter).Items.ToList();
+        }
+
+        public List<TripDto> GetAllTripsSortedByNewest()
+        {
+            var filter = new TripFilterDto() { UseAscendingOrder = false };
+            filter.SortAccordingTo = nameof(filter.StartDate);
+            return QueryObject.ExecuteQuery(filter).Items.ToList();
         }
     }
 }

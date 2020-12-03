@@ -8,7 +8,9 @@ namespace BusinessLayer.Services.Interfaces
     {
         List<TripDto> GetTripsByLocation(int locationId);
 
-        List<TripDto> SortByNewest();
+        List<TripDto> GetAllTripsSortedByNewest();
+
+        List<TripDto> GetAllUserTrips(int userId);
 
         /* TODO
         bool AddParticipant(int participantId, int tripId);

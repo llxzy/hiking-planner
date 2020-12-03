@@ -18,13 +18,13 @@ namespace BusinessLayer.Facades.FacadeImplementations
             locationService = locService;
         }
 
-        public void Update(LocationDto locationDto)
+        public async Task Update(LocationDto locationDto)
         {
             using (var uow = unitOfWorkProvider.Create())
             {
                 //nejaky check?
                 locationService.Update(locationDto);
-                uow.CommitAsync();
+                await uow.CommitAsync();
             }
         }
     }

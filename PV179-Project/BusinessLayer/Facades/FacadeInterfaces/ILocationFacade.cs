@@ -9,6 +9,6 @@ namespace BusinessLayer.Facades.FacadeInterfaces
 {
     interface ILocationFacade : IDisposable
     {
-        void Update(LocationDto locationDto);
+        Task Update(LocationDto locationDto);
     }
 }
