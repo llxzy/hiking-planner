@@ -11,7 +11,7 @@ namespace BusinessLayer.DataTransferObjects
         public string PasswordHash { get; set; }
         public IEnumerable<UserTripDto> Trips { get; set; }
         public IEnumerable<ChallengeDto> Challenges { get; set; }
-        public IEnumerable<UserReviewVoteDto> UserReviewVotes { get; set; } 
+        public IList<UserReviewVoteDto> UserReviewVotes { get; set; } 
         //public UserRole Role { get; set; }
     }
 }

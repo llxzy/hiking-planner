@@ -9,8 +9,6 @@ namespace BusinessLayer.Services.Interfaces
     {
         Task CreateReview(string text, TripDto trip, UserDto user);
         
-        //TODO UPVOTE DOWNOTE IN FACADE
-
         List<ReviewDto> ListReviewsByAuthor(int authorId);
 
         List<ReviewDto> ListReviewsByTrip(int tripId, int? authorId);

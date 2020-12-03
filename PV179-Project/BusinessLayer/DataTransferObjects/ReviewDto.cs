@@ -11,6 +11,10 @@ namespace BusinessLayer.DataTransferObjects
 
         public string Text { get; set; }
         
-        public IEnumerable<UserReviewVoteDto> UserReviewVotes { get; set; }
+        public int UpvoteCount { get; set; }
+        
+        public int DownvoteCount { get; set; }
+        
+        public IList<UserReviewVoteDto> UserReviewVotes { get; set; }
     }
 }
