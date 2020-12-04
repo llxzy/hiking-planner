@@ -24,11 +24,11 @@ namespace BusinessLayer.Services.Implementations
             return userDto.MailAddress;
         }
 
-        public UserDto GetUser(string mailAddress)
+        public UserDto GetUserByMail(string mail)
         {
             var user = QueryObject.ExecuteQuery(new UserFilterDto()
             {
-                MailAddress = mailAddress
+                MailAddress = mail
             });
             return user.Items?.First();
         }

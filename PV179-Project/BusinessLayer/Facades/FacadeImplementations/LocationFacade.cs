@@ -1,31 +1,111 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BusinessLayer.DataTransferObjects;
-using BusinessLayer.Services.Interfaces;
+﻿using BusinessLayer.DataTransferObjects;
 using BusinessLayer.Facades.FacadeInterfaces;
+using BusinessLayer.Services.Interfaces;
+using DataAccessLayer.Enums;
 using Infrastructure.UnitOfWork;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace BusinessLayer.Facades.FacadeImplementations
 {
     public class LocationFacade : FacadeBase, ILocationFacade
     {
-        private readonly ILocationService locationService;
+        private readonly ILocationService _locationService;
         public LocationFacade(IUnitOfWorkProvider provider, ILocationService locService) : base(provider)
         {
-            locationService = locService;
+            _locationService = locService;
+        }
+
+        public async Task<LocationDto> GetLocationById(int id)
+        {
+            using (unitOfWorkProvider.Create())
+            {
+                return await _locationService.GetAsync(id);
+            }
+        }
+
+        public async Task Create (LocationDto locationDto)
+        {
+            using (var uow = unitOfWorkProvider.Create())
+            {
+                await _locationService.Create(locationDto);
+                await uow.CommitAsync();
+            }
         }
 
         public async Task Update(LocationDto locationDto)
         {
             using (var uow = unitOfWorkProvider.Create())
             {
-                //nejaky check?
-                locationService.Update(locationDto);
+                CheckLocationValidity(locationDto);
+                
+                _locationService.Update(locationDto);
                 await uow.CommitAsync();
             }
+        }
+
+        public async Task Delete(int id)
+        {
+            using (var uow = unitOfWorkProvider.Create())
+            {
+                await _locationService.Delete(id);
+                await uow.CommitAsync();
+            }
+        }
+
+
+        public List<LocationDto> ListAllSortedByName(string locationName)
+        {
+            using (unitOfWorkProvider.Create())
+            {
+                 return _locationService.ListAllSortedByName(locationName);
+            }
+        }
+
+        public List<LocationDto> ListAllSortedByType(string locationName)
+        {
+            using (unitOfWorkProvider.Create())
+            {
+                return _locationService.ListAllSortedByType(locationName);
+            }
+            
+        }
+
+        public List<LocationDto> ListAllSortedByVisit()
+        {
+            using (unitOfWorkProvider.Create())
+            {
+                return _locationService.ListAllSortedByVisit();
+            }     
+        }
+
+        //move to utils?
+        public void CheckLocationValidity(LocationDto locationDto)
+        {
+            if (_locationService.GetAsync(locationDto.Id) == null) {
+                throw new NullReferenceException("Location with this id not found.");
+            }
+
+            if (string.IsNullOrWhiteSpace(locationDto.Name))
+            {
+                throw new ArgumentException("Location name can not be empty.");
+            }
+
+            if (!Enum.IsDefined(typeof(LocationType), locationDto.Type))
+            {
+                throw new ArgumentException("Invalid location type.");
+            }
+            /*
+            if (locationDto.Lat == 0)
+            {
+
+            }
+            if (locationDto.Long == 0)
+            {
+
+            }
+            */
         }
     }
 }

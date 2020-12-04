@@ -10,13 +10,13 @@ namespace BusinessLayer.Facades.FacadeImplementations
 {
     public class TripFacade : FacadeBase, ITripFacade
     {
-        private readonly ITripService tripService;
+        private readonly ITripService _tripService;
         private readonly ITripLocationService tripLocationService;
 
         public TripFacade(IUnitOfWorkProvider provider, ITripService trip, ITripLocationService tripLocation) 
             : base(provider)
         {
-            tripService = trip;
+            _tripService = trip;
             tripLocationService = tripLocation;
         }
 
@@ -30,26 +30,26 @@ namespace BusinessLayer.Facades.FacadeImplementations
             {
                 await tripLocationService.Create(tripLocationDto); //necessary?
                 tripDto.TripLocations.Add(tripLocationDto);
-                tripService.Update(tripDto);
+                _tripService.Update(tripDto);
                 await uow.CommitAsync();
             }
         }
 
         public List<TripDto> GetAllTripsSorted()
         {
-            return tripService.GetAllTripsSortedByNewest();
+            return _tripService.GetAllTripsSortedByNewest();
         }
 
         public List<TripDto> GetAllUserTrips(int userId)
         {
-            return tripService.GetAllUserTrips(userId);
+            return _tripService.GetAllUserTrips(userId);
         }
 
         public async Task<TripDto> GetTripAccordingToIdAsync(int id)
         {
             using (unitOfWorkProvider.Create())
             {
-                return await tripService.GetAsync(id);
+                return await _tripService.GetAsync(id);
             }
         }
 
@@ -61,7 +61,7 @@ namespace BusinessLayer.Facades.FacadeImplementations
 
                 //check validity of tripDto -> valid properties ?
 
-                tripService.Update(tripDto);
+                _tripService.Update(tripDto);
                 await uow.CommitAsync();
             }
         }
@@ -71,7 +71,7 @@ namespace BusinessLayer.Facades.FacadeImplementations
             //check tripDto validity
             using (var uow = unitOfWorkProvider.Create())
             {
-                await tripService.Create(tripDto);
+                await _tripService.Create(tripDto);
                 await uow.CommitAsync();
             }
         }
@@ -82,12 +82,12 @@ namespace BusinessLayer.Facades.FacadeImplementations
 
             using (var uow = unitOfWorkProvider.Create())
             {
-                await tripService.Delete(tripDto.Id);
+                await _tripService.Delete(tripDto.Id);
                 await uow.CommitAsync();
             }
         }
 
-        private void CheckIfTripExists(int id)
+        public void CheckIfTripExists(int id)
         {
             if (GetTripAccordingToIdAsync(id).Result == null)
             {
