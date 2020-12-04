@@ -72,7 +72,7 @@ namespace BusinessLayer.Facades.FacadeImplementations
             {
                 throw new ArgumentException("User with this email address not found.");
             }
-            if (user.PasswordHash != pswdHash)
+            if (!Utils.HashingUtils.Validate(pswdHash, user.PasswordHash))
             {
                 throw new ArgumentException("Incorrect password!");
             }
