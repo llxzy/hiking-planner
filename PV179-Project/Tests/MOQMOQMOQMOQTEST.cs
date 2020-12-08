@@ -30,6 +30,7 @@ namespace Tests
                     Lat = 420,
                     Long = double.NegativeInfinity
                 };
+
                 YEP_MOQ.Mock<ILocationService>()
                     .Setup(s => s.ListAllSortedByName(It.IsAny<string>()))
                     .Returns(new List<LocationDto>()
@@ -42,6 +43,7 @@ namespace Tests
                             Long = double.NegativeInfinity
                         }
                     });
+
                 var wtf = YEP_MOQ.Create<LocationFacade>();
                 var wtf2 = wtf.ListAllSortedByName("wtfreally");
                 //Assert.True(new List<LocationDto> {wtf0}.SequenceEqual(wtf2));

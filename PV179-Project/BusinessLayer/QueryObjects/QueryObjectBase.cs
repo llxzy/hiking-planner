@@ -4,7 +4,7 @@ using Infrastructure.Query;
 
 namespace BusinessLayer.QueryObjects
 {
-    public abstract class QueryObjectBase<TEntity, TDto, TFilter, TQuery> 
+    public class QueryObjectBase<TEntity, TDto, TFilter, TQuery> : IQueryObjectBase<TEntity, TFilter, TDto>
         where TEntity : class, new()
         where TQuery : IQuery<TEntity>
         where TFilter : FilterDtoBase
@@ -20,8 +20,10 @@ namespace BusinessLayer.QueryObjects
             Query = query;
         }
 
-        public abstract IQuery<TEntity> ApplyFilter(IQuery<TEntity> query, TFilter filter);
-        // makes predicate based on filter, returns query.where(...)
+        public virtual IQuery<TEntity> ApplyFilter(IQuery<TEntity> query, TFilter filter)
+        {
+            return query;
+        }
         
         public IQuery<TEntity> ApplySorting(IQuery<TEntity> query, TFilter filter)
         {

@@ -8,13 +8,18 @@ using Infrastructure.Query;
 using Infrastructure.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
 using Xunit;
+using Autofac.Extras.Moq;
+using Moq;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Tests
 {
     public class QueryObjectTest
     {
-        private static readonly DbContextOptions<DatabaseContext> Options = new DbContextOptionsBuilder<DatabaseContext>()
-            .UseInMemoryDatabase("test").Options;
+        private static readonly DbContextOptions<DatabaseContext> Options = 
+            new DbContextOptionsBuilder<DatabaseContext>()
+                .UseInMemoryDatabase("test").Options;
         private static readonly UnitOfWorkProvider Provider = new UnitOfWorkProvider(() => new DatabaseContext(Options));
         
         [Fact]
@@ -43,5 +48,38 @@ namespace Tests
             await repository.DeleteAsync(challenge.Id);
             await uow.CommitAsync();
         }
+        /*
+        public async void ChallengeQOBTest2() {
+            using (var moq = AutoMock.GetLoose())
+            {
+                var c1 = new Challenge()
+                {
+                    Finished = true,
+                    TripCount = 2
+                };
+
+                var c2 = new Challenge()
+                {
+                    Finished = false,
+                    TripCount = 3
+                };
+
+                List<Challenge> expected = new List<Challenge>();
+                expected.Add(c1);
+                expected.Add(c2);
+                
+                moq.Mock<IQuery<Challenge>>()
+                    .Setup()
+                    //.ReturnsAsync( new QueryResult<Challenge>(expected, 2, 1, null));
+
+
+                var qob = moq.Create<ChallengeQueryObject>();
+                var result = qob.
+
+
+            }
+        
+        }
+        */
     }
 }
