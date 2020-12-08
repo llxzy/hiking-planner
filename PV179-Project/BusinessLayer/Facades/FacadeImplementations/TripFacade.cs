@@ -53,6 +53,24 @@ namespace BusinessLayer.Facades.FacadeImplementations
             }
         }
 
+        public List<TripDto> GetAllTripsWithLocation(int locationId)
+        {
+            var result = new List<TripDto>();
+            foreach (var tripDto in _tripService.GetAllTripsSortedByNewest())
+            {
+                foreach (var tripLocationDto in tripDto.TripLocations)
+                {
+
+                    if (tripLocationDto.AssociatedLocation.Id == locationId)
+                    {
+                        result.Add(tripDto);
+                    }
+                }
+            }
+
+            return result;
+        }
+
         public async Task UpdateTrip(TripDto tripDto)
         {
             using (var uow = unitOfWorkProvider.Create())

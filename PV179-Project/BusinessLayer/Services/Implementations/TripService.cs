@@ -17,15 +17,6 @@ namespace BusinessLayer.Services.Implementations
         {
         }
 
-        public List<TripDto> GetTripsByLocation(int locationId)
-        { 
-            var trips = QueryObject.ExecuteQuery(new TripFilterDto()
-            {
-                LocationId = locationId.ToString()
-            });
-            return trips.Items.ToList();
-        }
-
         public List<TripDto> GetAllUserTrips(int userId)
         {
             var filter = new TripFilterDto() { AuthorId = userId.ToString() };

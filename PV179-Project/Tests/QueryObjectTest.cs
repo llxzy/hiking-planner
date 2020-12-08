@@ -1,5 +1,7 @@
+using BusinessLayer.DataTransferObjects;
 using BusinessLayer.DataTransferObjects.Filters;
 using BusinessLayer.QueryObjects;
+using BusinessLayer;
 using DataAccessLayer;
 using DataAccessLayer.DataClasses;
 using DataAccessLayer.Enums;
@@ -12,6 +14,8 @@ using Autofac.Extras.Moq;
 using Moq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using AutoMapper;
+using BusinessLayer.DataTransferObjects.QueryDTOs;
 
 namespace Tests
 {
@@ -48,38 +52,6 @@ namespace Tests
             await repository.DeleteAsync(challenge.Id);
             await uow.CommitAsync();
         }
-        /*
-        public async void ChallengeQOBTest2() {
-            using (var moq = AutoMock.GetLoose())
-            {
-                var c1 = new Challenge()
-                {
-                    Finished = true,
-                    TripCount = 2
-                };
-
-                var c2 = new Challenge()
-                {
-                    Finished = false,
-                    TripCount = 3
-                };
-
-                List<Challenge> expected = new List<Challenge>();
-                expected.Add(c1);
-                expected.Add(c2);
-                
-                moq.Mock<IQuery<Challenge>>()
-                    .Setup()
-                    //.ReturnsAsync( new QueryResult<Challenge>(expected, 2, 1, null));
-
-
-                var qob = moq.Create<ChallengeQueryObject>();
-                var result = qob.
-
-
-            }
-        
-        }
-        */
+      
     }
 }

@@ -10,7 +10,7 @@ namespace BusinessLayer.DataTransferObjects.QueryDTOs
 
         public int PageSize { get; set; }
 
-        public IEnumerable<EntityDTO> Items { get; set; }
+        public IList<EntityDTO> Items { get; set; }
 
         public bool PagingEnabled { get; set; }
 

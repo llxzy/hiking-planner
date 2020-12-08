@@ -7,8 +7,6 @@ namespace BusinessLayer.DataTransferObjects.Filters
         public string StartDate { get; set; }
 
         public string Done { get; set; }
-
-        public string LocationId { get; set; }
         
         public string AuthorId { get; set; }
         

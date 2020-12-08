@@ -6,8 +6,6 @@ namespace BusinessLayer.Services.Interfaces
 {
     public interface ITripService : ICrudQueryServiceBase<TripDto>
     {
-        List<TripDto> GetTripsByLocation(int locationId);
-
         List<TripDto> GetAllTripsSortedByNewest();
 
         List<TripDto> GetAllUserTrips(int userId);
