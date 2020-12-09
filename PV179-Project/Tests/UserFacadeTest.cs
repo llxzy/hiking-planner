@@ -14,7 +14,7 @@ namespace Tests
         {
             using (var mock = AutoMock.GetLoose())
             {
-                var testMail = "test2@mail2.com";
+                const string testMail = "test2@mail2.com";
                 mock.Mock<IUserService>()
                     .Setup(s => s.GetUserByMail(testMail))
                     .Returns(GetUser);
@@ -26,7 +26,7 @@ namespace Tests
             }
         }
 
-        private UserDto GetUser()
+        private static UserDto GetUser()
         {
             return new UserDto
             {
