@@ -12,10 +12,11 @@ namespace DataAccessLayer
         public DbSet<TripLocation> TripLocations { get; set; }
         public DbSet<Review>       Reviews       { get; set; }
         public DbSet<Challenge>    Challenges    { get; set; }
+        public DbSet<UserReviewVote> UserReviewVotes { get; set; }
 
         public DatabaseContext()
         {
-            Database.EnsureCreated();
+            Database.EnsureCreated(); // errors for autofac setup
         }
 
         public DatabaseContext(DbContextOptions options) : base(options)

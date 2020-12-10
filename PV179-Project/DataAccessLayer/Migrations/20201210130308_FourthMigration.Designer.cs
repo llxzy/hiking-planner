@@ -3,21 +3,23 @@ using System;
 using DataAccessLayer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace DataAccessLayer.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20201210130308_FourthMigration")]
+    partial class FourthMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .UseIdentityByDefaultColumns()
                 .HasAnnotation("Relational:MaxIdentifierLength", 63)
-                .HasAnnotation("ProductVersion", "5.0.1");
+                .HasAnnotation("ProductVersion", "5.0.0");
 
             modelBuilder.Entity("DataAccessLayer.DataClasses.Challenge", b =>
                 {
@@ -216,7 +218,7 @@ namespace DataAccessLayer.Migrations
 
                     b.HasIndex("AssociatedReviewId");
 
-                    b.ToTable("UserReviewVotes");
+                    b.ToTable("UserReviewVote");
                 });
 
             modelBuilder.Entity("DataAccessLayer.DataClasses.UserTrip", b =>

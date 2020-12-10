@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DataAccessLayer.DataClasses
 {
-    public class UserTrip
+    public class UserTrip : BaseEntity
     {
         [Key]
         public int UserId { get; set; }
