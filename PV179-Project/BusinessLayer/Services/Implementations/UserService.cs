@@ -13,10 +13,11 @@ namespace BusinessLayer.Services.Implementations
 {
     public class UserService : CrudQueryServiceBase<User, UserDto, UserFilterDto>, IUserService
     {
-        public UserService (IRepository<User> repository, UserQueryObject userQueryObject) :
+        /*public UserService (IRepository<User> repository, UserQueryObject userQueryObject) :
+            base(repository, userQueryObject) {}*/
+        public UserService (IRepository<User> repository, QueryObjectBase<User, UserDto, UserFilterDto, IQuery<User>> userQueryObject) :
             base(repository, userQueryObject) {}
-
-
+        
         public async Task<string> GetUserEmail(int userId)
         {
             var user = await Repository.GetByIdAsync(userId);
@@ -36,7 +37,7 @@ namespace BusinessLayer.Services.Implementations
         public bool EmailAlreadyExistsAsync(string mail)
         {
             var res = QueryObject.ExecuteQuery(new UserFilterDto { MailAddress = mail });
-            return (res.Items.Count() == 1);
+            return (res.Items.Count == 1);
         }
 
     }
