@@ -4,7 +4,7 @@ using Infrastructure.Query;
 
 namespace BusinessLayer.QueryObjects
 {
-    public class QueryObjectBase<TEntity, TDto, TFilter, TQuery> : IQueryObjectBase<TEntity, TFilter, TDto>
+    public class QueryObjectBase<TEntity, TDto, TFilter, TQuery> : IQueryObjectBase<TEntity, TDto, TFilter>
         where TEntity : class, new()
         where TQuery : IQuery<TEntity>
         where TFilter : FilterDtoBase
@@ -13,7 +13,7 @@ namespace BusinessLayer.QueryObjects
 
         private IMapper _mapper;
 
-        protected QueryObjectBase(TQuery query)
+        public QueryObjectBase(TQuery query)
         {
             //_mapper = mapper;
             _mapper = new Mapper(new MapperConfiguration(MappingConfig.ConfigureMap));

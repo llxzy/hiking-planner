@@ -8,7 +8,7 @@ using BusinessLayer.DataTransferObjects.QueryDTOs;
 
 namespace BusinessLayer.QueryObjects
 {
-    interface IQueryObjectBase<TEntity, TFilter, TDto> 
+    public interface IQueryObjectBase<TEntity, TDto, TFilter> 
         where TEntity : class, new()
         where TFilter : FilterDtoBase
     {

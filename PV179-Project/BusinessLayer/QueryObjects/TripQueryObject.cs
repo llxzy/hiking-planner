@@ -7,7 +7,6 @@ using Infrastructure.Query;
 namespace BusinessLayer.QueryObjects
 {
     public class TripQueryObject : QueryObjectBase<Trip, TripDto, TripFilterDto, IQuery<Trip>>
-    
     {
         public TripQueryObject(IQuery<Trip> query) : base(query)
         {
