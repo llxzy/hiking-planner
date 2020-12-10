@@ -8,6 +8,8 @@ namespace BusinessLayer.Facades.FacadeInterfaces
     public interface IReviewFacade : IDisposable
     {
         Task Create(string text, int tripId, int userId);
+        Task<ReviewDto> GetAsync(int id);
+        Task Update(ReviewDto reviewDto);
         Task Delete(int reviewId);
         Task VoteReview(bool up, int reviewId, int userId);
         List<ReviewDto> ListAuthorReviews(int authorId);

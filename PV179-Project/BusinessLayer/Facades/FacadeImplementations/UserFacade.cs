@@ -37,26 +37,6 @@ namespace BusinessLayer.Facades.FacadeImplementations
             }
         }
 
-        public async Task Update(UserDto userDto)
-        {
-            using (var uow = unitOfWorkProvider.Create())
-            {
-                _userService.Update(userDto);
-                await uow.CommitAsync();
-            }
-        }
-
-        //Logged user can delete his/hers/their profile
-        public async Task DeleteLoggedUser(int id)
-        {
-            using (var uow = unitOfWorkProvider.Create())
-            {
-                //checked logged id == id???
-                await _userService.Delete(id);
-                await uow.CommitAsync();
-            }
-        }
-
         public UserDto GetUserByMail(string mail)
         {
             using (unitOfWorkProvider.Create())
@@ -77,6 +57,43 @@ namespace BusinessLayer.Facades.FacadeImplementations
                 throw new ArgumentException("Incorrect password!");
             }
             return true;
+        }
+
+        public async Task Create(UserDto userDto)
+        {
+            using (var uow = unitOfWorkProvider.Create())
+            {
+                await _userService.Create(userDto);
+                await uow.CommitAsync();
+            }
+        }
+
+        public async Task<UserDto> GetAsync(int id)
+        {
+            using (var uow = unitOfWorkProvider.Create())
+            {
+                return await _userService.GetAsync(id);
+            }
+        }
+
+        public async Task Update(UserDto userDto)
+        {
+            using (var uow = unitOfWorkProvider.Create())
+            {
+                _userService.Update(userDto);
+                await uow.CommitAsync();
+            }
+        }
+
+        //Logged user can delete his/hers/their profile
+        public async Task DeleteLoggedUser(int id)
+        {
+            using (var uow = unitOfWorkProvider.Create())
+            {
+                //checked logged id == id???
+                await _userService.Delete(id);
+                await uow.CommitAsync();
+            }
         }
     }
 }

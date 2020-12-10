@@ -17,20 +17,20 @@ namespace BusinessLayer.Facades.FacadeImplementations
             _locationService = locService;
         }
 
-        public async Task<LocationDto> GetLocationById(int id)
-        {
-            using (unitOfWorkProvider.Create())
-            {
-                return await _locationService.GetAsync(id);
-            }
-        }
-
         public async Task Create (LocationDto locationDto)
         {
             using (var uow = unitOfWorkProvider.Create())
             {
                 await _locationService.Create(locationDto);
                 await uow.CommitAsync();
+            }
+        }
+
+        public async Task<LocationDto> GetLocationById(int id)
+        {
+            using (unitOfWorkProvider.Create())
+            {
+                return await _locationService.GetAsync(id);
             }
         }
 

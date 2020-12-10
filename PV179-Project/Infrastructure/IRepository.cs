@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using DataAccessLayer.DataClasses;
 
 namespace Infrastructure
 {

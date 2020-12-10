@@ -7,9 +7,8 @@ namespace BusinessLayer.Facades.FacadeInterfaces
 {
     interface ILocationFacade : IDisposable
     {
-        Task<LocationDto> GetLocationById(int id);
-
         Task Create(LocationDto locationDto);
+        Task<LocationDto> GetLocationById(int id);
 
         Task Update(LocationDto locationDto);
 

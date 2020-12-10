@@ -15,13 +15,13 @@ namespace BusinessLayer.Facades.FacadeInterfaces
 
         List<TripDto> GetAllUserTrips(int userId);
 
-        Task<TripDto> GetTripAccordingToIdAsync(int id);
+        Task Create(TripDto tripDto);
 
-        Task CreateTrip(TripDto tripDto);
+        Task<TripDto> GetTripByIdAsync(int id);
 
-        Task UpdateTrip(TripDto tripDto);
+        Task Update(TripDto tripDto);
 
-        Task DeleteTrip(TripDto tripDto);
+        Task Delete(TripDto tripDto);
 
         void CheckIfTripExists(int id);
     }

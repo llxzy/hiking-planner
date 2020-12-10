@@ -48,13 +48,19 @@ namespace BusinessLayer.Facades.FacadeImplementations
             }
         }
 
-        public async Task FinishChallenge(int challengeId)
+        public async Task<ChallengeDto> GetAsync(int id)
         {
             using (var uow = unitOfWorkProvider.Create())
             {
-                var challenge = await _challengeService.GetAsync(challengeId);
-                challenge.Finished = true;
-                _challengeService.Update(challenge);
+                return await _challengeService.GetAsync(id);
+            }
+        }
+
+        public async Task Update(ChallengeDto challengeDto)
+        {
+            using (var uow = unitOfWorkProvider.Create())
+            {
+                _challengeService.Update(challengeDto);
                 await uow.CommitAsync();
             }
         }
@@ -64,6 +70,17 @@ namespace BusinessLayer.Facades.FacadeImplementations
             using (var uow = unitOfWorkProvider.Create())
             {
                 await _challengeService.Delete(challengeId);
+            }
+        }
+
+        public async Task FinishChallenge(int challengeId)
+        {
+            using (var uow = unitOfWorkProvider.Create())
+            {
+                var challenge = await _challengeService.GetAsync(challengeId);
+                challenge.Finished = true;
+                _challengeService.Update(challenge);
+                await uow.CommitAsync();
             }
         }
 

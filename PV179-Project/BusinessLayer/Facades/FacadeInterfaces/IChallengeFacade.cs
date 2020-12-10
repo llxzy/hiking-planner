@@ -9,10 +9,14 @@ namespace BusinessLayer.Facades.FacadeInterfaces
     public interface IChallengeFacade : IDisposable
     {
         Task Create(int count, int userId, ChallengeType type);
-        
-        Task FinishChallenge(int challengeId);
+
+        Task<ChallengeDto> GetAsync(int id);
+
+        Task Update(ChallengeDto challengeDto);
 
         Task Delete(int challengeId);
+
+        Task FinishChallenge(int challengeId);
 
         List<ChallengeDto> ListAllUsersChallenges(int userId);
 

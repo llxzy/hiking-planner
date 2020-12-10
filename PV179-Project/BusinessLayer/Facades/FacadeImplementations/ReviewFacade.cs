@@ -40,6 +40,23 @@ namespace BusinessLayer.Facades.FacadeImplementations
             
         }
 
+        public async Task<ReviewDto> GetAsync(int id)
+        {
+            using (var uow = unitOfWorkProvider.Create())
+            {
+                return await _reviewService.GetAsync(id);
+            }
+        }
+
+        public async Task Update(ReviewDto reviewDto)
+        {
+            using (var uow = unitOfWorkProvider.Create())
+            {
+                _reviewService.Update(reviewDto);
+                await uow.CommitAsync();
+            }
+        }
+
         public async Task Delete(int reviewId)
         {
             using (var uow = unitOfWorkProvider.Create())
@@ -119,6 +136,6 @@ namespace BusinessLayer.Facades.FacadeImplementations
         {
             return _reviewService.ListReviewsByTrip(tripId, authorId);
         }
-        
+
     }
 }
