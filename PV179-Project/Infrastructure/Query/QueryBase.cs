@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Query
 {
-    public abstract class QueryBase<TEntity> : IQuery<TEntity> where TEntity : class, new()
+    public class QueryBase<TEntity> : IQuery<TEntity> where TEntity : class, new()
     {
         public int PageSize { get; set; }
         public int? DesiredPage { get; set; }
@@ -16,9 +16,10 @@ namespace Infrastructure.Query
         protected readonly IUnitOfWorkProvider Provider;
         protected IQueryable<TEntity> Queryable;
 
-        protected QueryBase(IUnitOfWorkProvider provider)
+        public QueryBase(IUnitOfWorkProvider provider)
         {
             Provider = provider;
+            provider.Create(); // added
             PageSize = 10; // some default value, can be changed
             Queryable = Provider.GetUnitOfWorkInstance().Context.Set<TEntity>();
         }
@@ -53,7 +54,7 @@ namespace Infrastructure.Query
 
         public IQuery<TEntity> SortBy(string propertyName, bool ascending)
         {
-            var command = ascending == true ? "OrderBy" : "OrderByDescending";
+            var command = ascending ? "OrderBy" : "OrderByDescending";
 
             ParameterExpression parameter = Expression.Parameter(Queryable.ElementType, "p");
             MemberExpression property = Expression.Property(parameter, propertyName);

@@ -1,4 +1,7 @@
+using System;
+using System.Linq;
 using System.Threading.Tasks;
+using DataAccessLayer;
 using Infrastructure.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
 
@@ -7,11 +10,14 @@ namespace Infrastructure
     public class GenericRepository<TEntity> : IRepository<TEntity> where TEntity : class, new()
     {
         private IUnitOfWorkProvider _uowProvider;
-        private DbContext _context => _uowProvider.GetUnitOfWorkInstance().Context;
+        //private DbContext _context => _uowProvider.GetUnitOfWorkInstance().Context;
+        private DbContext _context;
 
         public GenericRepository(IUnitOfWorkProvider uowProvider)
         {
             _uowProvider = uowProvider;
+            //_uowProvider.Create();
+            _context = _uowProvider.GetUnitOfWorkInstance().Context;
         }
         
         public Task<TEntity> GetByIdAsync(int id)
@@ -21,7 +27,11 @@ namespace Infrastructure
 
         public async Task CreateAsync(TEntity entity)
         {
-            _context.Set<TEntity>().Attach(entity);
+            //_context.Set<TEntity>().Attach(entity)
+            var p = _context.Set<TEntity>().Select(a => a).ToList();
+            var t = typeof(TEntity);
+            var ayaya = _context.Set<TEntity>();
+            _context.Set<TEntity>().Add(entity);
             await _context.Set<TEntity>().AddAsync(entity);
         }
 

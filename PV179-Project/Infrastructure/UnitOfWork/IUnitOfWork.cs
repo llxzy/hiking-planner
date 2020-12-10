@@ -1,12 +1,13 @@
 using System;
 using System.Threading.Tasks;
+using DataAccessLayer;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.UnitOfWork
 {
     public interface IUnitOfWork : IDisposable
     {
-        public DbContext Context { get; set; }
+        public DatabaseContext Context { get; set; }
         Task CommitAsync();
     }
 }

@@ -1,15 +1,16 @@
 using System;
 using System.Threading;
+using DataAccessLayer;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.UnitOfWork
 {
     public class UnitOfWorkProvider : IUnitOfWorkProvider
     {
-        private readonly Func<DbContext> _contextFactory;
+        private readonly Func<DatabaseContext> _contextFactory;
         private readonly AsyncLocal<IUnitOfWork> _unitOfWorkLocal = new AsyncLocal<IUnitOfWork>();
 
-        public UnitOfWorkProvider(Func<DbContext> contextFactory)
+        public UnitOfWorkProvider(Func<DatabaseContext> contextFactory)
         {
             _contextFactory = contextFactory;
             // new UnitOfWorkProvider( () => new DbContext() )
