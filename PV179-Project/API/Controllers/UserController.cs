@@ -11,8 +11,8 @@ namespace API.Controllers
     [Route("api/v{version:apiVersion}/[controller]")]
     public class UserController : ControllerBase
     {
-        private IUserFacade _userFacade;
-        private IUserService _userService;
+        private readonly IUserFacade _userFacade;
+        private readonly IUserService _userService;
 
         public UserController(IUserFacade userFacade, IUserService userService)
         {
@@ -32,8 +32,10 @@ namespace API.Controllers
         }
 
         [HttpPost]
+        [ApiVersion("1.0")]
         public async Task<ActionResult> Post([FromBody] UserDto user)
         {
+            user.Id = 1;
             await _userService.Create(user);
             return Ok();
         }

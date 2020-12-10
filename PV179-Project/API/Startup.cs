@@ -64,6 +64,9 @@ namespace API
         public void ConfigureContainer(ContainerBuilder builder)
         {
             builder.RegisterModule(new AutofacBusinessLayerConfig());
+            /*builder.RegisterType<UserFacade>()
+                .As<IUserFacade>()
+                .InstancePerDependency();*/
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
