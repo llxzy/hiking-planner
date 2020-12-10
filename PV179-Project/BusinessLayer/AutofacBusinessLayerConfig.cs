@@ -1,14 +1,12 @@
-using System.Linq;
-using System.Reflection;
 using Autofac;
 using BusinessLayer.DataTransferObjects;
 using BusinessLayer.DataTransferObjects.Filters;
 using BusinessLayer.QueryObjects;
-using BusinessLayer.Services;
 using DataAccessLayer.DataClasses;
 using Infrastructure;
 using Infrastructure.Query;
-using Infrastructure.UnitOfWork;
+using System.Linq;
+using System.Reflection;
 
 namespace BusinessLayer
 {
@@ -35,19 +33,29 @@ namespace BusinessLayer
                 .InstancePerDependency();
 
             builder.RegisterGeneric(typeof(QueryObjectBase<,,,>))
-                .As(typeof(IQueryObjectBase<,,>)).InstancePerDependency();
+                .As(typeof(IQueryObjectBase<,,>))
+                .InstancePerDependency();
 
             builder.RegisterType<UserQueryObject>()
                 //.AsSelf().InstancePerDependency();
-                .As<QueryObjectBase<User, UserDto, UserFilterDto, IQuery<User>>>().InstancePerDependency();
+                .As<QueryObjectBase<User, UserDto, UserFilterDto, IQuery<User>>>()
+                .InstancePerDependency();
+            
             builder.RegisterType<ReviewQueryObject>()
-                .AsSelf().InstancePerDependency();
+                .AsSelf()
+                .InstancePerDependency();
+            
             builder.RegisterType<TripQueryObject>()
-                .AsSelf().InstancePerDependency();
+                .AsSelf()
+                .InstancePerDependency();
+            
             builder.RegisterType<LocationQueryObject>()
-                .AsSelf().InstancePerDependency();
+                .AsSelf()
+                .InstancePerDependency();
+            
             builder.RegisterType<ChallengeQueryObject>()
-                .AsSelf().InstancePerDependency();
+                .AsSelf()
+                .InstancePerDependency();
             
             // register generic doesn't work with crud query :( 
             // but ^^ should work?
