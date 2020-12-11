@@ -19,6 +19,10 @@ namespace BusinessLayer.Facades.FacadeImplementations
 
         public async Task RegisterNewUser(UserRegistrationDto userRegDto)
         {
+            if (userRegDto == null)
+            {
+                throw new ArgumentException("user data can't be null");
+            }
             using (var uow = unitOfWorkProvider.Create())
             {
                 if (GetUserByMail(userRegDto.MailAddress) != null)

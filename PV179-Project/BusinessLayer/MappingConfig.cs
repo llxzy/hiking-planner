@@ -18,6 +18,7 @@ namespace BusinessLayer
             config.CreateMap<UserTrip, UserTripDto>().ReverseMap();
             config.CreateMap<Location, LocationDto>().ReverseMap();
             config.CreateMap<Challenge, ChallengeDto>().ReverseMap();
+            config.CreateMap<User, UserRegistrationDto>().ReverseMap();
             config.CreateMap<TripLocation, TripLocationDto>().ReverseMap();
             config.CreateMap<UserReviewVote, UserReviewVoteDto>().ReverseMap();
             config.CreateMap<QueryResult<Trip>, QueryResultDto<TripDto, TripFilterDto>>().ReverseMap();

@@ -31,7 +31,7 @@ namespace BusinessLayer.Services.Implementations
             {
                 MailAddress = mail
             });
-            return user.Items?.First();
+            return user.Items?.FirstOrDefault();
         }
 
         public bool EmailAlreadyExistsAsync(string mail)

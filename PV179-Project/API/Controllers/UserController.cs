@@ -33,11 +33,15 @@ namespace API.Controllers
         // api/user
         [HttpPost]
         [ApiVersion("1.0")]
-        public async Task<ActionResult> Post([FromBody] UserDto user)
+        public async Task<ActionResult> Post([FromBody] UserRegistrationDto user)
         {
             //user.Id = 1;
-            await _userFacade.Create(user);
+            await _userFacade.RegisterNewUser(user);
             return Ok();
         }
+        /*
+        [HttpDelete]
+        [ApiVersion("1.0")]
+        public async */
     }
 }
