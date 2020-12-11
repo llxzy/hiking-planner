@@ -14,39 +14,43 @@ namespace Infrastructure
         {
             builder.RegisterType<UnitOfWork.UnitOfWork>()
                 .As<IUnitOfWork>()
-                .InstancePerDependency();
-            
+                .InstancePerLifetimeScope();
+
             builder.RegisterType<UnitOfWorkProvider>()
                 .As<IUnitOfWorkProvider>()
-                .InstancePerDependency();
+                .InstancePerLifetimeScope();
            
-            // should be fine for generics
             builder.RegisterGeneric(typeof(GenericRepository<>))
                 .As(typeof(IRepository<>))
                 .InstancePerDependency();
             
-            // trying generic for query, alternative is
             builder.RegisterGeneric(typeof(QueryBase<>))
                 .As(typeof(IQuery<>))
                 .InstancePerDependency();
 
-
-            // todo delete comments before pushing final
-            // queries
-            // for now not added, possible to add registerype<specific query> as self()?
-            // they are directly converted in queryobj base so who knows
-
-            /*
+            builder.RegisterType<UserQuery>()
+                .AsSelf()
+                .InstancePerDependency();
+            
+            builder.RegisterType<ReviewQuery>()
+                .AsSelf()
+                .InstancePerDependency();
+            
+            builder.RegisterType<TripQuery>()
+                .AsSelf()
+                .InstancePerDependency();
+            
+            builder.RegisterType<LocationQuery>()
+                .AsSelf()
+                .InstancePerDependency();
+            
             builder.RegisterType<ChallengeQuery>()
                 .AsSelf()
                 .InstancePerDependency();
-            */
-
-            // from cviko ukazka
+            
             builder.RegisterType<DatabaseContext>()
                 .AsSelf()
                 .InstancePerDependency();
-
         }
     }
 }

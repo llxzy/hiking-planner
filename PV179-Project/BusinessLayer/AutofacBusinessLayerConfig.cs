@@ -12,10 +12,8 @@ namespace BusinessLayer
 {
     public class AutofacBusinessLayerConfig : Autofac.Module
     {
-        //public static IContainer Configure()
         protected override void Load(ContainerBuilder builder)
         {
-            //var builder = new ContainerBuilder();
             builder.RegisterModule(new AutofacInfrastructureConfig());
 
             builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly())
@@ -37,31 +35,44 @@ namespace BusinessLayer
                 .InstancePerDependency();
 
             builder.RegisterType<UserQueryObject>()
-                //.AsSelf().InstancePerDependency();
                 .As<QueryObjectBase<User, UserDto, UserFilterDto, IQuery<User>>>()
                 .InstancePerDependency();
             
             builder.RegisterType<ReviewQueryObject>()
-                .AsSelf()
+                .As<QueryObjectBase<Review, ReviewDto, ReviewFilterDto, IQuery<Review>>>()
                 .InstancePerDependency();
             
             builder.RegisterType<TripQueryObject>()
-                .AsSelf()
+                .As<QueryObjectBase<Trip, TripDto, TripFilterDto, IQuery<Trip>>>()
                 .InstancePerDependency();
             
             builder.RegisterType<LocationQueryObject>()
-                .AsSelf()
+                .As<QueryObjectBase<Location, LocationDto, LocationFilterDto, IQuery<Location>>>()
                 .InstancePerDependency();
             
             builder.RegisterType<ChallengeQueryObject>()
-                .AsSelf()
+                .As<QueryObjectBase<Challenge, ChallengeDto, ChallengeFilterDto, IQuery<Challenge>>>()
+                .InstancePerDependency();
+
+            builder.RegisterType<UserQuery>()
+                .As<IQuery<User>>()
                 .InstancePerDependency();
             
-            // register generic doesn't work with crud query :( 
-            // but ^^ should work?
-
-            // filters? dtos? probably don't need to, just a reminder to add it here if stuck 
-            //return builder.Build();
+            builder.RegisterType<ReviewQuery>()
+                .As<IQuery<Review>>()
+                .InstancePerDependency();
+            
+            builder.RegisterType<ChallengeQuery>()
+                .As<IQuery<Challenge>>()
+                .InstancePerDependency();
+            
+            builder.RegisterType<LocationQuery>()
+                .As<IQuery<Location>>()
+                .InstancePerDependency();
+            
+            builder.RegisterType<TripQuery>()
+                .As<IQuery<Trip>>()
+                .InstancePerDependency();
         }
     }
 }
