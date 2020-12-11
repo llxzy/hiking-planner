@@ -1,24 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.Design;
-using System.Linq;
-using System.Threading.Tasks;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using BusinessLayer;
-using BusinessLayer.DataTransferObjects;
-using BusinessLayer.DataTransferObjects.Filters;
-using BusinessLayer.DataTransferObjects.QueryDTOs;
-using BusinessLayer.Facades.FacadeImplementations;
-using BusinessLayer.Facades.FacadeInterfaces;
-using BusinessLayer.QueryObjects;
-using BusinessLayer.Services.Implementations;
-using BusinessLayer.Services.Interfaces;
-using DataAccessLayer;
-using DataAccessLayer.DataClasses;
-using Infrastructure;
-using Infrastructure.Query;
-using Infrastructure.UnitOfWork;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -64,9 +46,6 @@ namespace API
         public void ConfigureContainer(ContainerBuilder builder)
         {
             builder.RegisterModule(new AutofacBusinessLayerConfig());
-            /*builder.RegisterType<UserFacade>()
-                .As<IUserFacade>()
-                .InstancePerDependency();*/
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -12,15 +12,14 @@ namespace API.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserFacade _userFacade;
-        private readonly IUserService _userService;
 
-        public UserController(IUserFacade userFacade, IUserService userService)
+        public UserController(IUserFacade userFacade)
         {
             _userFacade = userFacade;
-            _userService = userService;
         }
 
         [HttpGet]
+        [ApiVersion("1.0")]
         public async Task<ActionResult<UserDto>> Get(string mail)
         {
             var user = _userFacade.GetUserByMail(mail);
@@ -31,15 +30,14 @@ namespace API.Controllers
             return Ok(user);
         }
 
+        // api/user
         [HttpPost]
         [ApiVersion("1.0")]
         public async Task<ActionResult> Post([FromBody] UserDto user)
         {
-            user.Id = 1;
-            await _userService.Create(user);
+            //user.Id = 1;
+            await _userFacade.Create(user);
             return Ok();
         }
-        
-
     }
 }
