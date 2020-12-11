@@ -23,9 +23,5 @@ namespace Infrastructure.Query
             Queryable = Queryable.Where(u => u.MailAddress == mailAddress);
             return this;
         }
-        
-        //TODO SORTING 
-        
-        
     }
 }

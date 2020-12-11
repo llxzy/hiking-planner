@@ -16,7 +16,7 @@ namespace Infrastructure
         public GenericRepository(IUnitOfWorkProvider uowProvider)
         {
             _uowProvider = uowProvider;
-            //_uowProvider.Create();
+            _uowProvider.Create();
             _context = _uowProvider.GetUnitOfWorkInstance().Context;
         }
         
@@ -27,11 +27,7 @@ namespace Infrastructure
 
         public async Task CreateAsync(TEntity entity)
         {
-            //_context.Set<TEntity>().Attach(entity)
-            var p = _context.Set<TEntity>().Select(a => a).ToList();
-            var t = typeof(TEntity);
-            var ayaya = _context.Set<TEntity>();
-            _context.Set<TEntity>().Add(entity);
+            _context.Set<TEntity>().Attach(entity);
             await _context.Set<TEntity>().AddAsync(entity);
         }
 
