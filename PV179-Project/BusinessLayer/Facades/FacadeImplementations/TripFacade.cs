@@ -95,13 +95,13 @@ namespace BusinessLayer.Facades.FacadeImplementations
             }
         }
 
-        public async Task Delete(TripDto tripDto)
+        public async Task Delete(int tripId)
         {
-            CheckIfTripExists(tripDto.Id);
+            CheckIfTripExists(tripId);
 
             using (var uow = unitOfWorkProvider.Create())
             {
-                await _tripService.Delete(tripDto.Id);
+                await _tripService.Delete(tripId);
                 await uow.CommitAsync();
             }
         }

@@ -47,7 +47,7 @@ namespace Infrastructure
             builder.RegisterType<ChallengeQuery>()
                 .AsSelf()
                 .InstancePerDependency();
-            
+
             builder.RegisterType<DatabaseContext>()
                 .AsSelf()
                 .InstancePerDependency();

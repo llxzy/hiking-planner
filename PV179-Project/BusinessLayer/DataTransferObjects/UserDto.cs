@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using BusinessLayer.DataTransferObjects.QueryDTOs;
 using DataAccessLayer.DataClasses;
+using DataAccessLayer.Enums;
 
 namespace BusinessLayer.DataTransferObjects
 {
@@ -12,6 +13,6 @@ namespace BusinessLayer.DataTransferObjects
         public IEnumerable<UserTripDto> Trips { get; set; }
         public IEnumerable<ChallengeDto> Challenges { get; set; }
         public IList<UserReviewVoteDto> UserReviewVotes { get; set; } 
-        //public UserRole Role { get; set; }
+        public UserRole Role { get; set; }
     }
 }

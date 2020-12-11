@@ -7,7 +7,7 @@ using BusinessLayer.DataTransferObjects;
 
 namespace BusinessLayer.Facades.FacadeInterfaces
 {
-    interface ITripFacade : IDisposable
+    public interface ITripFacade : IDisposable
     {
         Task AddTripLocationToTrip(TripLocationDto tripLocationDto, TripDto tripDto);
 
@@ -21,7 +21,7 @@ namespace BusinessLayer.Facades.FacadeInterfaces
 
         Task Update(TripDto tripDto);
 
-        Task Delete(TripDto tripDto);
+        Task Delete(int tripId);
 
         void CheckIfTripExists(int id);
     }

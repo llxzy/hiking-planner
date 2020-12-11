@@ -15,7 +15,7 @@ namespace BusinessLayer.Facades.FacadeInterfaces
         List<ReviewDto> ListAuthorReviews(int authorId);
         List<ReviewDto> ListUpvotedReviews(int? authorId, int? tripId);
         List<ReviewDto> ListDownvoted(int? authorId, int? tripId);
-        List<ReviewDto> ListFlagged(int userId, int? authorId, int? tripId);
+        Task<List<ReviewDto>> ListFlagged(int userId, int? authorId, int? tripId);
         List<ReviewDto> ListReviewsByTrip(int tripId, int? authorId);
         
     }

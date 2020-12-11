@@ -7,6 +7,7 @@ using Infrastructure;
 using Infrastructure.Query;
 using System.Linq;
 using System.Reflection;
+using BusinessLayer.DataTransferObjects.QueryDTOs;
 
 namespace BusinessLayer
 {
@@ -72,6 +73,32 @@ namespace BusinessLayer
             
             builder.RegisterType<TripQuery>()
                 .As<IQuery<Trip>>()
+                .InstancePerDependency();
+
+            
+            // ________________________________
+            builder.RegisterType<TripLocationQuery>()
+                .As<IQuery<TripLocation>>()
+                .InstancePerDependency();
+            
+            builder.RegisterType<TripLocationQueryObject>()
+                .As<QueryObjectBase<TripLocation, TripLocationDto, FilterDtoBase, IQuery<TripLocation>>>()
+                .InstancePerDependency();
+            
+            builder.RegisterType<UserReviewVoteQuery>()
+                .As<IQuery<UserReviewVote>>()
+                .InstancePerDependency();
+
+            builder.RegisterType<UserReviewVoteQueryObject>()
+                .As<QueryObjectBase<UserReviewVote, UserReviewVoteDto, FilterDtoBase, IQuery<UserReviewVote>>>()
+                .InstancePerDependency();
+            
+            builder.RegisterType<UserTripQuery>()
+                .As<IQuery<UserTrip>>()
+                .InstancePerDependency();
+
+            builder.RegisterType<UserTripQueryObject>()
+                .As<QueryObjectBase<UserTrip, UserTripDto, FilterDtoBase, IQuery<UserTrip>>>()
                 .InstancePerDependency();
         }
     }

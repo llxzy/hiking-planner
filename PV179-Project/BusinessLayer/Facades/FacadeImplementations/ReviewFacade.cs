@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using BusinessLayer.DataTransferObjects;
 using BusinessLayer.Facades.FacadeInterfaces;
 using BusinessLayer.Services.Interfaces;
+using DataAccessLayer.Enums;
 using Infrastructure.UnitOfWork;
 
 namespace BusinessLayer.Facades.FacadeImplementations
@@ -126,9 +127,18 @@ namespace BusinessLayer.Facades.FacadeImplementations
             }
         }
 
-        public List<ReviewDto> ListFlagged(int userId, int? authorId, int? tripId)
+        public async Task<List<ReviewDto>> ListFlagged(int userId, int? authorId, int? tripId)
         {
             // if user role?
+            var user = await _userService.GetAsync(userId);
+            if (user == null)
+            {
+                throw new NullReferenceException("user doesn't exist");
+            }
+            if (user.Role == UserRole.RegularUser)
+            {
+                throw new InvalidOperationException("insufficient privileges");
+            }
             return _reviewService.ListFlaggedReviews(authorId, tripId);
         }
 

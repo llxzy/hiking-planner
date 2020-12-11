@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace BusinessLayer.Facades.FacadeInterfaces
 {
-    interface ILocationFacade : IDisposable
+    public interface ILocationFacade : IDisposable
     {
         Task Create(LocationDto locationDto);
         Task<LocationDto> GetLocationById(int id);

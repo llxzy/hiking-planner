@@ -17,7 +17,7 @@ namespace Infrastructure
         {
             _uowProvider = uowProvider;
             _uowProvider.Create();
-            _context = _uowProvider.GetUnitOfWorkInstance().Context;
+            _context = uowProvider.GetUnitOfWorkInstance().Context;
         }
         
         public Task<TEntity> GetByIdAsync(int id)
