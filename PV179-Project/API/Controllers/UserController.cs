@@ -20,7 +20,7 @@ namespace API.Controllers
 
         [HttpGet]
         [ApiVersion("1.0")]
-        public async Task<ActionResult<UserDto>> Get(string mail)
+        public async Task<ActionResult<UserDto>> Get([EmailAddress] string mail)
         {
             var user = _userFacade.GetUserByMail(mail);
             if (user == null)
@@ -33,15 +33,36 @@ namespace API.Controllers
         // api/user
         [HttpPost]
         [ApiVersion("1.0")]
+        [Route("api/v1/User")]  
         public async Task<ActionResult> Post([FromBody] UserRegistrationDto user)
         {
             //user.Id = 1;
             await _userFacade.RegisterNewUser(user);
             return Ok();
         }
-        /*
+
         [HttpDelete]
         [ApiVersion("1.0")]
-        public async */
+        public async Task<ActionResult> Delete([Range(1, int.MaxValue)] int id)
+        {
+            await _userFacade.DeleteLoggedUser(id);
+            return Ok();
+        }
+
+        [HttpPatch]
+        [ApiVersion("1.0")]
+        public async Task<ActionResult> Patch([FromBody] UserDto user)
+        {
+            await _userFacade.Update(user);
+            return Ok();
+        }
+
+        [HttpPut]
+        [ApiVersion("1.0")]
+        public async Task<ActionResult> Put([FromBody] UserDto user)
+        {
+            await _userFacade.Update(user);
+            return Ok();
+        }
     }
 }
