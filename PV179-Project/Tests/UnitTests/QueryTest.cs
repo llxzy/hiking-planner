@@ -23,8 +23,8 @@ namespace Tests.UnitTests
 
                 var qObj = mock.Create<LocationQueryObject>();
                 var filter = mock.Create<LocationFilterDto>();
-                var x = qObj.ExecuteQuery(filter);
-                Assert.NotEmpty(x.Items);
+                var result = qObj.ExecuteQuery(filter);
+                Assert.NotEmpty(result.Items);
             }
         }
 
