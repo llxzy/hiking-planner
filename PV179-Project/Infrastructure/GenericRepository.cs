@@ -9,15 +9,17 @@ namespace Infrastructure
 {
     public class GenericRepository<TEntity> : IRepository<TEntity> where TEntity : class, new()
     {
-        private IUnitOfWorkProvider _uowProvider;
+        //private IUnitOfWorkProvider _uowProvider;
         //private DbContext _context => _uowProvider.GetUnitOfWorkInstance().Context;
+        private IUnitOfWork _uow;
         private DbContext _context;
 
-        public GenericRepository(IUnitOfWorkProvider uowProvider)
+        //public GenericRepository(IUnitOfWorkProvider uowProvider)
+        public GenericRepository(IUnitOfWork uow)
         {
-            _uowProvider = uowProvider;
-            _uowProvider.Create();
-            _context = uowProvider.GetUnitOfWorkInstance().Context;
+            _uow = uow;
+            //_uowProvider.Create();
+            _context = uow.Context;
         }
         
         public Task<TEntity> GetByIdAsync(int id)
