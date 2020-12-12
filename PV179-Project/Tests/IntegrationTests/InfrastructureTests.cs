@@ -7,7 +7,7 @@ using Infrastructure.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
 using Xunit;
 
-namespace Tests
+namespace Tests.IntegrationTests
 {
     public class InfrastructureTests
     {
@@ -35,16 +35,16 @@ namespace Tests
             };
         
             Provider.Create();
-            var repository = new GenericRepository<User>(Provider);
+            var repository = new GenericRepository<User>(Provider.GetUnitOfWorkInstance());
             var uow = Provider.GetUnitOfWorkInstance();
             
             repository.CreateAsync(user);
             uow.CommitAsync();
-            Assert.Equal(1, ((DatabaseContext) uow.Context).Users.Count());
+            Assert.Equal(1, (uow.Context).Users.Count());
             Assert.Equal("Testy McTestface", repository.GetByIdAsync(1).Result.Name);
 
             var userOutOfDb = repository.GetByIdAsync(1).Result;
-            Assert.Equal(user, userOutOfDb);
+            Assert.Equal(user.Id, userOutOfDb.Id);
 
             user.Name = "Face McTesty";
             repository.Update(user);
@@ -52,7 +52,7 @@ namespace Tests
 
             repository.DeleteAsync(1);
             uow.CommitAsync();
-            Assert.Empty(((DatabaseContext)uow.Context).Users.ToList());
+            Assert.Empty((uow.Context).Users.ToList());
         }
 
         [Fact]
@@ -69,7 +69,7 @@ namespace Tests
                 MailAddress = "B@B.B"
             };
             Provider.Create();
-            var repository = new GenericRepository<User>(Provider);
+            var repository = new GenericRepository<User>(Provider.GetUnitOfWorkInstance());
             var uow = Provider.GetUnitOfWorkInstance();
             
             await repository.CreateAsync(user1);
@@ -79,7 +79,7 @@ namespace Tests
             var query = new UserQuery(Provider);
             var queriedItems = query.FilterByName("B").ExecuteAsync().Result.Items;
             Assert.NotEmpty(queriedItems);
-            Assert.Equal(user2, queriedItems[0]);
+            Assert.Equal(user2.Id, queriedItems[0].Id);
             
             //cleanup
             await repository.DeleteAsync(user1.Id);

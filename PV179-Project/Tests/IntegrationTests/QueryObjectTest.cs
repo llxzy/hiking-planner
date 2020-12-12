@@ -1,7 +1,5 @@
-using BusinessLayer.DataTransferObjects;
 using BusinessLayer.DataTransferObjects.Filters;
 using BusinessLayer.QueryObjects;
-using BusinessLayer;
 using DataAccessLayer;
 using DataAccessLayer.DataClasses;
 using DataAccessLayer.Enums;
@@ -10,14 +8,8 @@ using Infrastructure.Query;
 using Infrastructure.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
 using Xunit;
-using Autofac.Extras.Moq;
-using Moq;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using AutoMapper;
-using BusinessLayer.DataTransferObjects.QueryDTOs;
 
-namespace Tests
+namespace Tests.IntegrationTests
 {
     public class QueryObjectTest
     {
@@ -30,7 +22,7 @@ namespace Tests
         public async void ChallengeQueryObjectTest()
         {
             Provider.Create();
-            var repository = new GenericRepository<Challenge>(Provider);
+            var repository = new GenericRepository<Challenge>(Provider.GetUnitOfWorkInstance());
             var uow = Provider.GetUnitOfWorkInstance();
             
             var challenge = new Challenge()

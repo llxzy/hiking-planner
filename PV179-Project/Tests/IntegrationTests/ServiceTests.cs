@@ -1,6 +1,4 @@
-using System.Linq;
 using BusinessLayer.DataTransferObjects;
-using BusinessLayer.DataTransferObjects.Filters;
 using BusinessLayer.QueryObjects;
 using BusinessLayer.Services.Implementations;
 using DataAccessLayer;
@@ -11,7 +9,7 @@ using Infrastructure.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
 using Xunit;
 
-namespace Tests
+namespace Tests.IntegrationTests
 {
     public class ServiceTests
     {
@@ -30,12 +28,6 @@ namespace Tests
                 PasswordHash = "GGGGGGGGG"
             };
             
-            var user = new User
-            {
-                Name = "t",
-                MailAddress = "12@a.c"
-            };
-            
             using (var uow = Provider.Create())
             {
                 var service = new UserService(
@@ -43,34 +35,12 @@ namespace Tests
                     new UserQueryObject(new UserQuery(Provider))
                     );
                 await service.Create(userDto);
-                //await uow.CommitAsync();
-                //uow.Context.Users.Add(user);
                 await uow.CommitAsync();
-                //uow.Context.SaveChanges();
                 Assert.NotEmpty(Provider.GetUnitOfWorkInstance().Context.Users);
+
+                await service.Delete(userDto.Id);
+                await uow.CommitAsync();
             }
-            
-            /*
-            Provider.Create();
-            var repository = new GenericRepository<User>(Provider);
-            var uqo = new UserQueryObject(new UserQuery(Provider));
-            var userService = new UserService(repository, uqo);
-            var context = Provider.GetUnitOfWorkInstance().Context;
-
-            await userService.Create(userDto);
-            await Provider.GetUnitOfWorkInstance().CommitAsync();
-
-            Assert.Equal(1, context.Users.Count());
-
-            var id = uqo.ExecuteQuery(new UserFilterDto()
-            {
-                Name = "G"
-            }).Items.First().Id;
-            await userService.Delete(id);
-            await Provider.GetUnitOfWorkInstance().CommitAsync();
-            
-            Assert.Equal(0, context.Users.Count());*/
-            
         }
     }
 }

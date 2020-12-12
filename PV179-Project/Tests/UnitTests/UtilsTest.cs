@@ -2,7 +2,7 @@ using System;
 using BusinessLayer.Utils;
 using Xunit;
 
-namespace Tests
+namespace Tests.UnitTests
 {
     public class UtilsTest
     {

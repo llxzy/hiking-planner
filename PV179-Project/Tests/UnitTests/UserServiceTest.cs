@@ -1,16 +1,13 @@
 using Autofac.Extras.Moq;
 using AutoMapper;
 using BusinessLayer.DataTransferObjects;
-using BusinessLayer.DataTransferObjects.Filters;
-using BusinessLayer.QueryObjects;
 using BusinessLayer.Services.Implementations;
-using BusinessLayer.Utils;
 using DataAccessLayer.DataClasses;
 using Infrastructure;
 using Moq;
 using Xunit;
 
-namespace Tests
+namespace Tests.UnitTests
 {
     public class UserServiceTest
     {

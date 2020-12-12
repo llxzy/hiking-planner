@@ -2,10 +2,9 @@ using Autofac.Extras.Moq;
 using BusinessLayer.DataTransferObjects;
 using BusinessLayer.Facades.FacadeImplementations;
 using BusinessLayer.Services.Interfaces;
-using Moq;
 using Xunit;
 
-namespace Tests
+namespace Tests.UnitTests
 {
     public class UserFacadeTest
     {

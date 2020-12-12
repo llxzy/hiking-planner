@@ -1,29 +1,22 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Autofac.Extras.Moq;
 using BusinessLayer.DataTransferObjects;
 using BusinessLayer.Facades.FacadeImplementations;
-using BusinessLayer.Services.Implementations;
 using BusinessLayer.Services.Interfaces;
-using DataAccessLayer;
 using DataAccessLayer.Enums;
-using Infrastructure.UnitOfWork;
-using Microsoft.VisualBasic;
-using Xunit;
 using Moq;
+using Xunit;
 
-namespace Tests
+namespace Tests.UnitTests
 {
-    public class MOQMOQMOQMOQTEST
+    public class LocationServiceTest
     {
         [Fact]
-        public void xd_test()
+        public void ListLocationsTest()
         {
-            using (var YEP_MOQ = AutoMock.GetLoose())
+            using (var mock = AutoMock.GetLoose())
             {
-                var wtf0 = new LocationDto()
+                var locDto = new LocationDto()
                 {
                     Name = "test",
                     Type = LocationType.Waterfall,
@@ -31,7 +24,7 @@ namespace Tests
                     Long = double.NegativeInfinity
                 };
 
-                YEP_MOQ.Mock<ILocationService>()
+                mock.Mock<ILocationService>()
                     .Setup(s => s.ListAllSortedByName(It.IsAny<string>()))
                     .Returns(new List<LocationDto>()
                     {
@@ -44,12 +37,13 @@ namespace Tests
                         }
                     });
 
-                var wtf = YEP_MOQ.Create<LocationFacade>();
-                var wtf2 = wtf.ListAllSortedByName("wtfreally");
-                //Assert.True(new List<LocationDto> {wtf0}.SequenceEqual(wtf2));
-                //Assert.True(wtf0.Equals(wtf2[0]));
-                //Assert.Equal(new List<LocationDto> {wtf0}, wtf2);
-                Assert.Equal(wtf0.Long, wtf2[0].Long);
+                var location = mock.Create<LocationFacade>();
+                var locationsFromMock = location.ListAllSortedByName("returns_the_same_for_any_string");
+                
+                Assert.Equal(locDto.Name, locationsFromMock[0].Name);
+                Assert.Equal(locDto.Type, locationsFromMock[0].Type);
+                Assert.Equal(locDto.Lat, locationsFromMock[0].Lat);
+                Assert.Equal(locDto.Long, locationsFromMock[0].Long);
 
             }
         }

@@ -4,7 +4,7 @@ using BusinessLayer.DataTransferObjects;
 using DataAccessLayer.DataClasses;
 using Xunit;
 
-namespace Tests
+namespace Tests.UnitTests
 {
     public class MappingTest
     {
