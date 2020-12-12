@@ -129,7 +129,6 @@ namespace BusinessLayer.Facades.FacadeImplementations
 
         public async Task<List<ReviewDto>> ListFlagged(int userId, int? authorId, int? tripId)
         {
-            // if user role?
             var user = await _userService.GetAsync(userId);
             if (user == null)
             {
