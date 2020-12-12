@@ -1,22 +1,14 @@
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Autofac.Extras.Moq;
-using AutoMapper;
-using BusinessLayer.DataTransferObjects;
 using BusinessLayer.DataTransferObjects.Filters;
-using BusinessLayer.DataTransferObjects.QueryDTOs;
 using BusinessLayer.QueryObjects;
-using DataAccessLayer;
 using DataAccessLayer.DataClasses;
 using DataAccessLayer.Enums;
 using Infrastructure.Query;
-using Infrastructure.UnitOfWork;
-using Microsoft.EntityFrameworkCore;
 using Moq;
 using Xunit;
 
-namespace Tests
+namespace Tests.UnitTests
 {
     public class QueryTest
     {
