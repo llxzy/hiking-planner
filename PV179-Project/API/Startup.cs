@@ -1,6 +1,7 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using BusinessLayer;
+using DataAccessLayer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -26,9 +27,12 @@ namespace API
         // This method gets called by the runtime. Use this method to add services to the container.
         // original public void ConfigureServices(IServiceCollection services)
         public void ConfigureServices(IServiceCollection services)
-        { 
-            //services.AddDbContext<DatabaseContext>(options => options"))
-            //    .UseNpgsql(@"Host=localhost;Database=tripdb;Username=postgres;Password=postgres;Port=5432;
+        {
+            //TODO move connection string to appsettings
+            // Setup for database context connection
+            services.AddDbContext<DatabaseContext>(options => options
+                .UseNpgsql(@"Host=localhost;Database=tripdb;Username=postgres;Password=postgres;Port=5432"));
+            
             services.AddApiVersioning(x =>
             {
                 x.DefaultApiVersion = new ApiVersion(1, 0);

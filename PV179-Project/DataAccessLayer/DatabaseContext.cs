@@ -47,19 +47,7 @@ namespace DataAccessLayer
                 .HasOne<Review>(vote => vote.AssociatedReview)
                 .WithMany(u => u.UserReviewVotes)
                 .HasForeignKey(a => a.AssociatedReviewId);
-            
             base.OnModelCreating(modelBuilder);
-        }
-        
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            //todo move initialization into startup.cs
-            if (!optionsBuilder.IsConfigured)
-            {
-                optionsBuilder.UseNpgsql(@"Host=localhost;Database=tripdb;Username=postgres;Password=postgres;Port=5432");
-            }
-            
-            base.OnConfiguring(optionsBuilder);
         }
     }
 }
