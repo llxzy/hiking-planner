@@ -29,7 +29,7 @@ namespace BusinessLayer.QueryObjects
         {
             if (!string.IsNullOrWhiteSpace(filter.SortAccordingTo))
             {
-                query.SortBy(filter.SortAccordingTo, filter.UseAscendingOrder);
+                query = query.SortBy(filter.SortAccordingTo, filter.UseAscendingOrder);
             }
             return query;
         }
