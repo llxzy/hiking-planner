@@ -9,16 +9,12 @@ namespace Infrastructure
 {
     public class GenericRepository<TEntity> : IRepository<TEntity> where TEntity : class, new()
     {
-        //private IUnitOfWorkProvider _uowProvider;
-        //private DbContext _context => _uowProvider.GetUnitOfWorkInstance().Context;
         private IUnitOfWork _uow;
         private DbContext _context;
 
-        //public GenericRepository(IUnitOfWorkProvider uowProvider)
         public GenericRepository(IUnitOfWork uow)
         {
             _uow = uow;
-            //_uowProvider.Create();
             _context = uow.Context;
         }
         
