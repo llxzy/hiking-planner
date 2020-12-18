@@ -1,0 +1,12 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<h1>Search user with mail</h1>
+
+@using (Html.BeginForm("FindUser2", "User"))
+{
+    <input type="text" name="passedMail" />
+    <input type="submit" value="SEARCH"  class="btn btn-primary" />
+}

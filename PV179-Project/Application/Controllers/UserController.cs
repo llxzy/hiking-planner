@@ -2,6 +2,7 @@ using BusinessLayer.DataTransferObjects;
 using BusinessLayer.Facades.FacadeInterfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Razor.Compilation;
+using Application.Models.UserModels;
 
 namespace Application.Controllers
 {
@@ -20,10 +21,41 @@ namespace Application.Controllers
             return View();
         }
 
-        public IActionResult FindUser(string INPUT)
+        public IActionResult FindUser()
         {
-            var user = _userFacade.GetUserByMail(INPUT);
-            return View(user);
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult FindUser2(string passedMail)
+        {
+            //var user = _userFacade.GetUserByMail(mailInput);
+            //return View(user);
+            return new ContentResult() { Content = passedMail };
+        }
+
+
+        /*
+         * defaultne je to HttpGet, zavola View = User.Create
+         * obsahuje submit button, ktory ked stlacis tak zavola HttpPost Create (metoda pod touto)
+         */
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Create(UserCreateModel userCreateModel)
+        {
+            UserRegistrationDto user = new UserRegistrationDto
+            {
+                Name = userCreateModel.Name,
+                MailAddress = userCreateModel.MailAddress,
+                Password = userCreateModel.Password
+            };
+            //_userFacade.RegisterNewUser(user);
+
+            return new ContentResult() { Content = user.Name + user.MailAddress };
         }
     }
 }
