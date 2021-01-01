@@ -21,6 +21,8 @@ namespace BusinessLayer.Facades.FacadeImplementations
         {
             using (var uow = unitOfWorkProvider.Create())
             {
+                CheckLocationValidity(locationDto);
+
                 await _locationService.Create(locationDto);
                 await uow.CommitAsync();
             }
@@ -83,9 +85,9 @@ namespace BusinessLayer.Facades.FacadeImplementations
         //move to utils?
         public void CheckLocationValidity(LocationDto locationDto)
         {
-            if (_locationService.GetAsync(locationDto.Id) == null) {
-                throw new NullReferenceException("Location with this id not found.");
-            }
+            //if (_locationService.GetAsync(locationDto.Id) == null) {
+            //    throw new NullReferenceException("Location with this id not found.");
+            //}
 
             if (string.IsNullOrWhiteSpace(locationDto.Name))
             {
