@@ -17,7 +17,7 @@ namespace BusinessLayer.Utils
         public static bool Validate(string input, string expected)
         {
             var hashedInput = Encode(input);
-            return hashedInput == expected;
+            return String.Equals(hashedInput, expected, StringComparison.CurrentCultureIgnoreCase);
         }
     }
 }

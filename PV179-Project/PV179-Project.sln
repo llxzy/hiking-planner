@@ -1,8 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # 
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "Application\Application.csproj", "{4BB76C32-8FB2-45F9-AB49-19FBC191DD0C}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccessLayer", "DataAccessLayer\DataAccessLayer.csproj", "{61D0C2D1-DEEE-421B-B7B5-78C837AEA3DD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{3C320FD9-82DD-4AAB-9346-294005821248}"
@@ -12,6 +10,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{2A659F39-E55B-43C6-AA35-EE19806F4400}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "API", "API\API.csproj", "{2332AE30-8920-45C8-9945-BD0D84297713}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "Application\Application.csproj", "{487FC529-C747-4B0E-B620-D0915D55458C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,5 +51,9 @@ Global
 		{2332AE30-8920-45C8-9945-BD0D84297713}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2332AE30-8920-45C8-9945-BD0D84297713}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2332AE30-8920-45C8-9945-BD0D84297713}.Release|Any CPU.Build.0 = Release|Any CPU
+		{487FC529-C747-4B0E-B620-D0915D55458C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{487FC529-C747-4B0E-B620-D0915D55458C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{487FC529-C747-4B0E-B620-D0915D55458C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{487FC529-C747-4B0E-B620-D0915D55458C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

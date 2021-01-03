@@ -14,7 +14,8 @@ namespace Infrastructure
         {
             builder.RegisterType<UnitOfWork.UnitOfWork>()
                 .As<IUnitOfWork>()
-                .InstancePerLifetimeScope();
+                .SingleInstance();
+                //.InstancePerLifetimeScope();
 
             builder.RegisterType<UnitOfWorkProvider>()
                 .As<IUnitOfWorkProvider>()

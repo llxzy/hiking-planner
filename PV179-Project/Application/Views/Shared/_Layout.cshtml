@@ -30,6 +30,23 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Trip" asp-action="Index">Newest Trips</a>
                         </li>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <a class="nav-link" asp-controller="User" asp-action="Logout">Logout</a>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="User" asp-action="Login">Login</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="User" asp-action="Register">Register</a>
+                            </li>
+                        }
+                        @if (User.IsInRole("Administrator"))
+                        {
+                            <a class="nav-link" asp-controller="Admin" asp-action="Index">Admin Dashboard</a>
+                        }
                     </ul>
                 </div>
             </div>

@@ -3,6 +3,7 @@ using BusinessLayer.Facades.FacadeInterfaces;
 using BusinessLayer.Services.Interfaces;
 using Infrastructure.UnitOfWork;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace BusinessLayer.Facades.FacadeImplementations
@@ -25,6 +26,7 @@ namespace BusinessLayer.Facades.FacadeImplementations
             }
             using (var uow = unitOfWorkProvider.Create())
             {
+                var a = uow.Context.Users.Count();
                 if (GetUserByMail(userRegDto.MailAddress) != null)
                 {
                     throw new ArgumentException("User with this email already exists.");
@@ -36,8 +38,9 @@ namespace BusinessLayer.Facades.FacadeImplementations
                     MailAddress = userRegDto.MailAddress,
                     PasswordHash = Utils.HashingUtils.Encode(userRegDto.Password)
                 });
-
+                var c = uow.Context.Users.Count();
                 await uow.CommitAsync();
+                var b = uow.Context.Users.Count();
             }
         }
 
@@ -99,5 +102,13 @@ namespace BusinessLayer.Facades.FacadeImplementations
                 await uow.CommitAsync();
             }
         }
+        
+        /* test
+         */
+
+        public async Task<string> GetUserMail(int id)
+        {
+            return await _userService.GetUserEmail(id);
+        } 
     }
 }

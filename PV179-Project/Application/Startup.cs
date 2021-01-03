@@ -2,8 +2,10 @@ using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using BusinessLayer;
 using DataAccessLayer;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -28,6 +30,10 @@ namespace Application
             services.AddAutofac();
             services.AddDbContext<DatabaseContext>(options => options
                 .UseNpgsql(@"Host=localhost;Database=tripdb;Username=postgres;Password=postgres;Port=5432"));
+            
+            //cookie authorization
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(o => o.LoginPath = new PathString("/User/Login"));
         }
         
         public void ConfigureContainer(ContainerBuilder builder)
@@ -52,6 +58,10 @@ namespace Application
             app.UseStaticFiles();
 
             app.UseRouting();
+            
+            // added for auth
+            app.UseCookiePolicy();
+            app.UseAuthentication();
 
             app.UseAuthorization();
 

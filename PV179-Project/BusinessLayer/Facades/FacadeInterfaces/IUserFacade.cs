@@ -20,5 +20,7 @@ namespace BusinessLayer.Facades.FacadeInterfaces
 
         //Logged user can delete his/hers/their profile
         Task DeleteLoggedUser(int id);
+
+        Task<string> GetUserMail(int id);
     }
 }
