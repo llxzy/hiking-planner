@@ -1,0 +1,21 @@
+@model Application.Models.UserModels.UserModel
+
+<h1>@Model.Name</h1>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.MailAddress)
+        </dt>
+        <dt class="col-sm-10">
+            @Html.DisplayFor(model => model.MailAddress)
+        </dt>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Role)
+        </dt>
+        <dt class="col-sm-10">
+            @Html.DisplayFor(model => model.Role)
+        </dt>
+    </dl>
+</div>

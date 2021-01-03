@@ -32,6 +32,7 @@
                         </li>
                         @if (User.Identity.IsAuthenticated)
                         {
+                            <a class="nav-link" asp-controller="User" asp-action="Profile">Profile</a>
                             <a class="nav-link" asp-controller="User" asp-action="Logout">Logout</a>
                         }
                         else

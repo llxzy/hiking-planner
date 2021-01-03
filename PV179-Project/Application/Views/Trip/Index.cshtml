@@ -6,8 +6,12 @@
 
 <div class="text-center">
     <h1 class="display-4">Trip index</h1>
-    <p>this was painful</a>.</p>
-    
+    <p>this was painful.</p>
+    @using (Html.BeginForm("TripDetail", "Trip"))
+    {
+        <input type="text" name="tripId" />
+        <input type="submit" value="SEARCH"  class="btn btn-primary" />
+    }
     <br>
     
     <a class="nav-link text-dark" asp-area="" asp-controller="Trip" asp-action="ListAllTrips">ListAllTrips</a>
