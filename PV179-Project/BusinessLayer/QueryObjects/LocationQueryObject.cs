@@ -30,6 +30,13 @@ namespace BusinessLayer.QueryObjects
                 ? query
                 : ((LocationQuery) query).FilterByAddedStatus(bool.Parse(filter.Added));
 
+            query = string.IsNullOrWhiteSpace(filter.Lat)
+                    || string.IsNullOrWhiteSpace(filter.Long)
+                    || string.IsNullOrWhiteSpace(filter.Maxdist)
+                ? query
+                : ((LocationQuery) query).FilterByDistance(double.Parse(filter.Lat),
+                    double.Parse(filter.Long), double.Parse(filter.Maxdist));
+
             return query;
         }
     }
