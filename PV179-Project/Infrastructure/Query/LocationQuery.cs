@@ -51,6 +51,9 @@ namespace Infrastructure.Query
             return n * (Math.PI / 180);
         }
 
+        /*
+         * Implemented using Haversine formula, distance in kilometers
+         */
         private double DistanceBetween(double lat1, double long1, double lat2, double long2)
         {
             const int EARTH_RADIUS = 6371;
