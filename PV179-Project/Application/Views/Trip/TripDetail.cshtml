@@ -1,0 +1,47 @@
+﻿@model Application.Models.TripModels.TripModel;
+
+<h1>TripDetail</h1>
+
+<div>
+    <h4>TripModel</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.StartDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.StartDate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Done)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Done)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.TripLocations)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.TripLocations.Count)
+        </dd>
+        <!--TODO-->
+        @foreach (var t in Model.TripLocations)
+        {
+            <dt class="col-sm-10">
+                @t.AssociatedLocation.Name
+            </dt>
+        }
+    </dl>
+</div>

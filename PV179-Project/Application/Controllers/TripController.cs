@@ -13,9 +13,13 @@ using Application.Models.UserModels;
 namespace Application.Controllers
 {
     public class TripController : Controller
-
     {
         private ITripFacade _tripFacade;
+
+        public TripController(ITripFacade facade)
+        {
+            _tripFacade = facade;
+        }
 
         public IActionResult Index()
         {
@@ -66,7 +70,7 @@ namespace Application.Controllers
 
             var everest = new LocationModel
             {
-                Name = "Mt Everest", 
+                Name = "Mt Everest",
                 Type = DataAccessLayer.Enums.LocationType.Mountain,
                 Lat = 5545445,
                 Long = 667
@@ -94,5 +98,34 @@ namespace Application.Controllers
 
             return View(tripDtos);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> TripDetail(int tripId)
+        {
+            var trip = await _tripFacade.GetTripByIdAsync(tripId);
+            if (trip == null)
+            {
+                return RedirectToAction("Index", "Trip");
+            }
+            //todo return View(mapper for tripdto to tripmodel)
+            return View(new TripModel
+            {
+                // :(
+                Title = trip.Title,
+                Author = new UserModel { Name = "trip.Author.Name" },
+                Description = trip.Description,
+                Done = trip.Done,
+                StartDate = trip.StartDate,
+                TripLocations = trip.TripLocations
+                    .Select(a =>
+                        new TripLocationModel
+                        {
+                            AssociatedLocation = new LocationModel { Name = a.AssociatedLocation.Name },
+                            ArrivalTime = a.ArrivalTime
+                        })
+                    .ToList(),
+            });
+        }
+
     }
 }

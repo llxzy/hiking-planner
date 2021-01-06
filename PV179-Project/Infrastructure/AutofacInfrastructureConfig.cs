@@ -12,6 +12,10 @@ namespace Infrastructure
     {
         protected override void Load(ContainerBuilder builder)
         {
+            builder.RegisterType<DatabaseContext>()
+                .AsSelf() //necessary?
+                .InstancePerDependency();
+
             builder.RegisterType<UnitOfWork.UnitOfWork>()
                 .As<IUnitOfWork>()
                 .SingleInstance();
@@ -47,10 +51,6 @@ namespace Infrastructure
                 .InstancePerDependency();
             
             builder.RegisterType<ChallengeQuery>()
-                .AsSelf()
-                .InstancePerDependency();
-
-            builder.RegisterType<DatabaseContext>()
                 .AsSelf()
                 .InstancePerDependency();
         }
