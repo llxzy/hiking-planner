@@ -16,5 +16,7 @@ namespace BusinessLayer.Services.Interfaces
 
         public Task AcceptSubmission(int locationId);
 
+        List<LocationDto> ListAllWithinDistance(double lat, double lon, double maxdist);
+
     }
 }

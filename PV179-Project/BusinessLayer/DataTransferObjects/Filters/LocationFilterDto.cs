@@ -12,6 +12,10 @@ namespace BusinessLayer.DataTransferObjects.Filters
         public string Type { get; set; }
         public string Added { get; set; }
         public string VisitCount { get; set; }
+        
+        public string Lat { get; set; }
+        public string Long { get; set; }
+        public string Maxdist { get; set; }
 
     }
 }

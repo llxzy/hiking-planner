@@ -82,6 +82,14 @@ namespace BusinessLayer.Facades.FacadeImplementations
             }     
         }
 
+        public List<LocationDto> ListAllWithinDistance(LocationDto loc, double maxdist)
+        {
+            using (unitOfWorkProvider.Create())
+            {
+                return _locationService.ListAllWithinDistance(loc.Lat, loc.Long, maxdist);
+            }
+        }
+
         //move to utils?
         public void CheckLocationValidity(LocationDto locationDto)
         {

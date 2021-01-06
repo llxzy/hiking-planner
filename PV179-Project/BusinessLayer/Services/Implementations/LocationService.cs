@@ -2,6 +2,7 @@
 using BusinessLayer.DataTransferObjects.Filters;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text;
 using System.Threading.Tasks;
 using DataAccessLayer.DataClasses;
@@ -68,5 +69,18 @@ namespace BusinessLayer.Services.Implementations
             
             return QueryObject.ExecuteQuery(filter).Items.ToList();
         }
+
+        public List<LocationDto> ListAllWithinDistance(double lat, double lon, double maxdist)
+        {
+            var filter = new LocationFilterDto
+            {
+                Added = "true",
+                Lat = lat.ToString(CultureInfo.InvariantCulture),
+                Long = lon.ToString(CultureInfo.InvariantCulture),
+                Maxdist = maxdist.ToString(CultureInfo.InvariantCulture)
+            };
+            return QueryObject.ExecuteQuery(filter).Items.ToList();
+        }
+        
     }
 }

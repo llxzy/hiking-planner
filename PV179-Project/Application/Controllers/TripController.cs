@@ -20,7 +20,7 @@ namespace Application.Controllers
         {
             _tripFacade = facade;
         }
-
+        
         public IActionResult Index()
         {
             return View();
@@ -98,7 +98,7 @@ namespace Application.Controllers
 
             return View(tripDtos);
         }
-
+        
         [HttpPost]
         public async Task<IActionResult> TripDetail(int tripId)
         {
@@ -112,20 +112,20 @@ namespace Application.Controllers
             {
                 // :(
                 Title = trip.Title,
-                Author = new UserModel { Name = "trip.Author.Name" },
+                Author = new UserModel{Name = "trip.Author.Name"},
                 Description = trip.Description,
                 Done = trip.Done,
                 StartDate = trip.StartDate,
                 TripLocations = trip.TripLocations
-                    .Select(a =>
+                    .Select(a => 
                         new TripLocationModel
                         {
-                            AssociatedLocation = new LocationModel { Name = a.AssociatedLocation.Name },
+                            AssociatedLocation = new LocationModel {Name = a.AssociatedLocation.Name},
                             ArrivalTime = a.ArrivalTime
                         })
                     .ToList(),
             });
         }
-
+        
     }
 }

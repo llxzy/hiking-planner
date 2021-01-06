@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using BusinessLayer.DataTransferObjects;
@@ -7,6 +8,7 @@ using BusinessLayer.Facades.FacadeInterfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Razor.Compilation;
 using Application.Models.UserModels;
+using AutoMapper;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 
@@ -15,6 +17,8 @@ namespace Application.Controllers
     public class UserController : Controller
     {
         private IUserFacade _userFacade;
+
+        private IMapper mapper = new Mapper(new MapperConfiguration(ApplicationMappingConfig.ConfigureMap));
         //public UserDto user;
 
         public UserController(IUserFacade facade)
@@ -121,7 +125,6 @@ namespace Application.Controllers
                 new Claim(ClaimTypes.Name, user.Id.ToString())
             };
             claims.Add(new Claim(ClaimTypes.Role, user.Role.ToString()));
-            
             var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
 
             await HttpContext.SignInAsync(
@@ -134,6 +137,19 @@ namespace Application.Controllers
         {
             HttpContext.SignOutAsync();
             return RedirectToAction("Index", "Home");
+        }
+
+        [HttpGet("Profile")]
+        public IActionResult Profile()
+        {
+            // TODO USERS ID IS STORED IN User.Identity.Name;
+            var id = User.Identity?.Name;
+            if (id == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            var user = _userFacade.GetAsync(int.Parse(id)).Result;
+            return View(mapper.Map<UserModel>(user));
         }
         
     }
