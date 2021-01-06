@@ -13,7 +13,7 @@ namespace Infrastructure
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterType<DatabaseContext>()
-                //.AsSelf() //necessary?
+                .AsSelf() //necessary?
                 .InstancePerDependency();
 
             //unnecessary
@@ -24,8 +24,8 @@ namespace Infrastructure
 
             builder.RegisterType<UnitOfWorkProvider>()
                 .As<IUnitOfWorkProvider>()
-                .SingleInstance();
-                //.InstancePerLifetimeScope();
+                //.SingleInstance();
+                .InstancePerLifetimeScope();
            
             builder.RegisterGeneric(typeof(GenericRepository<>))
                 .As(typeof(IRepository<>))

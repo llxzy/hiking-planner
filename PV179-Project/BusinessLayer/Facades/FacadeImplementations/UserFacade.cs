@@ -26,21 +26,17 @@ namespace BusinessLayer.Facades.FacadeImplementations
             }
             using (var uow = unitOfWorkProvider.Create())
             {
-                var a = uow.Context.Users.Count();
-                if (GetUserByMail(userRegDto.MailAddress) != null)
+                if (_userService.EmailAlreadyExistsAsync(userRegDto.MailAddress))
                 {
-                    throw new ArgumentException("User with this email already exists.");
+                    throw new ArgumentException("already exists");
                 }
-
                 await _userService.Create(new UserDto()
                 {
                     Name = userRegDto.Name,
                     MailAddress = userRegDto.MailAddress,
                     PasswordHash = Utils.HashingUtils.Encode(userRegDto.Password)
                 });
-                var c = uow.Context.Users.Count();
                 await uow.CommitAsync();
-                var b = uow.Context.Users.Count();
             }
         }
 
@@ -54,8 +50,8 @@ namespace BusinessLayer.Facades.FacadeImplementations
 
         public bool VerifyUserLogin(string mail, string pswdHash)
         {
-            var user = GetUserByMail(mail);
-            if (user == null)
+            var user = _userService.GetUserByMail(mail);
+            if (user == new UserDto() || user == null)
             {
                 throw new ArgumentException("User with this email address not found.");
             }

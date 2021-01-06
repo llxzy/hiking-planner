@@ -22,7 +22,5 @@ namespace BusinessLayer.Facades.FacadeInterfaces
         Task Update(TripDto tripDto);
 
         Task Delete(int tripId);
-
-        void CheckIfTripExists(int id);
     }
 }

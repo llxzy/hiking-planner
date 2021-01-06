@@ -22,7 +22,11 @@ namespace BusinessLayer.Facades.FacadeImplementations
 
         public async Task AddTripLocationToTrip(TripLocationDto tripLocationDto, TripDto tripDto)
         {
-            CheckIfTripExists(tripDto.Id);
+            //CheckIfTripExists(tripDto.Id);
+            if (_tripService.GetAsync(tripDto.Id).Result == null)
+            {
+                throw new ArgumentException("Trip with this ID does not exist.");
+            }
 
             //check tripLocationDto validity
 
@@ -53,7 +57,6 @@ namespace BusinessLayer.Facades.FacadeImplementations
             {
                 foreach (var tripLocationDto in tripDto.TripLocations)
                 {
-
                     if (tripLocationDto.AssociatedLocation.Id == locationId)
                     {
                         result.Add(tripDto);
@@ -84,10 +87,13 @@ namespace BusinessLayer.Facades.FacadeImplementations
 
         public async Task Update(TripDto tripDto)
         {
+            if (_tripService.GetAsync(tripDto.Id).Result == null)
+            {
+                throw new ArgumentException("Trip with this ID does not exist.");
+            }
             using (var uow = unitOfWorkProvider.Create())
             {
-                CheckIfTripExists(tripDto.Id);
-
+                
                 //check validity of tripDto -> valid properties ?
 
                 _tripService.Update(tripDto);
@@ -97,20 +103,15 @@ namespace BusinessLayer.Facades.FacadeImplementations
 
         public async Task Delete(int tripId)
         {
-            CheckIfTripExists(tripId);
+            if (_tripService.GetAsync(tripId).Result == null)
+            {
+                throw new ArgumentException("Trip with this ID does not exist.");
+            }
 
             using (var uow = unitOfWorkProvider.Create())
             {
                 await _tripService.Delete(tripId);
                 await uow.CommitAsync();
-            }
-        }
-
-        public void CheckIfTripExists(int id)
-        {
-            if (GetTripByIdAsync(id).Result == null)
-            {
-                throw new ArgumentException("Trip with this ID does not exist.");
             }
         }
     }

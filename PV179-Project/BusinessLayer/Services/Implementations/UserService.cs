@@ -37,7 +37,7 @@ namespace BusinessLayer.Services.Implementations
         public bool EmailAlreadyExistsAsync(string mail)
         {
             var res = QueryObject.ExecuteQuery(new UserFilterDto { MailAddress = mail });
-            return (res.Items.Count == 1);
+            return (res.Items.Count >= 1);
         }
 
     }
