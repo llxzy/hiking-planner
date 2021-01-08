@@ -29,9 +29,10 @@ namespace API.Controllers
 
         [HttpPost]
         [ApiVersion("1.0")]
-        public async Task<ActionResult> CreateChallenge([FromBody] ChallengeType challenge, int userId, int count)
+        //public async Task<ActionResult> CreateChallenge([FromBody] ChallengeType challenge, int userId, int count)
+        public async Task<ActionResult> CreateChallenge([FromBody] ChallengeCreateDto dto)
         {
-            await _challengeFacade.Create(count, userId, challenge);
+            await _challengeFacade.Create(dto.Count, dto.Id, dto.Type);
             return Ok();
         }
 
