@@ -1,5 +1,9 @@
 @model Application.Models.UserModels.UserModel
 
+@{
+    ViewData["Title"] = "Profile";
+}
+
 <h1>@Model.Name</h1>
 
 <div>
@@ -16,6 +20,15 @@
         </dt>
         <dt class="col-sm-10">
             @Html.DisplayFor(model => model.Role)
+        </dt>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Challenges)
+        </dt>
+        <dt class="col-sm-10">
+            @foreach (var c in Model.Challenges)
+            {
+                <p>@c.TripCount</p>
+            }
         </dt>
     </dl>
 </div>
