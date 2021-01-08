@@ -13,13 +13,13 @@
         <form asp-action="Login">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="MailAddress" class="control-label"></label>
+                <label asp-for="MailAddress" class="control-label">Email</label>
                 <input asp-for="MailAddress" class="form-control" />
                 <span asp-validation-for="MailAddress" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Password" class="control-label"></label>
-                <input asp-for="Password" class="form-control" />
+                <label asp-for="Password" class="control-label">Password</label>
+                <input type="password" autocomplete="off" asp-for="Password" class="form-control" />
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
             <div class="form-group">

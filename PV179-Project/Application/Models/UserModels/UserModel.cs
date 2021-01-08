@@ -7,7 +7,7 @@ using DataAccessLayer.Enums;
 
 namespace Application.Models.UserModels
 {
-    public class UserModel
+    public class UserModel : BaseModel
     {
         public string Name { get; set; }
         public string MailAddress { get; set; }

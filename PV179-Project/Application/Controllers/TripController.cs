@@ -9,12 +9,14 @@ using Application.Models.TripModels;
 using Application.Models.LocationModels;
 using Application.Models.TripLocationModels;
 using Application.Models.UserModels;
+using AutoMapper;
 
 namespace Application.Controllers
 {
     public class TripController : Controller
     {
         private ITripFacade _tripFacade;
+        private IMapper mapper = new Mapper(new MapperConfiguration(ApplicationMappingConfig.ConfigureMap));
 
         public TripController(ITripFacade facade)
         {
@@ -108,11 +110,13 @@ namespace Application.Controllers
                 return RedirectToAction("Index", "Trip");
             }
             //todo return View(mapper for tripdto to tripmodel)
+            //TODO fix mapping
             return View(new TripModel
             {
                 // :(
+                Id = trip.Id,
                 Title = trip.Title,
-                Author = new UserModel{Name = "trip.Author.Name"},
+                Author = mapper.Map<UserModel>(trip.Author),
                 Description = trip.Description,
                 Done = trip.Done,
                 StartDate = trip.StartDate,
@@ -125,6 +129,14 @@ namespace Application.Controllers
                         })
                     .ToList(),
             });
+            //return View(mapper.Map<TripModel>(trip));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteTrip(string Id)
+        {
+            await _tripFacade.Delete(int.Parse(Id));
+            return RedirectToAction("Profile", "User");
         }
         
     }

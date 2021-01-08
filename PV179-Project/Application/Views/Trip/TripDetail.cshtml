@@ -3,12 +3,18 @@
 <h1>
     @Html.DisplayFor(model => model.Title)
 </h1>
-<button class="trip-detail-button">
-    Edit
-</button>
-<button class="trip-detail-button">
-    Delete
-</button>
+
+@if (User.Identity.IsAuthenticated && int.Parse(User.Identity.Name) == Model.Author.Id)
+{
+    <button class="trip-detail-button">
+        Edit
+    </button>
+
+    using (Html.BeginForm("DeleteTrip", "Trip", new {Id = Model.Id}))
+    {
+        <input type="submit" value="Delete" class="btn btn-primary"/>
+    }
+}
 
 <div>
     <hr />
