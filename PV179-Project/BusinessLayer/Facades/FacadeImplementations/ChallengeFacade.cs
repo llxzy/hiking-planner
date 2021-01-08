@@ -36,7 +36,7 @@ namespace BusinessLayer.Facades.FacadeImplementations
                 };
                 var challengeDto = new ChallengeDto()
                 {
-                    ChallengeUserDTO = user,
+                    User = user,
                     Finished = false,
                     StartDate = startDate,
                     EndDate = endDate,
