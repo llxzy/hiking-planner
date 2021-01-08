@@ -13,7 +13,7 @@ namespace Application.Models.UserModels
         [StringLength(40, ErrorMessage = "Maximum length for username is 40 characters")]
         public string Name { get; set; }
         [Required]
-        [EmailAddress]
+        [EmailAddress(ErrorMessage = "The Email field is not a valid e-mail address")]
         [StringLength(50, ErrorMessage = "Maximum length for email is 50 characters")]
         public string MailAddress { get; set; }
         [Required]
