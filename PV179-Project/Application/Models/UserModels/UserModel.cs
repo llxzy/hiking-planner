@@ -14,9 +14,9 @@ namespace Application.Models.UserModels
         public string PasswordHash { get; set; }
         public List<UserTripModel> Trips { get; set; }
         
-        //public IEnumerable<ChallengeDto> Challenges { get; set; }
+        public IEnumerable<ChallengeDto> Challenges { get; set; }
         
-        //public IList<UserReviewVoteDto> UserReviewVotes { get; set; }
+        public IList<UserReviewVoteDto> UserReviewVotes { get; set; }
         
         public UserRole Role { get; set; }
     }
