@@ -11,9 +11,12 @@ namespace Application.Models.UserModels
         public string Name { get; set; }
         public string MailAddress { get; set; }
         public string PasswordHash { get; set; }
-        //public IEnumerable<UserTripDto> Trips { get; set; }
+        public List<UserTripModel> Trips { get; set; }
+        
         //public IEnumerable<ChallengeDto> Challenges { get; set; }
+        
         //public IList<UserReviewVoteDto> UserReviewVotes { get; set; }
+        
         public UserRole Role { get; set; }
     }
 }

@@ -8,7 +8,7 @@ using Application.Models.UserModels;
 
 namespace Application.Models.TripModels
 {
-    public class TripModel
+    public class TripModel : BaseModel
     {
         public string Title { get; set; }
         public string Description { get; set; }
