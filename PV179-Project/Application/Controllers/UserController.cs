@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Razor.Compilation;
 using Application.Models.UserModels;
 using AutoMapper;
+using DataAccessLayer.Enums;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 
@@ -151,6 +152,26 @@ namespace Application.Controllers
             var user = _userFacade.GetAsync(int.Parse(id)).Result;
             return View(mapper.Map<UserModel>(user));
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Search(string searchTerm)
+        {
+            var user = _userFacade.GetUserByMail(searchTerm);
+            if (user == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            return View("Profile", mapper.Map<UserModel>(user));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(int id)
+        {
+            await _userFacade.DeleteLoggedUser(id);
+            return RedirectToAction("Index", "Home");
+            //todo deleted successfully || delet confirm
+        }
+        
         
     }
 }

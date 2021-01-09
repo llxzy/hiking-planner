@@ -35,8 +35,8 @@ namespace API.Controllers
         public async Task<ActionResult> CreateChallenge([FromBody] ChallengeCreateDto dto)
         {
             //await _challengeFacade.Create(dto.Count, dto.Id, dto.Type);
-            var user = await _userFacade.GetAsync(dto.Id);
-            await _challengeFacade.Create(dto.Count, user, dto.Type);
+            var user = await _userFacade.GetAsync(dto.UserId);
+            await _challengeFacade.Create(dto.TripCount, user, dto.Type);
             return Ok();
         }
 

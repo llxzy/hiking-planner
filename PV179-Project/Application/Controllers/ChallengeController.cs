@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using BusinessLayer.Facades.FacadeInterfaces;
 using Microsoft.AspNetCore.Mvc;
 using Application.Models.ChallengeModels;
@@ -7,10 +8,13 @@ namespace Application.Controllers
     public class ChallengeController : Controller
     {
         private IChallengeFacade _challengeFacade;
+        private readonly IUserFacade _userFacade;
         
-        public ChallengeController(IChallengeFacade facade)
+        public ChallengeController(IChallengeFacade facade, IUserFacade userFacade)
         {
             _challengeFacade = facade;
+            _userFacade = userFacade;
+
         }
         // GET
         public IActionResult Index()
@@ -25,9 +29,10 @@ namespace Application.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateChallenge(ChallengeCreateModel challengeCreateModel)
+        public async Task<IActionResult> CreateChallenge(ChallengeCreateModel challengeCreateModel)
         {
-            _challengeFacade.Create(challengeCreateModel);
+            var user = await _userFacade.GetAsync(challengeCreateModel.UserId);
+            await _challengeFacade.Create(challengeCreateModel.TripCount, user, challengeCreateModel.Type);
             return RedirectToAction("Profile", "User");
         }
     }
