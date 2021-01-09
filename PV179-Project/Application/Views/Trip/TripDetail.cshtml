@@ -1,5 +1,7 @@
 ﻿@model Application.Models.TripModels.TripModel;
 
+<link rel="stylesheet" href="~/css/custom.css" />
+
 <h1>
     @Html.DisplayFor(model => model.Title)
 </h1>
@@ -38,7 +40,7 @@
             @Html.DisplayFor(model => model.Done)
         </dd>
     </dl>
-    <h2 class="trip-locatios">
+    <h2 class="trip-subheader">
         @Html.DisplayNameFor(model => model.TripLocations)
     </h2>
     <ol type="1">
@@ -52,11 +54,25 @@
         }
 
     </ol>
-    
-    @{ 
-        foreach (var t in Model.Reviews)
-        {
 
+    <h2 class="trip-subheader">
+        @Html.DisplayNameFor(model => model.Reviews)
+    </h2>
+
+    @{
+        foreach (var review in Model.Reviews)
+        {
+            <div class="rd">
+
+                    <p class="rp">
+                        <strong>@review.Author.Name</strong> (@review.Author.MailAddress)
+                    </p>
+
+                <p class="review-text">
+                    @review.Text
+                </p>
+
+            </div>
         }
     }
 </div>

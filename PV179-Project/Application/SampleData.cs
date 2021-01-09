@@ -7,7 +7,7 @@ using Application.Models.TripLocationModels;
 using Application.Models.LocationModels;
 using Application.Models.UserModels;
 using Application.Models.ChallengeModels;
-//using Application.Models.ReviewModels;
+using Application.Models.ReviewModels;
 using Application;
 
 
@@ -42,13 +42,13 @@ namespace Application
                 Challenges = new List<ChallengeModel>()
             };
 
-            //var user2 = new UserModel
-            //{
-            //    //Id = 788987,
-            //    Name = "Whatever2",
-            //    MailAddress = "aa222a@bbbb.com",
-            //    Trips = new List<Models.UserTripModel>()
-            //};
+            var user2 = new UserModel
+            {
+                Id = 788987,
+                Name = "user2 name",
+                MailAddress = "aa222a@bbbb.com",
+                Trips = new List<Models.UserTripModel>()
+            };
 
 
             var trip1 = new TripModel
@@ -58,7 +58,8 @@ namespace Application
                 Description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel sodales justo. Cras nisl mi, finibus at metus a, blandit elementum urna. Vivamus dictum eu ipsum vel rutrum. Pellentesque ac nunc tempus, rhoncus eros in, sodales urna. Morbi convallis felis vel ligula viverra, vel vestibulum nibh rutrum. ",
                 Done = true,
                 Author = user1,
-                TripLocations = new List<TripLocationModel>()
+                TripLocations = new List<TripLocationModel>(),
+                Reviews = new List<ReviewModel>()
             };
 
             var trip2 = new TripModel
@@ -115,6 +116,29 @@ namespace Application
             };
 
             user1.Challenges.Add(chall);
+
+
+
+            var review1 = new ReviewModel() { 
+                Author = user2,
+                ReviewedTrip = trip1,
+                Text = "Interdum et malesuada fames ac ante ipsum primis in faucibus. Fusce ut elit egestas, pulvinar velit et, pretium neque. Aliquam tempor mauris dui, vel ornare lacus facilisis in.", 
+                DownvoteCount = 1, 
+                UpvoteCount = 2 
+            };
+
+            trip1.Reviews.Add(review1);
+
+            var review2 = new ReviewModel()
+            {
+                Author = user1,
+                ReviewedTrip = trip1,
+                Text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean tincidunt, metus ut consectetur mattis, est massa maximus nulla, a vulputate diam enim in leo. Ut id urna at lacus sollicitudin tempor. Ut elementum pulvinar nunc, nec viverra risus ultrices vestibulum. Vestibulum suscipit odio ligula, sit amet fringilla eros volutpat eget. Nulla mollis ligula ante, sed rhoncus odio facilisis ac. Quisque sed metus laoreet, finibus erat nec, congue libero.",
+                DownvoteCount = 1,
+                UpvoteCount = 2
+            };
+
+            trip1.Reviews.Add(review2);
 
             return user1;
         }

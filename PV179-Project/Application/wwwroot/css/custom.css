@@ -1,15 +1,20 @@
 ﻿
+.trip-subheader {
+}
+
 .tp-form {
-    background-color: #dedede;
+    background-color: #f2f7f7;
     border: 1px solid #b5b5b5;
     margin: 10px;
+    border-radius: 5px;
 }
 
 
-    .tp-form:hover {
-        text-decoration: none;
-        background-color: #c9c9c9;
-    }
+.tp-form:hover {
+    text-decoration: none;
+    background-color: #d5dede;
+}
+
 .trip-redirect-a {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-size: 12px;
@@ -49,6 +54,28 @@
     color: black;
     margin-left: 10px;
     margin-bottom: 1px;
+}
+
+.rd {
+    background-color: #f2f7f7;
+    border: 1px solid #dce3e3;
+    border-radius: 5px;
+    margin: 20px;
+    padding: 5px;
+}
+
+.rp {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 16px;
+    color: #283538;
+    margin: 3px;
+}
+
+.review-text {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 14px;
+    color: black;
+    margin: 3px;
 }
 
 

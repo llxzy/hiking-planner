@@ -1,6 +1,8 @@
 @using DataAccessLayer.Enums
 @model Application.Models.UserModels.UserModel
-    <link rel="stylesheet" href="~/css/custom.css" />
+
+<link rel="stylesheet" href="~/css/custom.css" />
+
 @{
     ViewData["Title"] = "Profile";
 }
@@ -66,12 +68,10 @@
                 }
             }
         </ol>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Trips)
-        </dt>
-
 
     </dl>
+
+<h2 class="trip-subheader">@Html.DisplayNameFor(model => model.Trips)</h2>
 @{
     foreach (var trip in Model.Trips)
     {
