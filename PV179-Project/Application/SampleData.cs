@@ -6,6 +6,7 @@ using Application.Models.TripModels;
 using Application.Models.TripLocationModels;
 using Application.Models.LocationModels;
 using Application.Models.UserModels;
+using Application.Models.ChallengeModels;
 //using Application.Models.ReviewModels;
 using Application;
 
@@ -35,9 +36,10 @@ namespace Application
             var user1 = new UserModel
             {
                 //Id = 787,
-                Name = "Whatever",
+                Name = "user1 SampleName",
                 MailAddress = "aaa@bbbb.com",
-                Trips = new List<Models.UserTripModel>()                
+                Trips = new List<Models.UserTripModel>(),
+                Challenges = new List<ChallengeModel>()
             };
 
             //var user2 = new UserModel
@@ -51,6 +53,7 @@ namespace Application
 
             var trip1 = new TripModel
             {
+                Id = 1111,
                 Title = "Galapagy & Everest trip",
                 Description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel sodales justo. Cras nisl mi, finibus at metus a, blandit elementum urna. Vivamus dictum eu ipsum vel rutrum. Pellentesque ac nunc tempus, rhoncus eros in, sodales urna. Morbi convallis felis vel ligula viverra, vel vestibulum nibh rutrum. ",
                 Done = true,
@@ -60,6 +63,7 @@ namespace Application
 
             var trip2 = new TripModel
             {
+                Id = 2222,
                 Title = "TRIP2 TITLE",
                 Description = "Quisque arcu eros, venenatis eget turpis quis, fringilla porttitor dolor. Vestibulum volutpat euismod nunc, id ultrices tortor luctus eu.  .... :)",
                 Done = false,
@@ -98,6 +102,19 @@ namespace Application
 
             user1.Trips.Add(userTrip1);
             user1.Trips.Add(userTrip2);
+
+            var chall = new ChallengeModel()
+            {
+                StartDate = DateTime.Today,
+                EndDate = DateTime.Today.AddDays(7),
+                TripCount = 2,
+                UserId = user1.Id,
+                ChallengeUser = user1,
+                Finished = false,
+                Type = DataAccessLayer.Enums.ChallengeType.Weekly
+            };
+
+            user1.Challenges.Add(chall);
 
             return user1;
         }

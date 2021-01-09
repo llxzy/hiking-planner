@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using BusinessLayer.DataTransferObjects;
 using DataAccessLayer.Enums;
+using Application.Models.ChallengeModels;
 
 namespace Application.Models.UserModels
 {
@@ -14,7 +15,7 @@ namespace Application.Models.UserModels
         public string PasswordHash { get; set; }
         public List<UserTripModel> Trips { get; set; }
         
-        public IList<ChallengeDto> Challenges { get; set; }
+        public IList<ChallengeModel> Challenges { get; set; }
         
         public IList<UserReviewVoteDto> UserReviewVotes { get; set; }
         

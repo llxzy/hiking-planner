@@ -1,0 +1,54 @@
+﻿
+.tp-form {
+    background-color: #dedede;
+    border: 1px solid #b5b5b5;
+    margin: 10px;
+}
+
+
+    .tp-form:hover {
+        text-decoration: none;
+        background-color: #c9c9c9;
+    }
+.trip-redirect-a {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 12px;
+    color: yellow;
+}
+
+.trip-preview:hover {
+    text-decoration: none;
+}
+
+.tp-div {
+    margin: 10px;
+}
+
+.tp-title {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: black;
+    text-decoration: none;
+    font-size: 18px;
+    margin-left: 10px;
+    margin-bottom: 3px;
+}
+
+.tp-date {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 10px;
+    font-style: italic;
+    color: black;
+    margin-left: 10px;
+    margin-bottom: 1px;
+}
+
+
+.tp-description {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 12px;
+    color: black;
+    margin-left: 10px;
+    margin-bottom: 1px;
+}
+
+

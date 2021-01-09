@@ -1,6 +1,6 @@
 @using DataAccessLayer.Enums
 @model Application.Models.UserModels.UserModel
-
+    <link rel="stylesheet" href="~/css/custom.css" />
 @{
     ViewData["Title"] = "Profile";
 }
@@ -66,5 +66,31 @@
                 }
             }
         </ol>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Trips)
+        </dt>
+
+
     </dl>
+@{
+    foreach (var trip in Model.Trips)
+    {
+        using (Html.BeginForm("TripDetail", "Trip", new { tripId = trip.Trip.Id }, FormMethod.Post, null, htmlAttributes: new { @class = "trip-preview tp-form" }))
+        {
+            <a href="@Url.Action("TripDetail","Trip", new { tripId = trip.Trip.Id })" class="trip-preview trip-redirect-a">
+                <div class="trip-preview tp-div">
+                    <h3 class="trip-preview tp-title">
+                        @trip.Trip.Title
+                    </h3>
+                    <p class="trip-preview tp-date">
+                        @trip.Trip.StartDate
+                    </p>
+                    <p class="trip-preview tp-description">
+                        @trip.Trip.Description
+                    </p>
+                </div>
+            </a>
+        }
+    }
+}
 </div>
