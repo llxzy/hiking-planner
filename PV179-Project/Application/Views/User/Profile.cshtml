@@ -24,11 +24,16 @@
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Challenges)
         </dt>
-        <dt class="col-sm-10">
-            @foreach (var c in Model.Challenges)
-            {
-                <p>@c.TripCount</p>
+        <ol type="1">
+            @{
+                @Model.Challenges.Count()
+                foreach (var c in Model.Challenges)
+                {
+                    <li class="challenge-info">
+                        @c.StartDate
+                    </li>
+                }
             }
-        </dt>
+        </ol>
     </dl>
 </div>

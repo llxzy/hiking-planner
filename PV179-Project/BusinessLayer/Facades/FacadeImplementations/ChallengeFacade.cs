@@ -1,11 +1,13 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using BusinessLayer.DataTransferObjects;
 using BusinessLayer.Facades.FacadeInterfaces;
 using BusinessLayer.Services.Interfaces;
 using DataAccessLayer.Enums;
 using Infrastructure.UnitOfWork;
+using Microsoft.EntityFrameworkCore;
 
 namespace BusinessLayer.Facades.FacadeImplementations
 {
@@ -25,6 +27,9 @@ namespace BusinessLayer.Facades.FacadeImplementations
             using (var uow = unitOfWorkProvider.Create())
             {
                 var user = await _userService.GetAsync(userId);
+                var x = uow.Context.Entry(uow.Context.Users.First(u => u.Id == user.Id)).State;
+                //uow.Context.Entry(uow.Context.Users.First(u => u.Id == user.Id)).State = EntityState.Detached;
+                // or it fucks up here? no idea ... :(
                 var startDate = DateTime.Today;
                 var endDate = type switch
                 {
@@ -36,14 +41,71 @@ namespace BusinessLayer.Facades.FacadeImplementations
                 };
                 var challengeDto = new ChallengeDto()
                 {
-                    User = user,
+                    //UserId = user.Id,
+                    // or added to tracker here
+                    // ... somewhere
+                    //User = user,
                     Finished = false,
                     StartDate = startDate,
                     EndDate = endDate,
                     TripCount = count,
                     Type = type
                 };
-                await _challengeService.Create(challengeDto);
+                // TODO add to user and create at the same time causes exceptions
+                // user is given a challenge and is a different user than stored in the dto?
+                // solution: remove user, keep id only?
+                // or solution2: create challenge here and add to user else where? (where though, another _service call?)
+                // attaching and detaching? does it work with updating and state.modified?
+                
+                
+                //(no way this is good) challengeDto.User.Challenges.Add(challengeDto);
+                
+                //uow.Context.Entry(uow.Context.Users.First(u => u.Id == user.Id)).State = EntityState.Detached;
+                
+                //_userService.Update(user);
+                //await uow.CommitAsync();
+                //uow.Context.Entry(uow.Context.Users.First(u => u.Id == user.Id)).State = EntityState.Detached;
+                
+                // add explicit detach in create/update?
+                // todo reorder this to make sense, same in generic repo
+                // or nuke and rewrite xd
+                
+                //await uow.CommitAsync();
+                
+                //await _challengeService.Create(challengeDto);
+                user.Challenges.Add(challengeDto);
+                _userService.Update(user);
+                await uow.CommitAsync();
+            }
+        }
+
+        public async Task Create(int count, UserDto user, ChallengeType type)
+        {
+            using (var uow = unitOfWorkProvider.Create())
+            {
+                var startDate = DateTime.Today;
+                var endDate = type switch
+                {
+                    ChallengeType.Daily => startDate.AddDays(1),
+                    ChallengeType.Monthly => startDate.AddMonths(1),
+                    ChallengeType.Weekly => startDate.AddDays(7),
+                    ChallengeType.Yearly => startDate.AddYears(1),
+                    _ => throw new ArgumentException("Unknown challenge type")
+                };
+                var challengeDto = new ChallengeDto()
+                {
+                    //UserId = user.Id,
+                    // or added to tracker here
+                    // ... somewhere
+                    //User = user,
+                    Finished = false,
+                    StartDate = startDate,
+                    EndDate = endDate,
+                    TripCount = count,
+                    Type = type
+                };
+                user.Challenges.Add(challengeDto);
+                _userService.Update(user);
                 await uow.CommitAsync();
             }
         }

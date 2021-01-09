@@ -5,6 +5,7 @@ namespace BusinessLayer.DataTransferObjects
 {
     public class ChallengeDto : BaseDto
     {
+        //public int UserId { get; set; }
         public UserDto User { get; set; }
         public ChallengeType Type { get; set; }
         public int TripCount { get; set; }

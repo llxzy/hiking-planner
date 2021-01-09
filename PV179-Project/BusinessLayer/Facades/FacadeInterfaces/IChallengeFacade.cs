@@ -24,6 +24,8 @@ namespace BusinessLayer.Facades.FacadeInterfaces
 
         List<ChallengeDto> ListFinishedChallenges(int userId);
 
+        Task Create(int count, UserDto user, ChallengeType type);
+
 
 
     }

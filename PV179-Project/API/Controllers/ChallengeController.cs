@@ -13,10 +13,12 @@ namespace API.Controllers
     public class ChallengeController : ControllerBase
     {
         private readonly IChallengeFacade _challengeFacade;
+        private readonly IUserFacade _userFacade;
 
-        public ChallengeController(IChallengeFacade facade)
+        public ChallengeController(IChallengeFacade facade, IUserFacade userFacade)
         {
             _challengeFacade = facade;
+            _userFacade = userFacade;
         }
 
         [HttpGet]
@@ -32,7 +34,9 @@ namespace API.Controllers
         //public async Task<ActionResult> CreateChallenge([FromBody] ChallengeType challenge, int userId, int count)
         public async Task<ActionResult> CreateChallenge([FromBody] ChallengeCreateDto dto)
         {
-            await _challengeFacade.Create(dto.Count, dto.Id, dto.Type);
+            //await _challengeFacade.Create(dto.Count, dto.Id, dto.Type);
+            var user = await _userFacade.GetAsync(dto.Id);
+            await _challengeFacade.Create(dto.Count, user, dto.Type);
             return Ok();
         }
 

@@ -17,5 +17,11 @@ namespace DataAccessLayer.DataClasses
         public ICollection<Challenge> Challenges { get; set; }
         public UserRole Role { get; set; }
         public ICollection<UserReviewVote> UserReviewVotes { get; set; }
+
+        /*
+        public User()
+        {
+            Challenges = new List<Challenge>();
+        }*/
     }
 }

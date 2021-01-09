@@ -28,10 +28,10 @@ namespace API
         // original public void ConfigureServices(IServiceCollection services)
         public void ConfigureServices(IServiceCollection services)
         {
-            //TODO move connection string to appsettings
             // Setup for database context connection
             services.AddDbContext<DatabaseContext>(options => options
-                .UseNpgsql(@"Host=localhost;Database=tripdb;Username=postgres;Password=postgres;Port=5432"));
+                .UseNpgsql(@"Host=localhost;Database=tripdb;Username=postgres;Password=postgres;Port=5432")
+                .EnableSensitiveDataLogging()); //added
             
             services.AddApiVersioning(x =>
             {
