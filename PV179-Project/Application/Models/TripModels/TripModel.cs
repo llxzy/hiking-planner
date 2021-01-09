@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Application.Models.TripLocationModels;
 using Application.Models.UserModels;
+using Application.Models.ReviewModels;
 
 namespace Application.Models.TripModels
 {
@@ -16,5 +17,8 @@ namespace Application.Models.TripModels
         public List<TripLocationModel> TripLocations { get; set; }
         public DateTime StartDate { get; set; }
         public bool Done { get; set; }
+
+        public List<ReviewModel> Reviews { get; set; }
+        public List<UserTripModel> Participants { get; set; }
     }
 }

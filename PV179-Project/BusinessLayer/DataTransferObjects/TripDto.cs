@@ -13,5 +13,9 @@ namespace BusinessLayer.DataTransferObjects
         public UserDto Author { get; set; }
         public string Description { get; set; }
         public string Title { get; set; }
+
+        public List<ReviewDto> Reviews { get; set; }
+        public List<UserTripDto> Participants { get; set; }
+
     }
 }
