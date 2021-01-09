@@ -10,11 +10,11 @@
 &lt;/SessionState&gt;</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=f3788409_002Dd8df_002D4a61_002D8adc_002Dacadd1a0fd94/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="InfrastructureTests" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
   &lt;TestAncestor&gt;
-    &lt;TestId&gt;xUnit::2A659F39-E55B-43C6-AA35-EE19806F4400::.NETCoreApp,Version=v5.0::Tests.InfrastructureTests&lt;/TestId&gt;
-    &lt;TestId&gt;xUnit::2A659F39-E55B-43C6-AA35-EE19806F4400::.NETCoreApp,Version=v5.0::Tests.UtilsTest.DateParsingTest&lt;/TestId&gt;
-    &lt;TestId&gt;xUnit::2A659F39-E55B-43C6-AA35-EE19806F4400::.NETCoreApp,Version=v5.0::Tests.UtilsTest&lt;/TestId&gt;
-    &lt;TestId&gt;xUnit::2A659F39-E55B-43C6-AA35-EE19806F4400::.NETCoreApp,Version=v5.0::Tests.MappingTest.UserToDtoMapTest&lt;/TestId&gt;
-    &lt;TestId&gt;xUnit::2A659F39-E55B-43C6-AA35-EE19806F4400::.NETCoreApp,Version=v5.0::Tests.MappingTest&lt;/TestId&gt;
-    &lt;TestId&gt;xUnit::2A659F39-E55B-43C6-AA35-EE19806F4400::.NETCoreApp,Version=v5.0::Tests.QueryObjectTest.ChallengeQueryObjectTest&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::2A659F39-E55B-43C6-AA35-EE19806F4400::net5.0::Tests.InfrastructureTests&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::2A659F39-E55B-43C6-AA35-EE19806F4400::net5.0::Tests.UtilsTest.DateParsingTest&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::2A659F39-E55B-43C6-AA35-EE19806F4400::net5.0::Tests.UtilsTest&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::2A659F39-E55B-43C6-AA35-EE19806F4400::net5.0::Tests.MappingTest.UserToDtoMapTest&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::2A659F39-E55B-43C6-AA35-EE19806F4400::net5.0::Tests.MappingTest&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::2A659F39-E55B-43C6-AA35-EE19806F4400::net5.0::Tests.QueryObjectTest.ChallengeQueryObjectTest&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>
