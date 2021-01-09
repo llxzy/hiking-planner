@@ -1,5 +1,6 @@
 using BusinessLayer.Facades.FacadeInterfaces;
 using Microsoft.AspNetCore.Mvc;
+using Application.Models.ChallengeModels;
 
 namespace Application.Controllers
 {
@@ -17,9 +18,17 @@ namespace Application.Controllers
             return View();
         }
         
+        [HttpGet]
         public IActionResult CreateChallenge()
         {
             return View();
+        }
+
+        [HttpPost]
+        public IActionResult CreateChallenge(ChallengeCreateModel challengeCreateModel)
+        {
+            _challengeFacade.Create(challengeCreateModel);
+            return RedirectToAction("Profile", "User");
         }
     }
 }

@@ -1,8 +1,8 @@
 using DataAccessLayer.Enums;
 
-namespace Application.Models.ChallangeModels
+namespace Application.Models.ChallengeModels
 {
-    public class ChallangeCreateModel
+    public class ChallengeCreateModel
     {
         public int UserId { get; set; }
         public ChallengeType Type { get; set; }
