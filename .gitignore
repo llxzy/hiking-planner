@@ -8,3 +8,4 @@ appsettings.json
 .idea
 /PV179-Project/Application/Views/Shared/_ReviewDetail.cshtml
 /PV179-Project/Application/Models/ReviewModels/ReviewShowModel.cs
+*.user
