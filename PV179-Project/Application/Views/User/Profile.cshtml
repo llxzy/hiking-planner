@@ -57,41 +57,80 @@
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Challenges)
         </dt>
-        <ol type="1">
-            @{
-                @Model.Challenges.Count()
-                foreach (var c in Model.Challenges)
-                {
-                    <li class="challenge-info">
-                        @c.StartDate
-                    </li>
-                }
-            }
-        </ol>
-
     </dl>
 
-<h2 class="trip-subheader">@Html.DisplayNameFor(model => model.Trips)</h2>
-@{
-    foreach (var trip in Model.Trips)
-    {
-        //using (Html.BeginForm("TripDetail", "Trip", new { tripId = trip.Trip.Id }, FormMethod.Post, null, htmlAttributes: new { @class = "trip-preview tp-form" }))
-        using (Html.BeginForm("TripDetail", "Trip"))
+    <h2 class="trip-subheader">
+        Active challenges (@Model.Challenges.Where(a => a.Finished == false).Count()):
+    </h2>
+
+    @{
+        var yearly = Model.Challenges.Where(c => c.Type == ChallengeType.Yearly);
+        var monthly = Model.Challenges.Where(c => c.Type == ChallengeType.Monthly);
+        var weekly = Model.Challenges.Where(c => c.Type == ChallengeType.Weekly);
+        @if (yearly.Count() > 0)
         {
-            <a href="@Url.Action("TripDetail","Trip", new { tripId = trip.Trip.Id })" class="trip-preview trip-redirect-a">
-                <div class="trip-preview tp-div">
-                    <h3 class="trip-preview tp-title">
-                        @trip.Trip.Title
-                    </h3>
-                    <p class="trip-preview tp-date">
-                        @trip.Trip.StartDate
+            <div class="tp-div" style="margin:5px">
+
+            <h3 class="tp-title">Year challenges</h3>
+            @foreach (var c in yearly)
+            {
+                <p class="tp-description">
+                    @c.StartDate.Date.ToShortDateString() /
+                    Trip goal: @c.TripCount /
+=               </p>
+            }
+            </div>
+         }
+
+        @if (monthly.Count() > 0)
+        {
+            <div class="tp-div" style="margin:5px">
+                <h3 class="tp-title">Month challenges</h3>
+                @foreach (var c in monthly)
+                {
+                    <p class="tp-description">
+                        Start date: @c.StartDate.Date.ToShortDateString(),
+                        Trip goal: @c.TripCount 
                     </p>
-                    <p class="trip-preview tp-description">
-                        @trip.Trip.Description
-                    </p>
-                </div>
-            </a>
+                }
+            </div>
         }
-    }
-}
-</div>
+
+        @if (weekly.Count() > 0)
+        {
+            <div class="tp-div" style="margin:5px">
+                <h3 class="tp-title">Weekly challenges</h3>
+                @foreach (var c in weekly)
+                {
+                    <p class="tp-description">
+                        Start date: @c.StartDate.Date.ToShortDateString(),
+                        Trip goal: @c.TripCount
+                    </p>
+                }
+            </div>
+        }
+        }
+    <br />
+        <h2 class="trip-subheader">@Html.DisplayNameFor(model => model.Trips)</h2>
+        @{
+            foreach (var trip in Model.Trips)
+            {
+                using (Html.BeginForm("TripDetail", "Trip", trip.Trip.Id, FormMethod.Post, null, htmlAttributes: new { @class = "trip-preview tp-form" }))
+                {
+                    <a href="@Url.Action("TripDetail","Trip", new { tripId = trip.Trip.Id })" class="trip-preview trip-redirect-a">
+                        <div class="trip-preview tp-div">
+                            <h3 class="trip-preview tp-title">
+                                @trip.Trip.Title
+                            </h3>
+                            <p class="trip-preview tp-date">
+                                @trip.Trip.StartDate
+                            </p>
+                            <p class="trip-preview tp-description">
+                                @trip.Trip.Description
+                            </p>
+                        </div>
+                    </a>
+                }
+            }
+        }
+    </div>

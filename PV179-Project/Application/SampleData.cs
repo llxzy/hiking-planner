@@ -116,7 +116,16 @@ namespace Application
             };
 
             user1.Challenges.Add(chall);
-
+            user1.Challenges.Add(new ChallengeModel()
+            {
+                StartDate = DateTime.Today,
+                EndDate = DateTime.Today.AddDays(30),
+                TripCount = 2,
+                UserId = user1.Id,
+                ChallengeUser = user1,
+                Finished = false,
+                Type = DataAccessLayer.Enums.ChallengeType.Monthly
+            });
 
 
             var review1 = new ReviewModel() { 

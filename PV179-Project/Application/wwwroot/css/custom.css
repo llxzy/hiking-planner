@@ -1,5 +1,6 @@
 ﻿
 .trip-subheader {
+    color:red;
 }
 
 .tp-form {
@@ -86,4 +87,15 @@
 .review-vote:hover {
     color: #912d2d;
     text-decoration: none;
+}
+
+.challenge-type {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 16px;
+    color: red;
+}
+
+.challenge-p {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 13px;
 }
