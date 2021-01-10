@@ -62,17 +62,23 @@
     @{
         foreach (var review in Model.Reviews)
         {
-            <div class="rd">
+        <div class="rd">
 
-                    <p class="rp">
-                        <strong>@review.Author.Name</strong> (@review.Author.MailAddress)
-                    </p>
+            <p class="rp">
+                <strong>@review.Author.Name</strong> (@review.Author.MailAddress)
+            </p>
 
-                <p class="review-text">
-                    @review.Text
-                </p>
+            <p class="review-text">
+                @review.Text
+            </p>
+            <a class="review-vote" asp-area="" asp-controller="Review" asp-action="Upvote">
+                🡅 @review.UpvoteCount
+            </a>
+            <a class="review-vote" asp-area="" asp-controller="Review" asp-action="Downvote">
+                🡇 @review.DownvoteCount
+            </a>
 
-            </div>
+        </div>
         }
     }
 </div>
