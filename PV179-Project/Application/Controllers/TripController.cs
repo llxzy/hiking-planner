@@ -9,6 +9,7 @@ using Application.Models.TripModels;
 using Application.Models.LocationModels;
 using Application.Models.TripLocationModels;
 using Application.Models.UserModels;
+using Application.Models.ReviewModels;
 using AutoMapper;
 
 namespace Application.Controllers
@@ -16,11 +17,13 @@ namespace Application.Controllers
     public class TripController : Controller
     {
         private ITripFacade _tripFacade;
+        private IReviewFacade _reviewFacade;
         private IMapper mapper = new Mapper(new MapperConfiguration(ApplicationMappingConfig.ConfigureMap));
 
-        public TripController(ITripFacade facade)
+        public TripController(ITripFacade facade, IReviewFacade reviewFacade)
         {
             _tripFacade = facade;
+            _reviewFacade = reviewFacade;
         }
         
         public IActionResult Index()
@@ -111,9 +114,16 @@ namespace Application.Controllers
             }
             //todo return View(mapper for tripdto to tripmodel)
             //TODO fix mapping
+            var reviews = _reviewFacade.ListReviewsByTrip(trip.Id, trip.Author.Id);
+            var reviewModels = new List<ReviewModel>();
+            foreach (var r in reviews)
+            {
+                reviewModels.Add(mapper.Map<ReviewModel>(r));
+            }
+
             return View(new TripModel
             {
-                // :(
+                // :'(
                 Id = trip.Id,
                 Title = trip.Title,
                 Author = mapper.Map<UserModel>(trip.Author),
@@ -128,6 +138,7 @@ namespace Application.Controllers
                             ArrivalTime = a.ArrivalTime
                         })
                     .ToList(),
+                Reviews = reviewModels
             });
             //return View(mapper.Map<TripModel>(trip));
         }

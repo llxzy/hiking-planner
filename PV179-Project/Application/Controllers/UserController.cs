@@ -12,6 +12,8 @@ using AutoMapper;
 using DataAccessLayer.Enums;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Application.Models;
+using Application.Models.TripModels;
 
 namespace Application.Controllers
 {
@@ -19,13 +21,15 @@ namespace Application.Controllers
     {
         private readonly IUserFacade _userFacade;
         private readonly IChallengeFacade _challengeFacade;
+        private readonly ITripFacade _tripFacade;
 
         private readonly IMapper mapper = new Mapper(new MapperConfiguration(ApplicationMappingConfig.ConfigureMap));
 
-        public UserController(IUserFacade facade, IChallengeFacade challengeFacade)
+        public UserController(IUserFacade facade, IChallengeFacade challengeFacade, ITripFacade tripFacade)
         {
             _userFacade = facade;
             _challengeFacade = challengeFacade;
+            _tripFacade = tripFacade;
         }
         // GET
         public IActionResult Index()
@@ -153,6 +157,18 @@ namespace Application.Controllers
             var user = _userFacade.GetAsync(int.Parse(id)).Result;
             var challenges = _challengeFacade.ListAllUsersChallenges(int.Parse(id));
             user.Challenges = challenges;
+
+            var trips = _tripFacade.GetAllUserTrips(int.Parse(id));
+            var userTrips = new List<UserTripDto>();
+            foreach (var trip in trips)
+            {
+                userTrips.Add(new UserTripDto()
+                {
+                    User = user,
+                    Trip = trip
+                });
+            }
+            user.Trips = userTrips;
             return View(mapper.Map<UserModel>(user));
         }
 
