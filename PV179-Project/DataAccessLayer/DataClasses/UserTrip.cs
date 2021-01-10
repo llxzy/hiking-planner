@@ -5,11 +5,11 @@ namespace DataAccessLayer.DataClasses
 {
     public class UserTrip : BaseEntity
     {
-        [Key]
         public int UserId { get; set; }
+        [ForeignKey(nameof(UserId))]
         public User User { get; set; }
-        [Key]
         public int TripId { get; set; }
+        [ForeignKey(nameof(TripId))]
         public Trip Trip { get; set; }
     }
 }

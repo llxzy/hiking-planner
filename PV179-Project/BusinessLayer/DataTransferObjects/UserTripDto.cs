@@ -1,6 +1,6 @@
 ﻿namespace BusinessLayer.DataTransferObjects
 {
-    public class UserTripDto : BaseDto
+    public class UserTripDto
     {
         public UserDto User { get; set; }
 

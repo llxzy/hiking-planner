@@ -6,7 +6,7 @@
     @Html.DisplayFor(model => model.Title)
 </h1>
 
-@if (User.Identity.IsAuthenticated && int.Parse(User.Identity.Name) == Model.Author.Id)
+@if (User.Identity.IsAuthenticated) //TODO && int.Parse(User.Identity.Name) == Model.Author.Id)
 {
     <button class="trip-detail-button">
         Edit

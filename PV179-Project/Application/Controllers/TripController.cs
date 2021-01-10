@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Application.Models;
 using BusinessLayer.Facades.FacadeInterfaces;
 using BusinessLayer.DataTransferObjects;
 using Application.Models.TripModels;
@@ -118,7 +119,7 @@ namespace Application.Controllers
             }
             //todo return View(mapper for tripdto to tripmodel)
             //TODO fix mapping
-            var reviews = _reviewFacade.ListReviewsByTrip(trip.Id, trip.Author.Id);
+            var reviews = _reviewFacade.ListReviewsByTrip(trip.Id, null);//@trip.Author.Id);
             var reviewModels = new List<ReviewModel>();
             foreach (var r in reviews)
             {
@@ -165,40 +166,51 @@ namespace Application.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(TripCreateModel tripCreateModel)
+        public async Task<IActionResult> Create(TripCreateModel tripCreateModel)
         {
             var tripLocation = new TripLocationDto()
             {
-                AssociatedLocation = _locationFacade.GetLocationById(tripCreateModel.LocationId).Result
+                AssociatedLocation = await _locationFacade.GetLocationById(tripCreateModel.LocationId)
             };
             var tripLocations = new List<TripLocationDto>() { tripLocation };
 
-            var participants = new List<UserTripDto>();
-
-            foreach (var p in tripCreateModel.Participants.Split(','))
-            {
-                var user = _userFacade.GetUserByMail(p.Trim());
-                if (user != null)
-                {
-                    participants.Add(new UserTripDto()
-                    {
-                        User = user
-                    });
-                }
-            }
-
+            var participants = new List<UserTripModel>();
+            var author = await _userFacade.GetAsync(int.Parse(User.Identity.Name));
             var tripDto = new TripDto()
             {
-                Author = _userFacade.GetAsync(int.Parse(User.Identity.Name)).Result,
+                Author = author,
                 Title = tripCreateModel.Title,
                 Description = tripCreateModel.Description,
                 StartDate = tripCreateModel.StartDate,
                 Done = tripCreateModel.Done,
                 TripLocations = tripLocations,
+                //Participants = participants
+            };
+            
+            foreach (var p in tripCreateModel.Participants.Split(','))
+            {
+                var user = _userFacade.GetUserByMail(p.Trim());
+                if (user != null)
+                {
+                    participants.Add(mapper.Map<UserTripModel>(new UserTripDto()
+                    {
+                        User = user,
+                        Trip = tripDto
+                    }));
+                }
+            }
+            var tripModel = new TripModel()
+            {
+                Author = mapper.Map<UserModel>(author),
+                Title = tripCreateModel.Title,
+                Description = tripCreateModel.Description,
+                StartDate = tripCreateModel.StartDate,
+                Done = tripCreateModel.Done,
+                TripLocations = mapper.Map<List<TripLocationModel>>(tripLocations),
                 Participants = participants
             };
 
-            _tripFacade.Create(tripDto);
+            await _tripFacade.Create(tripDto);
 
             return RedirectToAction("Profile", "User");
         }

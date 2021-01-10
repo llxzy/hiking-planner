@@ -75,7 +75,8 @@
 @{
     foreach (var trip in Model.Trips)
     {
-        using (Html.BeginForm("TripDetail", "Trip", new { tripId = trip.Trip.Id }, FormMethod.Post, null, htmlAttributes: new { @class = "trip-preview tp-form" }))
+        //using (Html.BeginForm("TripDetail", "Trip", new { tripId = trip.Trip.Id }, FormMethod.Post, null, htmlAttributes: new { @class = "trip-preview tp-form" }))
+        using (Html.BeginForm("TripDetail", "Trip"))
         {
             <a href="@Url.Action("TripDetail","Trip", new { tripId = trip.Trip.Id })" class="trip-preview trip-redirect-a">
                 <div class="trip-preview tp-div">
