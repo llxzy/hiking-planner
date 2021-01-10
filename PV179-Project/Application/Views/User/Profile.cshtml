@@ -71,16 +71,17 @@
         {
             <div class="tp-div" style="margin:5px">
 
-            <h3 class="tp-title">Year challenges</h3>
-            @foreach (var c in yearly)
-            {
-                <p class="tp-description">
-                    @c.StartDate.Date.ToShortDateString() /
-                    Trip goal: @c.TripCount /
-=               </p>
-            }
+                <h3 class="tp-title">Year challenges</h3>
+                @foreach (var c in yearly)
+                {
+                    <p class="tp-description">
+                        @c.StartDate.Date.ToShortDateString() /
+                        Trip goal: @c.TripCount /
+                        =
+                    </p>
+                }
             </div>
-         }
+        }
 
         @if (monthly.Count() > 0)
         {
@@ -90,7 +91,7 @@
                 {
                     <p class="tp-description">
                         Start date: @c.StartDate.Date.ToShortDateString(),
-                        Trip goal: @c.TripCount 
+                        Trip goal: @c.TripCount
                     </p>
                 }
             </div>
@@ -109,28 +110,37 @@
                 }
             </div>
         }
-        }
+    }
+
     <br />
-        <h2 class="trip-subheader">@Html.DisplayNameFor(model => model.Trips)</h2>
-        @{
-            foreach (var trip in Model.Trips)
+
+    <a class="create-challenge-button" asp-area="" asp-controller="Challenge" asp-action="CreateChallenge">
+        <strong>+ Create new challenge</strong>
+    </a>
+
+    <br />
+    <br />
+
+    <h2 class="trip-subheader">@Html.DisplayNameFor(model => model.Trips)</h2>
+    @{
+        foreach (var trip in Model.Trips)
+        {
+            using (Html.BeginForm("TripDetail", "Trip", trip.Trip.Id, FormMethod.Post, null, htmlAttributes: new { @class = "trip-preview tp-form" }))
             {
-                using (Html.BeginForm("TripDetail", "Trip", trip.Trip.Id, FormMethod.Post, null, htmlAttributes: new { @class = "trip-preview tp-form" }))
-                {
-                    <a href="@Url.Action("TripDetail","Trip", new { tripId = trip.Trip.Id })" class="trip-preview trip-redirect-a">
-                        <div class="trip-preview tp-div">
-                            <h3 class="trip-preview tp-title">
-                                @trip.Trip.Title
-                            </h3>
-                            <p class="trip-preview tp-date">
-                                @trip.Trip.StartDate
-                            </p>
-                            <p class="trip-preview tp-description">
-                                @trip.Trip.Description
-                            </p>
-                        </div>
-                    </a>
-                }
+                <a href="@Url.Action("TripDetail","Trip", new { tripId = trip.Trip.Id })" class="trip-preview trip-redirect-a">
+                    <div class="trip-preview tp-div">
+                        <h3 class="trip-preview tp-title">
+                            @trip.Trip.Title
+                        </h3>
+                        <p class="trip-preview tp-date">
+                            @trip.Trip.StartDate
+                        </p>
+                        <p class="trip-preview tp-description">
+                            @trip.Trip.Description
+                        </p>
+                    </div>
+                </a>
             }
         }
-    </div>
+    }
+</div>
