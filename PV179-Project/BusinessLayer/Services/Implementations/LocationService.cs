@@ -41,8 +41,10 @@ namespace BusinessLayer.Services.Implementations
 
         public List<LocationDto> ListAllSortedByName(string locationName)
         {
-
-            var filter = new LocationFilterDto();
+            var filter = new LocationFilterDto()
+            {
+                Name = locationName
+            };
             filter.SortAccordingTo = nameof(filter.Name);
 
             return QueryObject.ExecuteQuery(filter).Items.ToList();

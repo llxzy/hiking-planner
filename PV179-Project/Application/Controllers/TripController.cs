@@ -18,12 +18,16 @@ namespace Application.Controllers
     {
         private ITripFacade _tripFacade;
         private IReviewFacade _reviewFacade;
+        private IUserFacade _userFacade;
+        private ILocationFacade _locationFacade;
         private IMapper mapper = new Mapper(new MapperConfiguration(ApplicationMappingConfig.ConfigureMap));
 
-        public TripController(ITripFacade facade, IReviewFacade reviewFacade)
+        public TripController(ITripFacade facade, IReviewFacade reviewFacade, IUserFacade userFacade, ILocationFacade locationFacade)
         {
             _tripFacade = facade;
             _reviewFacade = reviewFacade;
+            _userFacade = userFacade;
+            _locationFacade = locationFacade;
         }
         
         public IActionResult Index()
@@ -150,5 +154,59 @@ namespace Application.Controllers
             return RedirectToAction("Profile", "User");
         }
         
+        [HttpGet]
+        public IActionResult Create()
+        {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Create(TripCreateModel tripCreateModel)
+        {
+            var tripLocation = new TripLocationDto()
+            {
+                AssociatedLocation = _locationFacade.GetLocationById(tripCreateModel.LocationId).Result
+            };
+            var tripLocations = new List<TripLocationDto>() { tripLocation };
+
+            var participants = new List<UserTripDto>();
+
+            foreach (var p in tripCreateModel.Participants.Split(','))
+            {
+                var user = _userFacade.GetUserByMail(p.Trim());
+                if (user != null)
+                {
+                    participants.Add(new UserTripDto()
+                    {
+                        User = user
+                    });
+                }
+            }
+
+            var tripDto = new TripDto()
+            {
+                Author = _userFacade.GetAsync(int.Parse(User.Identity.Name)).Result,
+                Title = tripCreateModel.Title,
+                Description = tripCreateModel.Description,
+                StartDate = tripCreateModel.StartDate,
+                Done = tripCreateModel.Done,
+                TripLocations = tripLocations,
+                Participants = participants
+            };
+
+            _tripFacade.Create(tripDto);
+
+            return RedirectToAction("Profile", "User");
+        }
+
+        public IActionResult DisplayAddLocation(string searchText)
+        {
+            var model = _locationFacade.ListAllSortedByName(searchText);
+            return PartialView("SearchResults", model);
+        }
     }
 }

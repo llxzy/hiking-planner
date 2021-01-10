@@ -36,6 +36,7 @@
                         @if (User.Identity.IsAuthenticated)
                         {
                             <a class="nav-link" asp-controller="User" asp-action="Profile">Profile</a>
+                            <a class="nav-link" asp-controller="Trip" asp-action="Create">Add trip</a>
                             <a class="nav-link" asp-controller="User" asp-action="Logout">Logout</a>
                         }
                         else
@@ -51,11 +52,12 @@
                         {
                             <a class="nav-link" asp-controller="Admin" asp-action="Index">Admin Dashboard</a>
                         }
-                        @using(Html.BeginForm("Search", "User")){
-                        <li>
-                            <input type="search" name="searchTerm"/>
-                            <input type="submit" value="SEARCH" class="btn btn-primary" />
-                        </li>
+                        @using (Html.BeginForm("Search", "User"))
+                        {
+                            <li>
+                                <input type="search" name="searchTerm" />
+                                <input type="submit" value="SEARCH" class="btn btn-primary" />
+                            </li>
                         }
                     </ul>
                 </div>
