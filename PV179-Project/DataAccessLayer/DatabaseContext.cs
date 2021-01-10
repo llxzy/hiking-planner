@@ -24,6 +24,9 @@ namespace DataAccessLayer
          //   Database.EnsureCreated();
         }
 
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) => optionsBuilder
+        //    .UseLazyLoadingProxies();
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<UserTrip>().HasKey(k => new { k.UserId, k.TripId });
@@ -51,7 +54,12 @@ namespace DataAccessLayer
             modelBuilder.Entity<Challenge>()
                 .HasOne(c => c.User)
                 .WithMany(u => u.Challenges)
+                .IsRequired()
                 .HasForeignKey(c => c.UserId);
+
+            modelBuilder.Entity<User>()
+                .HasMany(u => u.Challenges)
+                .WithOne(c => c.User);
 
             base.OnModelCreating(modelBuilder);
         }

@@ -97,15 +97,16 @@ namespace BusinessLayer.Facades.FacadeImplementations
                     //UserId = user.Id,
                     // or added to tracker here
                     // ... somewhere
-                    //User = user,
+                    User = user,
                     Finished = false,
                     StartDate = startDate,
                     EndDate = endDate,
                     TripCount = count,
                     Type = type
                 };
-                user.Challenges.Add(challengeDto);
-                _userService.Update(user);
+                //user.Challenges.Add(challengeDto);
+                //_userService.Update(user);
+                await _challengeService.Create(challengeDto);
                 await uow.CommitAsync();
             }
         }

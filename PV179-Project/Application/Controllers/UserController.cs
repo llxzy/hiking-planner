@@ -17,14 +17,15 @@ namespace Application.Controllers
 {
     public class UserController : Controller
     {
-        private IUserFacade _userFacade;
+        private readonly IUserFacade _userFacade;
+        private readonly IChallengeFacade _challengeFacade;
 
-        private IMapper mapper = new Mapper(new MapperConfiguration(ApplicationMappingConfig.ConfigureMap));
-        //public UserDto user;
+        private readonly IMapper mapper = new Mapper(new MapperConfiguration(ApplicationMappingConfig.ConfigureMap));
 
-        public UserController(IUserFacade facade)
+        public UserController(IUserFacade facade, IChallengeFacade challengeFacade)
         {
             _userFacade = facade;
+            _challengeFacade = challengeFacade;
         }
         // GET
         public IActionResult Index()
@@ -150,6 +151,8 @@ namespace Application.Controllers
                 return RedirectToAction("Index", "Home");
             }
             var user = _userFacade.GetAsync(int.Parse(id)).Result;
+            var challenges = _challengeFacade.ListAllUsersChallenges(int.Parse(id));
+            user.Challenges = challenges;
             return View(mapper.Map<UserModel>(user));
         }
 

@@ -47,7 +47,7 @@ namespace Infrastructure
             var _context = _unitOfWorkProvider.GetUnitOfWorkInstance().Context;
             //_context.Attach(entity);
             //_context.Update(entity);
-            _context.Entry(entity).CurrentValues.SetValues(entity);
+            //_context.Entry(entity).CurrentValues.SetValues(entity);
             _context.Entry(entity).State = EntityState.Modified;
         }
 
