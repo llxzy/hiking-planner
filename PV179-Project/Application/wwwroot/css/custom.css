@@ -78,4 +78,12 @@
     margin: 3px;
 }
 
-
+.review-vote {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 16px;
+    color: black;
+}
+.review-vote:hover {
+    color: #912d2d;
+    text-decoration: none;
+}

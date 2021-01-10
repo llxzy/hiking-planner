@@ -123,8 +123,8 @@ namespace Application
                 Author = user2,
                 ReviewedTrip = trip1,
                 Text = "Interdum et malesuada fames ac ante ipsum primis in faucibus. Fusce ut elit egestas, pulvinar velit et, pretium neque. Aliquam tempor mauris dui, vel ornare lacus facilisis in.", 
-                DownvoteCount = 1, 
-                UpvoteCount = 2 
+                DownvoteCount = 7, 
+                UpvoteCount = 178
             };
 
             trip1.Reviews.Add(review1);
@@ -134,8 +134,8 @@ namespace Application
                 Author = user1,
                 ReviewedTrip = trip1,
                 Text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean tincidunt, metus ut consectetur mattis, est massa maximus nulla, a vulputate diam enim in leo. Ut id urna at lacus sollicitudin tempor. Ut elementum pulvinar nunc, nec viverra risus ultrices vestibulum. Vestibulum suscipit odio ligula, sit amet fringilla eros volutpat eget. Nulla mollis ligula ante, sed rhoncus odio facilisis ac. Quisque sed metus laoreet, finibus erat nec, congue libero.",
-                DownvoteCount = 1,
-                UpvoteCount = 2
+                DownvoteCount = 56,
+                UpvoteCount = 33
             };
 
             trip1.Reviews.Add(review2);
