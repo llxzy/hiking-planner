@@ -12,8 +12,5 @@ namespace Application.Models.LocationModels
         public LocationType Type { get; set; }
         public double Lat { get; set; }
         public double Long { get; set; }
-        
-        //not sure
-        //public bool PermanentlyAdded { get; set; }
     }
 }

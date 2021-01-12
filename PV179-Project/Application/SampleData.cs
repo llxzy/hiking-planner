@@ -15,24 +15,38 @@ namespace Application
 {
     public static class SampleData
     {
+        public static LocationModel AngelFalls = new LocationModel
+        {
+            Name = "Angel Falls",
+            Type = DataAccessLayer.Enums.LocationType.Waterfall,
+            Lat = 44.7831132,
+            Long = -70.7100696,
+            VisitCount = 1321,
+            PermanentlyAdded = true
+        };
+
+        public static LocationModel Everest = new LocationModel
+        {
+            Name = "Mt Everest",
+            Type = DataAccessLayer.Enums.LocationType.Mountain,
+            Lat = 27.986065,
+            Long = 86.922623,
+            VisitCount = 700,
+            PermanentlyAdded = true
+        };
+
+        public static LocationModel Gerlach = new LocationModel
+        {
+            Name = "Gerlach",
+            Type = DataAccessLayer.Enums.LocationType.Mountain,
+            Lat = 49.16496606684303,
+            Long = 20.13329786660582,
+            VisitCount = 545,
+            PermanentlyAdded = true
+        };
+
         public static UserModel GetSampleUser()
         {
-            var galapagy = new LocationModel
-            {
-                Name = "Galapagy",
-                Type = DataAccessLayer.Enums.LocationType.Waterfall,
-                Lat = 0,
-                Long = 2
-            };
-
-            var everest = new LocationModel
-            {
-                Name = "Mt Everest",
-                Type = DataAccessLayer.Enums.LocationType.Mountain,
-                Lat = 5545445,
-                Long = 667
-            };
-
             var user1 = new UserModel
             {
                 //Id = 787,
@@ -75,14 +89,14 @@ namespace Application
             var tripLocation1 = new TripLocationModel
             {
                 AssociatedTrip = trip1,
-                AssociatedLocation = galapagy,
+                AssociatedLocation = AngelFalls,
                 ArrivalTime = DateTime.Today,
             };
 
             var tripLocation2 = new TripLocationModel
             {
                 AssociatedTrip = trip1,
-                AssociatedLocation = everest,
+                AssociatedLocation = Everest,
                 ArrivalTime = DateTime.Today,
             };
 
