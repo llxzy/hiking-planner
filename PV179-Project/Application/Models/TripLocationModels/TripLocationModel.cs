@@ -9,10 +9,8 @@ namespace Application.Models.TripLocationModels
 {
     public class TripLocationModel
     {
-        public TripModel AssociatedTrip { get; set; }
-
+        public TripModel AssociatedTrip         { get; set; }
         public LocationModel AssociatedLocation { get; set; }
-
-        public DateTime ArrivalTime { get; set; }
+        public DateTime ArrivalTime             { get; set; }
     }
 }

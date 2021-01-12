@@ -15,8 +15,8 @@ namespace BusinessLayer.Services.Implementations
     {
         /*public UserService (IRepository<User> repository, UserQueryObject userQueryObject) :
             base(repository, userQueryObject) {}*/
-        public UserService (IRepository<User> repository, QueryObjectBase<User, UserDto, UserFilterDto, IQuery<User>> userQueryObject) :
-            base(repository, userQueryObject) {}
+        public UserService (IRepository<User> repository, QueryObjectBase<User, UserDto, UserFilterDto, IQuery<User>> userQueryObject) 
+            : base(repository, userQueryObject) {}
         
         public async Task<string> GetUserEmail(int userId)
         {
