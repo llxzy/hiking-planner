@@ -39,7 +39,7 @@ namespace Application.Controllers
 
         public IActionResult ListAllTrips()
         {
-            var tripDtos = _tripFacade.GetAllTripsSorted().Where(t => t.Done).ToList();
+            var tripDtos = _tripFacade.GetAllTripsSorted();
             return View(mapper.Map<List<TripModel>>(tripDtos));
         }
         
@@ -57,6 +57,9 @@ namespace Application.Controllers
             var reviewModels = new List<ReviewModel>();
             foreach (var r in reviews)
             {
+                //TODO DELETE LATER OR FACE CONSEQUENCES
+                var jirik = _userFacade.GetAsync(26).Result;
+                r.Author = jirik;
                 reviewModels.Add(mapper.Map<ReviewModel>(r));
             }
 

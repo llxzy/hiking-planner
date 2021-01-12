@@ -1,6 +1,7 @@
 using Application.Models;
 using Application.Models.ChallengeModels;
 using Application.Models.LocationModels;
+using Application.Models.ReviewModels;
 using Application.Models.TripLocationModels;
 using Application.Models.TripModels;
 using Application.Models.UserModels;
@@ -22,6 +23,7 @@ namespace Application
             config.CreateMap<TripLocationDto, TripLocationModel>().ReverseMap();
             config.CreateMap<UserRegistrationDto, UserCreateModel>().ReverseMap();
             config.CreateMap<LocationDto, LocationCreateModel>().ReverseMap();
+            config.CreateMap<ReviewDto, ReviewModel>().ReverseMap();
         }
     }
 }
