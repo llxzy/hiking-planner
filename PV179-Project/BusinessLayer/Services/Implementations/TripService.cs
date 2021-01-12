@@ -13,7 +13,8 @@ namespace BusinessLayer.Services.Implementations
     public class TripService : CrudQueryServiceBase<Trip, TripDto, TripFilterDto>, ITripService
     {
         public TripService(IRepository<Trip> repository, 
-            QueryObjectBase<Trip, TripDto, TripFilterDto, IQuery<Trip>> qob) : base(repository, qob)
+            QueryObjectBase<Trip, TripDto, TripFilterDto, IQuery<Trip>> qob) 
+            : base(repository, qob)
         {
         }
 

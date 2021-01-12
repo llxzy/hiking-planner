@@ -10,7 +10,7 @@ namespace Infrastructure.Query
 {
     public class QueryBase<TEntity> : IQuery<TEntity> where TEntity : class, new()
     {
-        public int PageSize { get; set; }
+        public int PageSize     { get; set; }
         public int? DesiredPage { get; set; }
         
         protected readonly IUnitOfWorkProvider Provider;

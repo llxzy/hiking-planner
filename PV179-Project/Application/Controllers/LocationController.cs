@@ -6,12 +6,14 @@ using System.Threading.Tasks;
 using Application.Models.LocationModels;
 using BusinessLayer.DataTransferObjects;
 using BusinessLayer.Facades.FacadeInterfaces;
+using AutoMapper;
 
 namespace Application.Controllers
 {
     public class LocationController : Controller
     {
         private ILocationFacade _locationFacade;
+        private IMapper mapper = new Mapper(new MapperConfiguration(ApplicationMappingConfig.ConfigureMap));
 
         public LocationController(ILocationFacade facade)
         {
@@ -20,28 +22,26 @@ namespace Application.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            //var loc = _locationFacade.ListAllSortedByVisit();
+            //return View(mapper.Map<List<LocationModel>>(loc));
+            return View(new List<LocationModel>() { SampleData.Everest, SampleData.AngelFalls });
         }
 
+        [HttpGet]
         public IActionResult Create()
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Location");
+            }
             return View();
         }
 
         [HttpPost]
-        public IActionResult Create(LocationCreateModel locationCreateModel)
+        public IActionResult Create(LocationCreateModel location)
         {
-            LocationDto location = new LocationDto
-            {
-                Name = locationCreateModel.Name,
-                Type = locationCreateModel.Type,
-                Lat = locationCreateModel.Lat,
-                Long = locationCreateModel.Long,
-                //PermanentlyAdded = false
-            };
-            //_locationFacade.Create(location);
-
-            return new ContentResult() { Content = location.Name + location.Type };
+            _locationFacade.Create(mapper.Map<LocationDto>(location));
+            return RedirectToAction("Index", "Location");
         }
     }
 }

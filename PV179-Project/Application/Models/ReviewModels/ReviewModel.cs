@@ -11,16 +11,13 @@ namespace Application.Models.ReviewModels
     public class ReviewModel
     {
         //unnecessary??
-        public TripModel ReviewedTrip { get; set; }
-
+        public TripModel ReviewedTrip                   { get; set; }
         //id enought?
-        public UserModel Author { get; set; }
+        public UserModel Author                         { get; set; }
+        public string Text                              { get; set; }
 
-        public string Text { get; set; }
-
-        public int UpvoteCount { get; set; }
-
-        public int DownvoteCount { get; set; }
+        public int UpvoteCount                          { get; set; }
+        public int DownvoteCount                        { get; set; }
 
         public IList<UserReviewVoteDto> UserReviewVotes { get; set; }
     }

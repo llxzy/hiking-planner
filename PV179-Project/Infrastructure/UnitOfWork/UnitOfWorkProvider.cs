@@ -7,7 +7,7 @@ namespace Infrastructure.UnitOfWork
 {
     public class UnitOfWorkProvider : IUnitOfWorkProvider
     {
-        private readonly Func<DatabaseContext> _contextFactory;
+        private readonly Func<DatabaseContext>   _contextFactory;
         private readonly AsyncLocal<IUnitOfWork> _unitOfWorkLocal = new AsyncLocal<IUnitOfWork>();
 
         public UnitOfWorkProvider(Func<DatabaseContext> contextFactory)

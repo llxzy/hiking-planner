@@ -13,7 +13,7 @@ namespace DataAccessLayer.DataClasses
         public IList<TripLocation> TripLocations  { get; set; }
         public int AuthorId                       { get; set; }
         [ForeignKey(nameof(AuthorId))] 
-        public User Author                         { get; set; }
+        public User Author                        { get; set; }
         public ICollection<UserTrip> Participants { get; set; }
         [MaxLength(300)]
         public string Description                 { get; set; }

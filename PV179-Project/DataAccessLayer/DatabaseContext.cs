@@ -6,13 +6,13 @@ namespace DataAccessLayer
 {
     public class DatabaseContext : DbContext
     {
-        public DbSet<Location>     Locations     { get; set; }
-        public DbSet<Trip>         Trips         { get; set; }
-        public DbSet<User>         Users         { get; set; }
-        public DbSet<UserTrip>     UserTrips     { get; set; }
-        public DbSet<TripLocation> TripLocations { get; set; }
-        public DbSet<Review>       Reviews       { get; set; }
-        public DbSet<Challenge>    Challenges    { get; set; }
+        public DbSet<Location>     Locations         { get; set; }
+        public DbSet<Trip>         Trips             { get; set; }
+        public DbSet<User>         Users             { get; set; }
+        public DbSet<UserTrip>     UserTrips         { get; set; }
+        public DbSet<TripLocation> TripLocations     { get; set; }
+        public DbSet<Review>       Reviews           { get; set; }
+        public DbSet<Challenge>    Challenges        { get; set; }
         public DbSet<UserReviewVote> UserReviewVotes { get; set; }
 
         public DatabaseContext()

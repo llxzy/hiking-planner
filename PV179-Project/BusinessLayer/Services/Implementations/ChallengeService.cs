@@ -17,7 +17,8 @@ namespace BusinessLayer.Services.Implementations
         IChallengeService
     {
         public ChallengeService(IRepository<Challenge> repository, 
-            QueryObjectBase<Challenge, ChallengeDto, ChallengeFilterDto, IQuery<Challenge>> qob) : base(repository, qob)
+            QueryObjectBase<Challenge, ChallengeDto, ChallengeFilterDto, IQuery<Challenge>> qob) 
+            : base(repository, qob)
         {
         }
 

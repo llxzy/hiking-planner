@@ -7,7 +7,7 @@ namespace Application.Models.UserModels
         [Required]
         public string MailAddress { get; set; }
         [Required]
-        public string Password { get; set; }
+        public string Password    { get; set; }
         
     }
 }
