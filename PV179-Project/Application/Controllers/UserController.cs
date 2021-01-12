@@ -186,9 +186,39 @@ namespace Application.Controllers
         [HttpPost]
         public async Task<IActionResult> Delete(int id)
         {
-            await _userFacade.DeleteLoggedUser(id);
-            return RedirectToAction("Index", "Home");
+            try
+            {
+                await _userFacade.DeleteLoggedUser(id);
+                return RedirectToAction("Index", "Home");
+            }
+            catch (Exception)
+            {
+                return View("Profile");
+            }
+            
             //todo deleted successfully || delet confirm
+        }
+
+        [HttpGet]
+        public IActionResult Edit()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(int id)
+        {
+            try
+            {
+                var user = await _userFacade.GetAsync(id);
+                await _userFacade.Update(user);
+            }
+            catch (Exception)
+            {
+                
+            }
+            return View("Profile");
+
         }
         
         

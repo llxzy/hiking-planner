@@ -11,29 +11,38 @@
 <div>
     @if (User.Identity.IsAuthenticated && (int.Parse(User.Identity.Name) == Model.Id || User.IsInRole("Administrator")))
     {
-        <button class="trip-detail-button">
-            Edit
-        </button>
-    
-        using (Html.BeginForm("Delete", "User", new {id = Model.Id}))
-        {
-            <input type="submit" value="Delete" class="btn btn-primary"/>
-        }
+        <ul>
+            <li>
+                @using (Html.BeginForm("Edit", "User", new { id = Model.Id }))
+                {
+                <input type="submit" value="Edit" class="btn btn-primary" />
+                }
+            </li>
+            <li>
+                @using (Html.BeginForm("Delete", "User", new { id = Model.Id }))
+                {
+                <input type="submit" value="Delete" class="btn btn-primary" />
+                }
+            </li>
+        </ul>
+
+
+
     }
     @if (User.IsInRole("Administrator"))
     {
         if (Model.Role == UserRole.RegularUser)
         {
-            using (Html.BeginForm("ChangeRights", "Admin", new {id = Model.Id, makeMod = true}))
+            using (Html.BeginForm("ChangeRights", "Admin", new { id = Model.Id, makeMod = true }))
             {
-                <input type="submit" value="Make moderator" class="btn btn-primary"/>
+                <input type="submit" value="Make moderator" class="btn btn-primary" />
             }
         }
         else
         {
-            using (Html.BeginForm("ChangeRights", "Admin", new {id = Model.Id, makeMod = false} ) )
+            using (Html.BeginForm("ChangeRights", "Admin", new { id = Model.Id, makeMod = false }))
             {
-                <input type="submit" value="Remove moderator status" class="btn btn-primary"/>
+                <input type="submit" value="Remove moderator status" class="btn btn-primary" />
             }
         }
     }
@@ -128,7 +137,7 @@
         {
             using (Html.BeginForm("TripDetail", "Trip", trip.Trip.Id, FormMethod.Post, null, htmlAttributes: new { @class = "trip-preview tp-form" }))
             {
-                <a href="@Url.Action("TripDetail","Trip", new { tripId = trip.Trip.Id })" class="trip-preview trip-redirect-a">
+                <a href="@Url.Action("TripDetail","Trip", new { /* tripId=trip.Trip.Id */ })" class="trip-preview trip-redirect-a">
                     <div class="trip-preview tp-div">
                         <h3 class="trip-preview tp-title">
                             @trip.Trip.Title
