@@ -52,7 +52,8 @@
             @Html.DisplayNameFor(model => model.Role)
         </dt>
         <dt class="col-sm-10">
-            @Html.DisplayFor(model => model.Role)
+            <!--@Html.DisplayFor(model => model.Role)-->
+            @Utils.UserRoleToString(Model.Role)
         </dt>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Challenges)

@@ -21,6 +21,7 @@ namespace Application
             config.CreateMap<ChallengeDto, ChallengeModel>().ReverseMap();
             config.CreateMap<TripLocationDto, TripLocationModel>().ReverseMap();
             config.CreateMap<UserRegistrationDto, UserCreateModel>().ReverseMap();
+            config.CreateMap<LocationDto, LocationCreateModel>().ReverseMap();
         }
     }
 }

@@ -29,12 +29,12 @@ namespace API
         public void ConfigureServices(IServiceCollection services)
         {
             // Setup for database context connection
-            /*services.AddDbContext<DatabaseContext>(options => options
+            services.AddDbContext<DatabaseContext>(options => options
                 .UseNpgsql(@"Host=localhost;Database=tripdb;Username=postgres;Password=postgres;Port=5432")
                 .EnableSensitiveDataLogging()); //added*/
 
-            services.AddDbContext<DatabaseContext>(options => options
-                .UseSqlServer(@"Data Source=172.26.2.97\SQLEXPRESS,1433;User ID=pv178project;Password=eiGhtdRagon178;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"));
+            //services.AddDbContext<DatabaseContext>(options => options
+            //    .UseSqlServer(@"Data Source=172.26.2.97\SQLEXPRESS,1433;User ID=pv178project;Password=eiGhtdRagon178;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"));
             
             services.AddApiVersioning(x =>
             {
