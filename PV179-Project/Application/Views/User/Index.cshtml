@@ -3,17 +3,22 @@
 *@
 @{
 }
+
 <div class="text-center">
-    <h1 class="display-4">User index</h1>
+    <h1 class="display-4">Users</h1>
 
     <br>
 
     <a class="pata-link" asp-area="" asp-controller="User" asp-action="Register">Create new user</a>
 
     <br>
-
-    <a class="pata-link" asp-area="" asp-controller="User" asp-action="FindUser">Find user by mail</a>
-
-    <a class="nav-link" asp-controller="User" asp-action="Profile">Profile</a>
+    <br>
+    <!--<a class="pata-link" asp-area="" asp-controller="User" asp-action="FindUser">Find user by mail</a>-->
+    Find users by mail
+    @using (Html.BeginForm("Search", "User"))
+    {
+        <input type="search" name="searchTerm" />
+        <input type="submit" value="SEARCH" class="btn btn-primary" />
+    }
 
 </div>

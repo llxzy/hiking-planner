@@ -6,6 +6,7 @@
     <title>@ViewData["Title"] - Application</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/custom.css" />
 </head>
 <body>
     <header>
@@ -17,48 +18,36 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
+
+                    <div class="left">
+                        <a class="nav-link1" asp-area="" asp-controller="Trip" asp-action="Index">Trips</a>
+                        <a class="nav-link1" asp-area="" asp-controller="Location" asp-action="Index">Locations</a>
+
+                        <a class="nav-link1" asp-area="" asp-controller="User" asp-action="Index">Users</a>
+                    </div>
                         
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Trip" asp-action="Index">Trips</a>
-                        </li>
-                        <!--
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Challenge" asp-action="Index">Challenge</a>
-                        </li>-->
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Location" asp-action="Index">Locations</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Index">Users</a>
-                        </li>
+                        
+                    <div class="right">
                         @if (User.Identity.IsAuthenticated)
                         {
-                            <a class="nav-link" asp-controller="User" asp-action="Profile">Profile</a>
-                            <a class="nav-link" asp-controller="Trip" asp-action="Create">Add trip</a>
-                            <a class="nav-link" asp-controller="User" asp-action="Logout">Logout</a>
+                            <a class="nav-link1" asp-controller="User" asp-action="Profile">Profile</a>
+                            <a class="nav-link1" asp-controller="Trip" asp-action="Create">Add trip</a>
+                            <a class="nav-link1" asp-controller="User" asp-action="Logout">Logout</a>
                         }
                         else
                         {
-                            <li class="nav-item">
-                                <a class="nav-link" asp-controller="User" asp-action="Login">Login</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" asp-controller="User" asp-action="Register">Register</a>
-                            </li>
+                            <a class="nav-link1" asp-controller="User" asp-action="Login">Login</a>
+                                
+                            <a class="nav-link1" asp-controller="User" asp-action="Register">Register</a>
+                                
                         }
                         @if (User.IsInRole("Administrator"))
                         {
-                            <a class="nav-link" asp-controller="Admin" asp-action="Index">Admin Dashboard</a>
+                            <a class="nav-link1" asp-controller="Admin" asp-action="Index">Admin Dashboard</a>
                         }
-                        @using (Html.BeginForm("Search", "User"))
-                        {
-                            <li>
-                                <input type="search" name="searchTerm" />
-                                <input type="submit" value="SEARCH" class="btn btn-primary" />
-                            </li>
-                        }
-                    </ul>
+
+                    </div>
+                        
                 </div>
             </div>
         </nav>

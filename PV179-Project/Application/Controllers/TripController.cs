@@ -39,74 +39,8 @@ namespace Application.Controllers
 
         public IActionResult ListAllTrips()
         {
-            var user1 = new UserModel
-            {
-                //Id = 787,
-                Name = "Whatever",
-                MailAddress = "aaa@bbbb.com"
-            };
-
-            var user2 = new UserModel
-            {
-                //Id = 788987,
-                Name = "Whatever2",
-                MailAddress = "aa222a@bbbb.com"
-            };
-
-            var trip1 = new TripModel
-            {
-                Title = "TRIP1 TITLE",
-                Description = "trip1 desc",
-                Done = true,
-                Author = user1,
-                TripLocations = new List<TripLocationModel>()
-            };
-
-            var trip2 = new TripModel
-            {
-                Title = "TRIP2 TITLE",
-                Description = "trip2 desc afnaklgjlkdnl .... :)",
-                Done = false,
-                Author = user2,
-                TripLocations = new List<TripLocationModel>()
-            };
-            var galapagy = new LocationModel
-            {
-                Name = "Galapagy",
-                Type = DataAccessLayer.Enums.LocationType.Waterfall,
-                Lat = 0,
-                Long = 2
-            };
-
-            var everest = new LocationModel
-            {
-                Name = "Mt Everest",
-                Type = DataAccessLayer.Enums.LocationType.Mountain,
-                Lat = 5545445,
-                Long = 667
-            };
-
-            var tripLocation1 = new TripLocationModel
-            {
-                AssociatedTrip = trip1,
-                AssociatedLocation = galapagy,
-                ArrivalTime = DateTime.Today,
-            };
-
-            var tripLocation2 = new TripLocationModel
-            {
-                AssociatedTrip = trip2,
-                AssociatedLocation = everest,
-                ArrivalTime = DateTime.Today,
-            };
-
-            trip1.TripLocations.Add(tripLocation1);
-            trip2.TripLocations.Add(tripLocation2);
-
-            //var tripDtos = _tripFacade.GetAllTripsSorted();
-            IEnumerable<TripModel> tripDtos = new List<TripModel> { trip1, trip2 };
-
-            return View(tripDtos);
+            var tripDtos = _tripFacade.GetAllTripsSorted().Where(t => t.Done).ToList();
+            return View(mapper.Map<List<TripModel>>(tripDtos));
         }
         
         [HttpPost]
@@ -174,6 +108,11 @@ namespace Application.Controllers
             };
             var tripLocations = new List<TripLocationDto>() { tripLocation };
 
+            if (string.IsNullOrEmpty(tripCreateModel.Participants))
+            {
+                tripCreateModel.Participants = string.Empty;
+            }
+            
             var participants = new List<UserTripModel>();
             var author = await _userFacade.GetAsync(int.Parse(User.Identity.Name));
             var tripDto = new TripDto()

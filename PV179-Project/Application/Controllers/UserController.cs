@@ -200,9 +200,20 @@ namespace Application.Controllers
         }
 
         [HttpGet]
-        public IActionResult Edit()
+        public async Task<IActionResult> Edit()
         {
-            return View();
+            var id = User.Identity.Name;
+            if (id == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            var user = await _userFacade.GetAsync(int.Parse(id));
+            if (user == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            return View(mapper.Map<UserModel>(user));
         }
 
         [HttpPost]

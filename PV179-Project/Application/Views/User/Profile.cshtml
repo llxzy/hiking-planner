@@ -11,22 +11,11 @@
 <div>
     @if (User.Identity.IsAuthenticated && (int.Parse(User.Identity.Name) == Model.Id || User.IsInRole("Administrator")))
     {
-        <ul>
-            <li>
-                @using (Html.BeginForm("Edit", "User", new { id = Model.Id }))
-                {
-                <input type="submit" value="Edit" class="btn btn-primary" />
-                }
-            </li>
-            <li>
-                @using (Html.BeginForm("Delete", "User", new { id = Model.Id }))
-                {
-                <input type="submit" value="Delete" class="btn btn-primary" />
-                }
-            </li>
-        </ul>
-
-
+        <a class="btn btn-primary" asp-area="" asp-controller="User" asp-action="Edit">Edit</a>
+        @using (Html.BeginForm("Delete", "User", new { id = Model.Id }))
+        {
+            <input type="submit" value="Delete" class="btn btn-primary" />
+        }
 
     }
     @if (User.IsInRole("Administrator"))
@@ -132,6 +121,9 @@
     <br />
 
     <h2 class="trip-subheader">@Html.DisplayNameFor(model => model.Trips)</h2>
+    <a class="create-button" asp-area="" asp-controller="Trip" asp-action="Create">
+            <strong>+ Create new trip</strong>
+        </a>
     @{
         foreach (var trip in Model.Trips)
         {
