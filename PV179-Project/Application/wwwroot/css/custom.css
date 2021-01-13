@@ -1,6 +1,6 @@
 ﻿
 .trip-subheader {
-    font-family: 'Dancing Script', cursive;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-size: 18px;
     font-style: italic;
     color: black;
@@ -20,7 +20,7 @@
 }
 
 .trip-redirect-a {
-    font-family: 'Dancing Script', cursive;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-size: 12px;
     color: yellow;
 }
@@ -34,7 +34,7 @@
 }
 
 .tp-title {
-    font-family: 'Dancing Script', cursive;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: black;
     text-decoration: none;
     font-size: 18px;
@@ -43,7 +43,7 @@
 }
 
 .tp-date {
-    font-family: 'Dancing Script', cursive;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-size: 10px;
     font-style: italic;
     color: black;
@@ -53,7 +53,7 @@
 
 
 .tp-description {
-    font-family: 'Dancing Script', cursive;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-size: 12px;
     color: black;
     margin-left: 10px;
@@ -69,21 +69,21 @@
 }
 
 .rp {
-    font-family: 'Dancing Script', cursive;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-size: 16px;
     color: #283538;
     margin: 3px;
 }
 
 .review-text {
-    font-family: 'Dancing Script', cursive;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-size: 14px;
     color: black;
     margin: 3px;
 }
 
 .review-vote {
-    font-family: 'Dancing Script', cursive;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-size: 16px;
     color: black;
 }
@@ -93,7 +93,7 @@
 }
 
 .challenge-type {
-    font-family: 'Dancing Script', cursive;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-size: 13px;
     font-style: italic;
     color: black;
@@ -108,7 +108,7 @@
 }
 
 .challenge-p {
-    font-family: 'Dancing Script', cursive;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-size: 13px;
 }
 
@@ -121,12 +121,12 @@
 }
 
 .nav-link1 {
-    font-family: 'Dancing Script', cursive;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     padding: 7px;
 }
 
 .text-block {
-    font-family: 'Dancing Script', cursive;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     position: center;
     text-align: center;
     background-color: black;
@@ -136,16 +136,16 @@
 }
 
 .container {
-    font-family: 'Dancing Script', cursive;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     position: relative;
 }
 
 .navbar-brand {
-    font-family: 'Dancing Script', cursive;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .bg-text {
-    font-family: 'Dancing Script', cursive;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: rgb(0,0,0); /* Fallback color */
     background-color: rgba(0,0,0, 0.4); /* Black w/opacity/see-through */
     color: white;
@@ -163,7 +163,7 @@
 }
 
 h1 {
-    font-family: 'Dancing Script', cursive;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-size: 80px;
     margin-bottom: 30px;
 }
