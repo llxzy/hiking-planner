@@ -11,29 +11,27 @@
 <div>
     @if (User.Identity.IsAuthenticated && (int.Parse(User.Identity.Name) == Model.Id || User.IsInRole("Administrator")))
     {
-        <button class="trip-detail-button">
-            Edit
-        </button>
-    
-        using (Html.BeginForm("Delete", "User", new {id = Model.Id}))
+        <a class="btn btn-primary" asp-area="" asp-controller="User" asp-action="Edit">Edit</a>
+        @using (Html.BeginForm("Delete", "User", new { id = Model.Id }))
         {
-            <input type="submit" value="Delete" class="btn btn-primary"/>
+            <input type="submit" value="Delete" class="btn btn-primary" />
         }
+
     }
     @if (User.IsInRole("Administrator"))
     {
         if (Model.Role == UserRole.RegularUser)
         {
-            using (Html.BeginForm("ChangeRights", "Admin", new {id = Model.Id, makeMod = true}))
+            using (Html.BeginForm("ChangeRights", "Admin", new { id = Model.Id, makeMod = true }))
             {
-                <input type="submit" value="Make moderator" class="btn btn-primary"/>
+                <input type="submit" value="Make moderator" class="btn btn-primary" />
             }
         }
         else
         {
-            using (Html.BeginForm("ChangeRights", "Admin", new {id = Model.Id, makeMod = false} ) )
+            using (Html.BeginForm("ChangeRights", "Admin", new { id = Model.Id, makeMod = false }))
             {
-                <input type="submit" value="Remove moderator status" class="btn btn-primary"/>
+                <input type="submit" value="Remove moderator status" class="btn btn-primary" />
             }
         }
     }
@@ -52,7 +50,8 @@
             @Html.DisplayNameFor(model => model.Role)
         </dt>
         <dt class="col-sm-10">
-            @Html.DisplayFor(model => model.Role)
+            <!--@Html.DisplayFor(model => model.Role)-->
+            @Utils.UserRoleToString(Model.Role)
         </dt>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Challenges)
@@ -122,12 +121,15 @@
     <br />
 
     <h2 class="trip-subheader">@Html.DisplayNameFor(model => model.Trips)</h2>
+    <a class="create-button" asp-area="" asp-controller="Trip" asp-action="Create">
+            <strong>+ Create new trip</strong>
+        </a>
     @{
         foreach (var trip in Model.Trips)
         {
             using (Html.BeginForm("TripDetail", "Trip", trip.Trip.Id, FormMethod.Post, null, htmlAttributes: new { @class = "trip-preview tp-form" }))
             {
-                <a href="@Url.Action("TripDetail","Trip", new { tripId = trip.Trip.Id })" class="trip-preview trip-redirect-a">
+                <a href="@Url.Action("TripDetail","Trip", new { /* tripId=trip.Trip.Id */ })" class="trip-preview trip-redirect-a">
                     <div class="trip-preview tp-div">
                         <h3 class="trip-preview tp-title">
                             @trip.Trip.Title

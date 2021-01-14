@@ -22,15 +22,15 @@ namespace Application.Controllers
 
         public IActionResult Index()
         {
-            //var loc = _locationFacade.ListAllSortedByVisit();
-            //return View(mapper.Map<List<LocationModel>>(loc));
-            return View(new List<LocationModel>() { SampleData.Everest, SampleData.AngelFalls });
+            var loc = _locationFacade.ListAllSortedByVisit();
+            return View(mapper.Map<List<LocationModel>>(loc));
+            //return View(new List<LocationModel>() { SampleData.Everest, SampleData.AngelFalls });
         }
 
         [HttpGet]
         public IActionResult Create()
         {
-            if (User.Identity.IsAuthenticated)
+            if (!User.Identity.IsAuthenticated)
             {
                 return RedirectToAction("Index", "Location");
             }

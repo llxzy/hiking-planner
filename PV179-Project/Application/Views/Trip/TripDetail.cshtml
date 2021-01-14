@@ -1,4 +1,7 @@
 ﻿@model Application.Models.TripModels.TripModel;
+@{
+    ViewData["Title"] = Model.Title;
+}
 
 <link rel="stylesheet" href="~/css/custom.css" />
 
@@ -41,7 +44,7 @@
         </dd>
     </dl>
     <h2 class="trip-subheader">
-        @Html.DisplayNameFor(model => model.TripLocations)
+        Locations
     </h2>
     <ol type="1">
         @{
@@ -59,6 +62,9 @@
         @Html.DisplayNameFor(model => model.Reviews)
     </h2>
 
+    <a class="create-button" asp-area="" asp-controller="Challenge" asp-action="CreateChallenge">
+            <strong>Add review</strong>
+    </a>
     @{
         foreach (var review in Model.Reviews)
         {

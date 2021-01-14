@@ -1,11 +1,11 @@
 ﻿@model IEnumerable<Application.Models.LocationModels.LocationModel>
     <link rel="stylesheet" href="~/css/custom.css" />
 
-<h2 class="trip-subheader">Locations</h2>
-
+<h1 class="trip-subheader">Locations</h1>
+<br>
 <p>
     <a class="create-button" asp-action="Create" asp-controller="Location">
-        <strong>Create new location</strong>
+        <strong>Submit new location</strong>
     </a>
 </p>
 
@@ -18,17 +18,15 @@
             <th>
                 @Html.DisplayNameFor(model => model.Type)
             </th>
+            <!--
             <th>
                 @Html.DisplayNameFor(model => model.Lat)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Long)
-            </th>
+            </th>-->
             <th>
-                @Html.DisplayNameFor(model => model.PermanentlyAdded)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.VisitCount)
+                Number of visits
             </th>
             <th></th>
         </tr>
@@ -42,15 +40,13 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Type)
             </td>
+            <!--
             <td>
                 @Html.DisplayFor(modelItem => item.Lat)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Long)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PermanentlyAdded)
-            </td>
+            </td>-->
             <td>
                 @Html.DisplayFor(modelItem => item.VisitCount)
             </td>

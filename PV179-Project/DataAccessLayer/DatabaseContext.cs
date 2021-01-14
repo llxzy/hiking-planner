@@ -68,6 +68,7 @@ namespace DataAccessLayer
                 .HasMany(u => u.Challenges)
                 .WithOne(c => c.User);
 
+            /*
             // testing
             // redo later
             // gets rid of migration create error
@@ -75,12 +76,12 @@ namespace DataAccessLayer
             {
                 relationship.DeleteBehavior = DeleteBehavior.Restrict;
             }
-
+            */
             // fix for identity insert
             // check for errors while getting data out
             // add for all data classes
-            modelBuilder.Entity<Location>().Property(l => l.Id).UseIdentityColumn();
-
+            //modelBuilder.Entity<Location>().Property(l => l.Id).UseIdentityColumn();
+            
             base.OnModelCreating(modelBuilder);
         }
     }
