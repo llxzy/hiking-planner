@@ -11,7 +11,6 @@ namespace BusinessLayer.Facades.FacadeImplementations
     public class UserFacade : FacadeBase, IUserFacade
     {
         private readonly IUserService _userService;
-        private readonly ILocationService _locationService;
 
         public UserFacade(IUnitOfWorkProvider provider, IUserService service) : base(provider)
         {
@@ -93,14 +92,10 @@ namespace BusinessLayer.Facades.FacadeImplementations
         {
             using (var uow = unitOfWorkProvider.Create())
             {
-                //checked logged id == id???
                 await _userService.Delete(id);
                 await uow.CommitAsync();
             }
         }
-        
-        /* test
-         */
 
         public async Task<string> GetUserMail(int id)
         {
