@@ -126,7 +126,7 @@ namespace Application.Controllers
                 StartDate = tripCreateModel.StartDate,
                 Done = tripCreateModel.Done,
                 TripLocations = tripLocations,
-                //Participants = participants
+                Participants = new List<UserTripDto>()
             };
             
             foreach (var p in tripCreateModel.Participants.Split(','))
@@ -134,11 +134,11 @@ namespace Application.Controllers
                 var user = _userFacade.GetUserByMail(p.Trim());
                 if (user != null)
                 {
-                    participants.Add(mapper.Map<UserTripModel>(new UserTripDto()
+                    tripDto.Participants.Add(new UserTripDto()
                     {
                         User = user,
                         Trip = tripDto
-                    }));
+                    });
                 }
             }
             var tripModel = new TripModel()
@@ -153,7 +153,7 @@ namespace Application.Controllers
             };
 
             await _tripFacade.Create(tripDto);
-
+            
             return RedirectToAction("Profile", "User");
         }
 
