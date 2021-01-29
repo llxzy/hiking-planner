@@ -21,13 +21,13 @@ namespace BusinessLayer.Facades.FacadeImplementations
         {
             if (userRegDto == null)
             {
-                throw new ArgumentException("user data can't be null");
+                throw new ArgumentException("User data can't be null.");
             }
             using (var uow = unitOfWorkProvider.Create())
             {
                 if (_userService.EmailAlreadyExistsAsync(userRegDto.MailAddress))
                 {
-                    throw new ArgumentException("already exists");
+                    throw new ArgumentException("User already exists.");
                 }
                 await _userService.Create(new UserDto()
                 {
@@ -50,6 +50,8 @@ namespace BusinessLayer.Facades.FacadeImplementations
         public bool VerifyUserLogin(string mail, string pswdHash)
         {
             var user = _userService.GetUserByMail(mail);
+            
+            // cant compare user with new userdto
             if (user == new UserDto() || user == null)
             {
                 throw new ArgumentException("User with this email address not found.");
