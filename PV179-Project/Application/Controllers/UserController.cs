@@ -1,19 +1,15 @@
-using System;
-using System.Collections.Generic;
-using System.Diagnostics.Eventing.Reader;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using BusinessLayer.DataTransferObjects;
-using BusinessLayer.Facades.FacadeInterfaces;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Razor.Compilation;
 using Application.Models.UserModels;
 using AutoMapper;
-using DataAccessLayer.Enums;
+using BusinessLayer.DataTransferObjects;
+using BusinessLayer.Facades.FacadeInterfaces;
+using BusinessLayer.Utils;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Application.Models;
-using Application.Models.TripModels;
+using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace Application.Controllers
 {
@@ -230,6 +226,39 @@ namespace Application.Controllers
             }
             return View("Profile");
 
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ChangePassword()
+        {
+            var id = User.Identity.Name;
+            if (id == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            var user = await _userFacade.GetAsync(int.Parse(id));
+            if (user == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ChangePassword(UserChangePasswordModel pswdModel)
+        {
+            try
+            {
+                var id = User.Identity.Name;
+                var user = await _userFacade.GetAsync(int.Parse(id));
+                user.PasswordHash = HashingUtils.Encode(pswdModel.Password);
+                await _userFacade.Update(user);
+            }
+            catch (Exception)
+            {
+
+            }
+            return View("Profile");
         }
         
         
