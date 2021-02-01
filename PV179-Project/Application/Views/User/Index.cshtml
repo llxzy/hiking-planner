@@ -10,12 +10,11 @@
     <hr />
     <br>
     <!--<a class="form-group" asp-area="" asp-controller="User" asp-action="FindUser">Find user by mail</a>-->
-    Find users by mail
+    Find user by mail:
     @using (Html.BeginForm("Search", "User"))
     {
-        <input class="form-control" type="search" name="searchTerm" />
+        <input class="form-control" type="search" name="searchTerm" placeholder="e-mail" />
         <input type="submit" value="SEARCH" class="btn btn-primary" />
     }
     <br>
-    <a asp-area="" asp-controller="User" asp-action="Register">Create new user</a>
 </div>
