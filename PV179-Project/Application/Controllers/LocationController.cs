@@ -40,7 +40,16 @@ namespace Application.Controllers
         [HttpPost]
         public IActionResult Create(LocationCreateModel location)
         {
-            _locationFacade.Create(mapper.Map<LocationDto>(location));
+            try
+            {
+                _locationFacade.Create(mapper.Map<LocationDto>(location));
+            }
+            catch(ArgumentException)
+            {
+                ModelState.AddModelError("", "Location not valid");
+                //should work & return the same model??
+                return View(location);
+            }
             return RedirectToAction("Index", "Location");
         }
     }

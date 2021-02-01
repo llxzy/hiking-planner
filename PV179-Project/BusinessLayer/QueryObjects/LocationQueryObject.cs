@@ -26,9 +26,9 @@ namespace BusinessLayer.QueryObjects
                 ? query
                 : ((LocationQuery)query).FilterByType(Enum.Parse<LocationType>(filter.Type));
 
-            query = string.IsNullOrWhiteSpace(filter.Added)
+            query = string.IsNullOrWhiteSpace(filter.PermanentlyAdded)
                 ? query
-                : ((LocationQuery) query).FilterByAddedStatus(bool.Parse(filter.Added));
+                : ((LocationQuery) query).FilterByAddedStatus(bool.Parse(filter.PermanentlyAdded));
 
             query = string.IsNullOrWhiteSpace(filter.Lat)
                     || string.IsNullOrWhiteSpace(filter.Long)

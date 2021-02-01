@@ -90,6 +90,14 @@ namespace BusinessLayer.Facades.FacadeImplementations
             }
         }
 
+        public List<LocationDto> ListAllSubmitted()
+        {
+            using (unitOfWorkProvider.Create())
+            {
+                return _locationService.GetAllSubmitted();
+            }
+        }
+
         //move to utils?
         public void CheckLocationValidity(LocationDto locationDto)
         {

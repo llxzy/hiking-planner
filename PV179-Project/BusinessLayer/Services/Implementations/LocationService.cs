@@ -36,7 +36,7 @@ namespace BusinessLayer.Services.Implementations
 
         public List<LocationDto> GetAllSubmitted(object range = null)
         {
-            return QueryObject.ExecuteQuery(new LocationFilterDto { Added = "false" }).Items.ToList();
+            return QueryObject.ExecuteQuery(new LocationFilterDto { PermanentlyAdded = "false" }).Items.ToList();
         }
 
         public List<LocationDto> ListAllSortedByName(string locationName)
@@ -76,7 +76,7 @@ namespace BusinessLayer.Services.Implementations
         {
             var filter = new LocationFilterDto
             {
-                Added = "true",
+                PermanentlyAdded = "true",
                 Lat = lat.ToString(CultureInfo.InvariantCulture),
                 Long = lon.ToString(CultureInfo.InvariantCulture),
                 Maxdist = maxdist.ToString(CultureInfo.InvariantCulture)
