@@ -47,7 +47,7 @@ namespace BusinessLayer.Facades.FacadeImplementations
             }
         }
 
-        public bool VerifyUserLogin(string mail, string pswdHash)
+        public bool VerifyUserLogin(string mail, string password)
         {
             var user = _userService.GetUserByMail(mail);
             
@@ -56,7 +56,7 @@ namespace BusinessLayer.Facades.FacadeImplementations
             {
                 throw new ArgumentException("User with this email address not found.");
             }
-            if (!Utils.HashingUtils.Validate(pswdHash, user.PasswordHash))
+            if (!Utils.HashingUtils.Validate(password, user.PasswordHash))
             {
                 throw new ArgumentException("Incorrect password!");
             }
