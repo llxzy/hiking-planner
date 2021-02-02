@@ -6,7 +6,7 @@ using DataAccessLayer.Enums;
 
 namespace Application.Models.LocationModels
 {
-    public class LocationModel
+    public class LocationModel : BaseModel
     {
         public string Name           { get; set; }
         public LocationType Type     { get; set; }

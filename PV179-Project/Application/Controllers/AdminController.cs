@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Application.Models.LocationModels;
@@ -43,15 +44,31 @@ namespace Application.Controllers
             return View(_mapper.Map<List<LocationModel>>(locs));
         }
 
+        //[HttpPost]
+        //public async Task<IActionResult> SubmitLocations(List<LocationModel> locsToAdd)
+        //{
+        //    foreach(var loc in locsToAdd)
+        //    {
+        //        loc.PermanentlyAdded = true;
+        //        await _locationFacade.Update(_mapper.Map<LocationDto>(loc));
+        //    }
+        //    return RedirectToAction("Index", "Admin");
+        //}
+
         [HttpPost]
-        public async Task<IActionResult> SubmitLocations(List<LocationModel> locsToAdd)
+        public async Task<IActionResult> AcceptSubmission(int id)
         {
-            foreach(var loc in locsToAdd)
+            var loc = await _locationFacade.GetLocationById(id);
+            try 
             {
                 loc.PermanentlyAdded = true;
                 await _locationFacade.Update(_mapper.Map<LocationDto>(loc));
             }
-            return RedirectToAction("Index", "Admin");
+            catch (Exception)
+            {
+                //??
+            }
+            return RedirectToAction("ShowSubmittedLocations", "Admin");
         }
     }
 }
