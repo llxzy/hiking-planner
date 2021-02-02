@@ -8,7 +8,7 @@ using BusinessLayer.DataTransferObjects;
 
 namespace Application.Models.ReviewModels
 {
-    public class ReviewModel
+    public class ReviewModel : BaseModel
     {
         //unnecessary??
         public TripModel ReviewedTrip                   { get; set; }

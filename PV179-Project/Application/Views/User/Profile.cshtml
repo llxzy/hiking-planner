@@ -141,7 +141,7 @@
         {
             using (Html.BeginForm("TripDetail", "Trip", trip.Trip.Id, FormMethod.Post, null, htmlAttributes: new { @class = "trip-preview tp-form" }))
             {
-                <a href="@Url.Action("TripDetail","Trip", new { /* tripId=trip.Trip.Id */ })" class="trip-preview trip-redirect-a">
+                <a href="@Url.Action("TripDetail","Trip", new { tripId= trip.Trip.Id })" class="trip-preview trip-redirect-a">
                     <div class="trip-preview tp-div">
                         <h3 class="trip-preview tp-title">
                             @trip.Trip.Title

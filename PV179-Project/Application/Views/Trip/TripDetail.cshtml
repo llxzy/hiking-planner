@@ -83,6 +83,17 @@
             <a class="review-vote" asp-area="" asp-controller="Review" asp-action="Downvote">
                 🡇 @review.DownvoteCount
             </a>
+            @if (User.Identity.IsAuthenticated && (int.Parse(User.Identity.Name) == Model.Author.Id 
+                || User.IsInRole("Administrator") || User.IsInRole("Moderator")))
+            {
+            <p> |</p>
+            @using (Html.BeginForm("Delete", "Review", new { id = review.Id, tripId = review.ReviewedTrip.Id },
+                FormMethod.Post, null, htmlAttributes: new { @class = "delete-review-form", @style = "display: inline-block;" }))
+                {
+                    <input type="submit" value="Delete" class="delete-review-btn" style="border: 0px; background: transparent;" />
+                }
+
+            }
 
         </div>
         }
