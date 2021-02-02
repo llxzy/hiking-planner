@@ -26,11 +26,6 @@
                         <a class="nav-link1" asp-area="" asp-controller="User" asp-action="Index">Users</a>
                     </div>
 
-                    @using (Html.BeginForm("TripDetail", "Trip", new { tripId = 1 }))
-                    {
-                        <input type="submit" value="SampleDetail" class="btn btn-primary" />
-                    }
-
                     <div class="right">
                         @if (User.Identity.IsAuthenticated)
                         {
