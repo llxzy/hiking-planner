@@ -20,11 +20,25 @@ namespace Application.Controllers
             _locationFacade = facade;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(string searchName, string searchType)
         {
-            var loc = _locationFacade.ListAllSortedByVisit();
-            return View(mapper.Map<List<LocationModel>>(loc));
-            //return View(new List<LocationModel>() { SampleData.Everest, SampleData.AngelFalls });
+            var locs = _locationFacade.ListAllSortedByVisit();
+
+            if (!string.IsNullOrEmpty(searchName))
+            {
+                locs = locs
+                    .Where(s => s.Name.ToLower().Contains(searchName.ToLower()))
+                    .ToList();
+            }
+
+            if (!string.IsNullOrEmpty(searchType))
+            {
+                locs = locs
+                    .Where(s => (int)s.Type == int.Parse(searchType))
+                    .ToList();
+            }
+
+            return View(mapper.Map<List<LocationModel>>(locs));
         }
 
         [HttpGet]
@@ -49,6 +63,20 @@ namespace Application.Controllers
                 ModelState.AddModelError("", "Location not valid");
                 //should work & return the same model??
                 return View(location);
+            }
+            return RedirectToAction("Index", "Location");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(int id)
+        {
+            try
+            {
+                await _locationFacade.Delete(id);
+            }
+            catch(Exception)
+            {
+                ModelState.AddModelError("", "Unable to delete locations.");
             }
             return RedirectToAction("Index", "Location");
         }

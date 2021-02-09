@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Application.Models.LocationModels;
@@ -37,36 +38,40 @@ namespace Application.Controllers
             return View("../User/Profile", _mapper.Map<UserModel>(user));
         }
 
-        [HttpGet]
-        public IActionResult ShowSubmittedLocations()
+
+        public IActionResult ShowSubmittedLocations(string searchName, string searchType)
         {
             var locs = _locationFacade.ListAllSubmitted();
-            return View(_mapper.Map<List<LocationModel>>(locs));
-        }
 
-        //[HttpPost]
-        //public async Task<IActionResult> SubmitLocations(List<LocationModel> locsToAdd)
-        //{
-        //    foreach(var loc in locsToAdd)
-        //    {
-        //        loc.PermanentlyAdded = true;
-        //        await _locationFacade.Update(_mapper.Map<LocationDto>(loc));
-        //    }
-        //    return RedirectToAction("Index", "Admin");
-        //}
+            if (!string.IsNullOrEmpty(searchName))
+            {
+                locs = locs
+                    .Where(s => s.Name.ToLower().Contains(searchName.ToLower()))
+                    .ToList();
+            }
+
+            if (!string.IsNullOrEmpty(searchType))
+            {
+                locs = locs
+                    .Where(s => (int) s.Type == int.Parse(searchType))
+                    .ToList();
+            }
+
+            return View(_mapper.Map<List<LocationModel>>(locs));  
+        }
 
         [HttpPost]
         public async Task<IActionResult> AcceptSubmission(int id)
         {
-            var loc = await _locationFacade.GetLocationById(id);
             try 
             {
+                var loc = await _locationFacade.GetLocationById(id);
                 loc.PermanentlyAdded = true;
                 await _locationFacade.Update(_mapper.Map<LocationDto>(loc));
             }
             catch (Exception)
             {
-                //??
+                ModelState.AddModelError("", "Unable to accept submitted location.");
             }
             return RedirectToAction("ShowSubmittedLocations", "Admin");
         }

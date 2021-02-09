@@ -45,6 +45,49 @@ namespace Application
             PermanentlyAdded = true
         };
 
+        public static LocationModel loc1 = new LocationModel
+        {
+            Name = "loc1",
+            Type = DataAccessLayer.Enums.LocationType.Waterfall,
+            Lat = 44.7831132,
+            Long = -70.7100696,
+            VisitCount = 1321,
+            PermanentlyAdded = false
+        };
+
+        public static LocationModel loc2 = new LocationModel
+        {
+            Name = "loc2",
+            Type = DataAccessLayer.Enums.LocationType.Cave,
+            Lat = 44.7831132,
+            Long = -70.7100696,
+            VisitCount = 1321,
+            PermanentlyAdded = false
+        };
+
+        public static LocationModel loc3 = new LocationModel
+        {
+            Name = "loc3",
+            Type = DataAccessLayer.Enums.LocationType.Waterfall,
+            Lat = 44.7831132,
+            Long = -70.7100696,
+            VisitCount = 1321,
+            PermanentlyAdded = false
+        };
+
+        public static LocationModel loc4 = new LocationModel
+        {
+            Name = "loc4",
+            Type = DataAccessLayer.Enums.LocationType.Lake,
+            Lat = 44.7831132,
+            Long = -70.7100696,
+            VisitCount = 1321,
+            PermanentlyAdded = false
+        };
+
+        public static List<LocationModel> SubmittedLocations = new List<LocationModel> { loc1, loc2, loc3, loc4 };
+
+        public static List<LocationModel> AllLocations = new List<LocationModel> { loc1, loc2, loc3, loc4, Gerlach, AngelFalls, Everest };
         public static UserModel GetSampleUser()
         {
             var user1 = new UserModel

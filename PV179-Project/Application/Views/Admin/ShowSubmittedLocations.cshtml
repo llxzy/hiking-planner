@@ -1,14 +1,32 @@
 ﻿@model IEnumerable<Application.Models.LocationModels.LocationModel>
 
-@{
-    ViewData["Title"] = "ShowSubmittedLocations";
+<h2>Submitted locations</h2>
+
+<br />
+
+@using (Html.BeginForm("ShowSubmittedLocations", "Admin"))
+{
+    <p>
+        Filter by name: @Html.TextBox("searchName")
+        Filter by type: <select name="searchType">
+                            <option value="">- All -</option>
+                            <option value="0">Cave</option>
+                            <option value="1">Lake</option>
+                            <option value="2">River</option>
+                            <option value="3">Mountain</option>
+                            <option value="4">Waterfall</option>
+                            <option value="5">Forest</option>
+                            <option value="6">NationalPark</option>
+                            <option value="7">Other</option>
+                            <option value="8">BuildingStructure</option>
+                            <option value="9">Accommodation</option>
+                        </select>
+        <input type="submit" class="btn btn-primary" value="Search" />
+    </p>
 }
 
-<h1>ShowSubmittedLocations</h1>
+<br />
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
 <table class="table">
     <thead>
         <tr>
@@ -31,30 +49,31 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Type)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Lat)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Long)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.VisitCount)
-            </td>
-            <td>
-                @using (Html.BeginForm("AcceptSubmission", "Admin", new { id = item.Id }))
-                {
-                    <input type="submit" value="Accept" class="btn btn-primary" />
-                }
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <strong>@Html.DisplayFor(modelItem => item.Name)</strong>
+                </td>
+                <td>
+                    <strong>@Html.DisplayFor(modelItem => item.Type)</strong>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Lat)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Long)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.VisitCount)
+                </td>
+                <td>
+                    @using (Html.BeginForm("AcceptSubmission", "Admin", new { id = item.Id }))
+                    {
+                        <input type="submit" value="Accept" class="btn btn-primary" />
+                    }
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

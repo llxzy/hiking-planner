@@ -189,10 +189,9 @@ namespace Application.Controllers
             }
             catch (Exception)
             {
+                ModelState.AddModelError("", "Unable to delete user.");
                 return View("Profile");
             }
-            
-            //todo deleted successfully || delet confirm
         }
 
         [HttpGet]
@@ -225,7 +224,6 @@ namespace Application.Controllers
                 
             }
             return View("Profile");
-
         }
 
         [HttpGet]
@@ -260,7 +258,6 @@ namespace Application.Controllers
             }
             return View("Profile");
         }
-        
         
     }
 }

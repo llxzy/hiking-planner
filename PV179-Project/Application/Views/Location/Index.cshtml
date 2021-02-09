@@ -1,13 +1,36 @@
 ﻿@model IEnumerable<Application.Models.LocationModels.LocationModel>
-    <link rel="stylesheet" href="~/css/custom.css" />
+<link rel="stylesheet" href="~/css/custom.css" />
 
 <h1 class="trip-subheader">Locations</h1>
-<br>
+
 <p>
     <a class="create-button" asp-action="Create" asp-controller="Location">
         <strong>Submit new location</strong>
     </a>
 </p>
+
+<br>
+
+@using (Html.BeginForm("Index", "Location"))
+{
+    <p>
+        Filter by name: @Html.TextBox("searchName")
+        Filter by type: <select name="searchType">
+            <option value="">- All -</option>
+            <option value="0">Cave</option>
+            <option value="1">Lake</option>
+            <option value="2">River</option>
+            <option value="3">Mountain</option>
+            <option value="4">Waterfall</option>
+            <option value="5">Forest</option>
+            <option value="6">NationalPark</option>
+            <option value="7">Other</option>
+            <option value="8">BuildingStructure</option>
+            <option value="9">Accommodation</option>
+        </select>
+        <input type="submit" class="btn btn-primary" value="Search" />
+    </p>
+}
 
 <table class="table">
     <thead>
@@ -32,10 +55,11 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+        @foreach (var item in Model)
+        {
         <tr>
             <td>
-                <strong>@Html.DisplayFor(modelItem => item.Name)</strong> 
+                <strong>@Html.DisplayFor(modelItem => item.Name)</strong>
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Type)
@@ -46,11 +70,22 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Long)
-            </td>-->
+            </td>
+            -->
             <td>
                 @Html.DisplayFor(modelItem => item.VisitCount)
             </td>
+            @if (User.Identity.IsAuthenticated && User.IsInRole("Administrator"))
+            {
+                <td>
+                    @using (Html.BeginForm("Delete", "Location", new { id = item.Id }))
+                    {
+                        <input type="submit" value="Delete" class="btn btn-primary" 
+                               onclick="return confirm('Are you sure you want to permanently delete this location?')" />
+                    }
+                </td>
+            }
         </tr>
-}
+        }
     </tbody>
 </table>
