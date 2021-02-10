@@ -1,0 +1,81 @@
+@model Application.Models.TripModels.TripAddLocationModel
+<link rel="stylesheet" href="~/css/custom.css" />
+
+<h1 class="trip-subheader">Locations</h1>
+
+<br>
+
+@using (Html.BeginForm("Index", "Location"))
+{
+    <p>
+        Filter by name: @Html.TextBox("searchName")
+        Filter by type: <select name="searchType">
+            <option value="">- All -</option>
+            <option value="0">Cave</option>
+            <option value="1">Lake</option>
+            <option value="2">River</option>
+            <option value="3">Mountain</option>
+            <option value="4">Waterfall</option>
+            <option value="5">Forest</option>
+            <option value="6">NationalPark</option>
+            <option value="7">Other</option>
+            <option value="8">BuildingStructure</option>
+            <option value="9">Accommodation</option>
+        </select>
+        <input type="submit" class="btn btn-primary" value="Search" />
+    </p>
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Name
+            </th>
+            <th>
+                Type
+            </th>
+            <!--
+            <th>
+                Lat
+            </th>
+            <th>
+                Long
+            </th>-->
+            <th>
+                Number of visits
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Locations)
+        {
+        <tr>
+            <td>
+                <strong>@Html.DisplayFor(modelItem => item.Name)</strong>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Type)
+            </td>
+            <!--
+            <td>
+                @Html.DisplayFor(modelItem => item.Lat)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Long)
+            </td>
+            -->
+            <td>
+                @Html.DisplayFor(modelItem => item.VisitCount)
+            </td>
+            <td>
+                @using (Html.BeginForm("AddLocation", "Trip", new { tripId = Model.TripId, locationId = item.Id  }))
+                {
+                    <input type="submit" value="Add" class="btn btn-primary"  />
+                }
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>

@@ -52,11 +52,11 @@ namespace Application.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(LocationCreateModel location)
+        public async Task<IActionResult> Create(LocationCreateModel location)
         {
             try
             {
-                _locationFacade.Create(mapper.Map<LocationDto>(location));
+                await _locationFacade.CreateAsync(mapper.Map<LocationDto>(location));
             }
             catch(ArgumentException)
             {
@@ -72,7 +72,7 @@ namespace Application.Controllers
         {
             try
             {
-                await _locationFacade.Delete(id);
+                await _locationFacade.DeleteAsync(id);
             }
             catch(Exception)
             {

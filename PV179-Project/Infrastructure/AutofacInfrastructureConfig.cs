@@ -24,7 +24,6 @@ namespace Infrastructure
 
             builder.RegisterType<UnitOfWorkProvider>()
                 .As<IUnitOfWorkProvider>()
-                //.SingleInstance();
                 .InstancePerLifetimeScope();
            
             builder.RegisterGeneric(typeof(GenericRepository<>))

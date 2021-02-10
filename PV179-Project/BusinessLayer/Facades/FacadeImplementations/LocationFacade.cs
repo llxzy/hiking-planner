@@ -17,7 +17,7 @@ namespace BusinessLayer.Facades.FacadeImplementations
             _locationService = locService;
         }
 
-        public async Task Create (LocationDto locationDto)
+        public async Task CreateAsync(LocationDto locationDto)
         {
             using (var uow = unitOfWorkProvider.Create())
             {
@@ -28,7 +28,7 @@ namespace BusinessLayer.Facades.FacadeImplementations
             }
         }
 
-        public async Task<LocationDto> GetLocationById(int id)
+        public async Task<LocationDto> GetLocationByIdAsync(int id)
         {
             using (unitOfWorkProvider.Create())
             {
@@ -36,7 +36,7 @@ namespace BusinessLayer.Facades.FacadeImplementations
             }
         }
 
-        public async Task Update(LocationDto locationDto)
+        public async Task UpdateAsync(LocationDto locationDto)
         {
             using (var uow = unitOfWorkProvider.Create())
             {
@@ -47,7 +47,7 @@ namespace BusinessLayer.Facades.FacadeImplementations
             }
         }
 
-        public async Task Delete(int id)
+        public async Task DeleteAsync(int id)
         {
             using (var uow = unitOfWorkProvider.Create())
             {

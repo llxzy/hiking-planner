@@ -61,6 +61,7 @@ namespace Tests.BusinessLayerTests.Facades
                 Assert.ThrowsAsync<ArgumentException>(() => fakeUserFacade.RegisterNewUser(null));
             }
 
+
             [Test]
             public void RegisterNewUser_UserAlreadyExists_ThrowsArgumentException()
             {

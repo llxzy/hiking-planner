@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using BusinessLayer;
@@ -35,6 +36,13 @@ namespace API
 
             //services.AddDbContext<DatabaseContext>(options => options
             //    .UseSqlServer(@"Data Source=172.26.2.97\SQLEXPRESS,1433;User ID=pv178project;Password=eiGhtdRagon178;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"));
+            
+            // stopping json from loading cyclic references
+            services.AddMvc().AddJsonOptions(opt =>
+            {
+                //opt.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.;
+                opt.JsonSerializerOptions.MaxDepth = 0;
+            });
             
             services.AddApiVersioning(x =>
             {

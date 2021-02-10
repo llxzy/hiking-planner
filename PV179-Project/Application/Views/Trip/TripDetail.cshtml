@@ -46,6 +46,7 @@
     <h2 class="trip-subheader">
         Locations
     </h2>
+
     <ol type="1">
         @{
             foreach (var t in Model.TripLocations)
@@ -57,6 +58,12 @@
         }
 
     </ol>
+    
+    
+    <a class="create-button" asp-area="" asp-controller="Trip" asp-action="ManageLocations">
+        <strong>Add locations</strong>
+    </a>
+    <a href="@Url.Action("ManageLocations","Trip", new { tripId= Model.Id })" class="trip-preview trip-redirect-a">Add location</a>
 
     <h2 class="trip-subheader">
         @Html.DisplayNameFor(model => model.Reviews)

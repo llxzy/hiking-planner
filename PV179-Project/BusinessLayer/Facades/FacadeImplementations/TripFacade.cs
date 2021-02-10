@@ -20,7 +20,7 @@ namespace BusinessLayer.Facades.FacadeImplementations
             tripLocationService = tripLocation;
         }
 
-        public async Task AddTripLocationToTrip(TripLocationDto tripLocationDto, TripDto tripDto)
+        public async Task AddTripLocationToTrip(LocationDto locationDto, TripDto tripDto)
         {
             //CheckIfTripExists(tripDto.Id);
             if (_tripService.GetAsync(tripDto.Id).Result == null)
@@ -32,8 +32,11 @@ namespace BusinessLayer.Facades.FacadeImplementations
 
             using (var uow = unitOfWorkProvider.Create())
             {
-                await tripLocationService.Create(tripLocationDto); //necessary?
-                tripDto.TripLocations.Add(tripLocationDto);
+                tripDto.TripLocations.Add(new TripLocationDto
+                {
+                    AssociatedLocation = locationDto,
+                    AssociatedTrip = tripDto
+                });
                 _tripService.Update(tripDto);
                 await uow.CommitAsync();
             }

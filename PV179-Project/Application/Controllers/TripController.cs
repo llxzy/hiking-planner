@@ -43,7 +43,6 @@ namespace Application.Controllers
             return View(mapper.Map<List<TripModel>>(tripDtos));
         }
         
-        [HttpPost]
         public async Task<IActionResult> TripDetail(int tripId)
         {
             var trip = await _tripFacade.GetTripByIdAsync(tripId);
@@ -105,19 +104,10 @@ namespace Application.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(TripCreateModel tripCreateModel)
         {
-            var tripLocation = new TripLocationDto()
-            {
-                AssociatedLocation = await _locationFacade.GetLocationById(tripCreateModel.LocationId)
-            };
-            var tripLocations = new List<TripLocationDto>() { tripLocation };
-
-            if (string.IsNullOrEmpty(tripCreateModel.Participants))
-            {
-                tripCreateModel.Participants = string.Empty;
-            }
+            //var tripDto = mapper.Map<TripDto>(tripCreateModel);
             
-            var participants = new List<UserTripModel>();
             var author = await _userFacade.GetAsync(int.Parse(User.Identity.Name));
+            
             var tripDto = new TripDto()
             {
                 Author = author,
@@ -125,42 +115,51 @@ namespace Application.Controllers
                 Description = tripCreateModel.Description,
                 StartDate = tripCreateModel.StartDate,
                 Done = tripCreateModel.Done,
-                TripLocations = tripLocations,
                 Participants = new List<UserTripDto>()
             };
             
-            foreach (var p in tripCreateModel.Participants.Split(','))
+            
+            if (!string.IsNullOrEmpty(tripCreateModel.Participants))
             {
-                var user = _userFacade.GetUserByMail(p.Trim());
-                if (user != null)
+                foreach (var p in tripCreateModel.Participants.Split(','))
                 {
-                    tripDto.Participants.Add(new UserTripDto()
+                    var user = _userFacade.GetUserByMail(p.Trim());
+                    if (user != null)
                     {
-                        User = user,
-                        Trip = tripDto
-                    });
+                        tripDto.Participants.Add(new UserTripDto()
+                        {
+                            User = user,
+                            Trip = tripDto
+                        });
+                    }
                 }
             }
-            var tripModel = new TripModel()
-            {
-                Author = mapper.Map<UserModel>(author),
-                Title = tripCreateModel.Title,
-                Description = tripCreateModel.Description,
-                StartDate = tripCreateModel.StartDate,
-                Done = tripCreateModel.Done,
-                TripLocations = mapper.Map<List<TripLocationModel>>(tripLocations),
-                Participants = participants
-            };
-
-            await _tripFacade.Create(tripDto);
             
+            await _tripFacade.Create(tripDto);
             return RedirectToAction("Profile", "User");
         }
 
-        public IActionResult DisplayAddLocation(string searchText)
+        public async Task<IActionResult> ManageLocations(int tripId)
         {
-            var model = _locationFacade.ListAllSortedByName(searchText);
-            return PartialView("SearchResults", model);
+            var locations = _locationFacade.ListAllSubmitted();
+            return View(new TripAddLocationModel
+            {
+                TripId = tripId,
+                Locations = mapper.Map<List<LocationModel>>(locations)
+            });
+        }
+
+
+        public async Task<IActionResult> AddLocation(int tripId, int locationId)
+        {
+            var location = await _locationFacade.GetLocationByIdAsync(locationId);
+            var trip = await _tripFacade.GetTripByIdAsync(tripId);
+            await _tripFacade.AddTripLocationToTrip(location, trip);
+            return View("ManageLocations", new TripAddLocationModel
+                {
+                    TripId = tripId,
+                    Locations = mapper.Map<List<LocationModel>>(_locationFacade.ListAllSubmitted())
+                });
         }
     }
 }

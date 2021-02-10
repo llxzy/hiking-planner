@@ -21,7 +21,27 @@ namespace Infrastructure.Query
             Provider = provider;
             provider.Create(); // added
             PageSize = 10; // some default value, can be changed
-            Queryable = Provider.GetUnitOfWorkInstance().Context.Set<TEntity>();
+            //Queryable = Provider.GetUnitOfWorkInstance().Context.Set<TEntity>();
+            Queryable = GetQueryableWithIncludes();
+        }
+
+        private IQueryable<TEntity> GetQueryableWithIncludes()
+        {
+            var context = Provider.GetUnitOfWorkInstance().Context;
+            var query = context.Set<TEntity>().AsQueryable();
+
+            var navigations = context.Model.FindEntityType(typeof(TEntity))
+                //.GetDeclaredNavigations()
+                .GetDerivedTypesInclusive()
+                .SelectMany(type => type.GetNavigations())
+                .Distinct();
+            
+            foreach (var navigation in navigations)
+            {
+                query = query.Include(navigation.Name);
+            }
+
+            return query;
         }
 
         public IQuery<TEntity> Page(int pageToFetch, int pageSize)
@@ -44,6 +64,7 @@ namespace Infrastructure.Query
             Queryable = DesiredPage == null
                 ? Queryable
                 : Queryable.Skip((DesiredPage.Value - 1) * PageSize).Take(PageSize);
+
             return new QueryResult<TEntity>(
                 await Queryable.ToListAsync(),
                 Queryable.Count(),

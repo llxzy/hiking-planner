@@ -23,19 +23,18 @@ namespace DataAccessLayer
         
         public DatabaseContext(DbContextOptions options) : base(options)
         {
-            //Database.EnsureCreated();
+            Database.EnsureCreated();
         }
 
         /*
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Data Source=172.26.2.97\SQLEXPRESS,1433;User ID=pv178project;Password=eiGhtdRagon178;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+            //optionsBuilder.UseSqlServer(@"Data Source=172.26.2.97\SQLEXPRESS,1433;User ID=pv178project;Password=eiGhtdRagon178;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+            optionsBuilder.UseNpgsql(@"Host=localhost;Database=tripdb;Username=postgres;Password=postgres;Port=5432");
         }*/
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            
-
             modelBuilder.Entity<UserTrip>().HasKey(k => new { k.UserId, k.TripId });
             modelBuilder.Entity<UserTrip>()
                 .HasOne<User>(trip => trip.User)
@@ -57,7 +56,7 @@ namespace DataAccessLayer
                 .HasOne<Review>(vote => vote.AssociatedReview)
                 .WithMany(u => u.UserReviewVotes)
                 .HasForeignKey(a => a.AssociatedReviewId);
-            
+
             modelBuilder.Entity<Challenge>()
                 .HasOne(c => c.User)
                 .WithMany(u => u.Challenges)
@@ -80,7 +79,7 @@ namespace DataAccessLayer
             // fix for identity insert
             // check for errors while getting data out
             // add for all data classes
-            //modelBuilder.Entity<Location>().Property(l => l.Id).UseIdentityColumn();
+            modelBuilder.Entity<Location>().Property(l => l.Id).UseIdentityColumn();
             
             base.OnModelCreating(modelBuilder);
         }

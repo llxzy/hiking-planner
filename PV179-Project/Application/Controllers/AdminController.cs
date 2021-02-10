@@ -65,9 +65,9 @@ namespace Application.Controllers
         {
             try 
             {
-                var loc = await _locationFacade.GetLocationById(id);
+                var loc = await _locationFacade.GetLocationByIdAsync(id);
                 loc.PermanentlyAdded = true;
-                await _locationFacade.Update(_mapper.Map<LocationDto>(loc));
+                await _locationFacade.UpdateAsync(_mapper.Map<LocationDto>(loc));
             }
             catch (Exception)
             {

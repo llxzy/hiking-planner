@@ -7,12 +7,13 @@ namespace BusinessLayer.Facades.FacadeInterfaces
 {
     public interface ILocationFacade : IDisposable
     {
-        Task Create(LocationDto locationDto);
-        Task<LocationDto> GetLocationById(int id);
+        Task CreateAsync(LocationDto locationDto);
+        
+        Task<LocationDto> GetLocationByIdAsync(int id);
 
-        Task Update(LocationDto locationDto);
+        Task UpdateAsync(LocationDto locationDto);
 
-        Task Delete(int id);
+        Task DeleteAsync(int id);
 
         List<LocationDto> ListAllSortedByName(string locationName);
 

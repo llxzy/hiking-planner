@@ -17,7 +17,8 @@ namespace API.Controllers
         {
             _userFacade = userFacade;
         }
-
+        
+        
         [HttpGet]
         [ApiVersion("1.0")]
         public async Task<ActionResult<UserDto>> Get([EmailAddress] string mail)
@@ -29,6 +30,20 @@ namespace API.Controllers
             }
             return Ok(user);
         }
+
+        /*
+         * TEST FOR INT GET
+         */
+        
+        /*
+        [HttpGet]
+        [ApiVersion("1.0")]
+        public async Task<ActionResult<UserDto>> Get(int id)
+        {
+            var user = _userFacade.GetAsync(id);
+            return Ok(user);
+        }*/
+        
 
         // api/user
         [HttpPost]

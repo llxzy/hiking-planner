@@ -8,29 +8,36 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure
 {
-    public class GenericRepository<TEntity> : IRepository<TEntity> where TEntity : class, new()
+    public class GenericRepository<TEntity> : IRepository<TEntity> where TEntity : BaseEntity, new()
     {
-        //private IUnitOfWork _uow;
-        //private DbContext _context;
         private IUnitOfWorkProvider _unitOfWorkProvider;
-
-        //provider????
-        //public GenericRepository(IUnitOfWork uow)
-        //{
-        //    _uow = uow;
-        //    _context = uow.Context;
-        //}
 
         public GenericRepository(IUnitOfWorkProvider provider)
         {
             _unitOfWorkProvider = provider;
-            //_context = _unitOfWorkProvider.GetUnitOfWorkInstance().Context;
         }
 
         public Task<TEntity> GetByIdAsync(int id)
         {
+            /*
             var _context = _unitOfWorkProvider.GetUnitOfWorkInstance().Context;
             return _context.Set<TEntity>().FindAsync(id).AsTask();
+            */
+            
+            var _context = _unitOfWorkProvider.GetUnitOfWorkInstance().Context;
+            var query = _context.Set<TEntity>().AsQueryable();
+            
+            var navigations = _context.Model.FindEntityType(typeof(TEntity))
+                .GetDerivedTypesInclusive()
+                .SelectMany(type => type.GetNavigations())
+                .Distinct();
+
+            foreach (var navigation in navigations)
+            {
+                query = query.Include(navigation.Name);
+            }
+            return query.FirstOrDefaultAsync(e => e.Id == id);
+            
         }
 
         public async Task CreateAsync(TEntity entity)
@@ -38,10 +45,8 @@ namespace Infrastructure
             var _context = _unitOfWorkProvider.GetUnitOfWorkInstance().Context;
             _context.Set<TEntity>().Attach(entity);
             await _context.Set<TEntity>().AddAsync(entity);
-            //TODO
-            //.Entry(entity).State = EntityState.Detached;
         }
-
+        
         public void Update(TEntity entity)
         {
             var _context = _unitOfWorkProvider.GetUnitOfWorkInstance().Context;
@@ -49,6 +54,8 @@ namespace Infrastructure
             //_context.Update(entity);
             //_context.Entry(entity).CurrentValues.SetValues(entity);
             _context.Entry(entity).State = EntityState.Modified;
+            var trips = _context.Set<Trip>();
+            var tls = _context.Set<TripLocation>();
         }
 
         public async Task DeleteAsync(int id)

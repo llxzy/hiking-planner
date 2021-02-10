@@ -20,7 +20,7 @@ namespace API.Controllers
         [ApiVersion("1.0")]
         public async Task<ActionResult> AddLocation(LocationDto location)
         {
-            await _locationFacade.Create(location);
+            await _locationFacade.CreateAsync(location);
             return Ok();
         }
 
@@ -28,7 +28,7 @@ namespace API.Controllers
         [ApiVersion("1.0")]
         public async Task<ActionResult> UpdateLocation(LocationDto location)
         {
-            await _locationFacade.Update(location);
+            await _locationFacade.UpdateAsync(location);
             return Ok();
         }
 

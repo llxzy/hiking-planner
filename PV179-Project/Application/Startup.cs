@@ -30,7 +30,8 @@ namespace Application
             services.AddAutofac();
             
             services.AddDbContext<DatabaseContext>(options => options
-                .UseNpgsql(@"Host=localhost;Database=tripdb;Username=postgres;Password=postgres;Port=5432"));
+                .UseNpgsql(@"Host=localhost;Database=tripdb;Username=postgres;Password=postgres;Port=5432")
+                .EnableSensitiveDataLogging());
             
             /*
             services.AddDbContext<DatabaseContext>(options => options
