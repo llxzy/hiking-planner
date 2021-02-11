@@ -26,12 +26,12 @@ namespace DataAccessLayer
             Database.EnsureCreated();
         }
 
-        /*
+        
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             //optionsBuilder.UseSqlServer(@"Data Source=172.26.2.97\SQLEXPRESS,1433;User ID=pv178project;Password=eiGhtdRagon178;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
             optionsBuilder.UseNpgsql(@"Host=localhost;Database=tripdb;Username=postgres;Password=postgres;Port=5432");
-        }*/
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -56,6 +56,17 @@ namespace DataAccessLayer
                 .HasOne<Review>(vote => vote.AssociatedReview)
                 .WithMany(u => u.UserReviewVotes)
                 .HasForeignKey(a => a.AssociatedReviewId);
+
+            modelBuilder.Entity<TripLocation>().HasKey(tl => new {tl.AssociatedLocationId, tl.AssociatedTripId});
+            modelBuilder.Entity<TripLocation>()
+                .HasOne(tl => tl.AssociatedTrip)
+                .WithMany(t => t.TripLocations)
+                .HasForeignKey(a => a.AssociatedTripId);
+
+            modelBuilder.Entity<TripLocation>()
+                .HasOne(tl => tl.AssociatedLocation)
+                .WithMany(l => l.Trips)
+                .HasForeignKey(a => a.AssociatedLocationId);
 
             modelBuilder.Entity<Challenge>()
                 .HasOne(c => c.User)

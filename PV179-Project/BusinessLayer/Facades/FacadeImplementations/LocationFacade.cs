@@ -98,6 +98,14 @@ namespace BusinessLayer.Facades.FacadeImplementations
             }
         }
 
+        public List<LocationDto> ListAllAdded()
+        {
+            using (unitOfWorkProvider.Create())
+            {
+                return _locationService.GetAllAdded();
+            }
+        }
+
         //move to utils?
         public void CheckLocationValidity(LocationDto locationDto)
         {

@@ -39,6 +39,11 @@ namespace BusinessLayer.Services.Implementations
             return QueryObject.ExecuteQuery(new LocationFilterDto { PermanentlyAdded = "false" }).Items.ToList();
         }
 
+        public List<LocationDto> GetAllAdded()
+        {
+            return QueryObject.ExecuteQuery(new LocationFilterDto {PermanentlyAdded = "true"}).Items.ToList();
+        }
+
         public List<LocationDto> ListAllSortedByName(string locationName)
         {
             var filter = new LocationFilterDto()

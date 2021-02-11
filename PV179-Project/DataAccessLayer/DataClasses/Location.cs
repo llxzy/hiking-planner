@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using DataAccessLayer.Enums;
 
 namespace DataAccessLayer.DataClasses
@@ -12,5 +14,6 @@ namespace DataAccessLayer.DataClasses
         public double Long           { get; set; }
         public int VisitCount        { get; set; }
         public bool PermanentlyAdded { get; set; }
+        public ICollection<TripLocation> Trips { get; set; }
     }
 }

@@ -6,15 +6,17 @@ namespace BusinessLayer.Services.Interfaces
 {
     public interface ILocationService : ICrudQueryServiceBase<LocationDto>
     {
-        public List<LocationDto> ListAllSortedByName(string locationName);
+        List<LocationDto> ListAllSortedByName(string locationName);
 
-        public List<LocationDto> ListAllSortedByType(string locationName);
+        List<LocationDto> ListAllSortedByType(string locationName);
 
-        public List<LocationDto> ListAllSortedByVisit();
+        List<LocationDto> ListAllSortedByVisit();
 
-        public List<LocationDto> GetAllSubmitted(object range = null);
+        List<LocationDto> GetAllAdded();
 
-        public Task AcceptSubmissionAsync(int locationId);
+        List<LocationDto> GetAllSubmitted(object range = null);
+
+        Task AcceptSubmissionAsync(int locationId);
 
         List<LocationDto> ListAllWithinDistance(double lat, double lon, double maxdist);
 

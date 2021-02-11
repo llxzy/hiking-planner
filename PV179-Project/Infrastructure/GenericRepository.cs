@@ -54,8 +54,8 @@ namespace Infrastructure
             //_context.Update(entity);
             //_context.Entry(entity).CurrentValues.SetValues(entity);
             _context.Entry(entity).State = EntityState.Modified;
-            var trips = _context.Set<Trip>();
-            var tls = _context.Set<TripLocation>();
+            var trip = _context.Set<Trip>().Include(t => t.TripLocations).Where(t => t.Id == 1).First();
+
         }
 
         public async Task DeleteAsync(int id)

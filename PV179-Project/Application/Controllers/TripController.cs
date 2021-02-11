@@ -141,7 +141,7 @@ namespace Application.Controllers
 
         public IActionResult ManageLocations(int tripId)
         {
-            var locations = _locationFacade.ListAllSubmitted();
+            var locations = _locationFacade.ListAllAdded();
             return View(new TripAddLocationModel
             {
                 TripId = tripId,
@@ -158,7 +158,7 @@ namespace Application.Controllers
             return View("ManageLocations", new TripAddLocationModel
                 {
                     TripId = tripId,
-                    Locations = mapper.Map<List<LocationModel>>(_locationFacade.ListAllSubmitted())
+                    Locations = mapper.Map<List<LocationModel>>(_locationFacade.ListAllAdded())
                 });
         }
     }

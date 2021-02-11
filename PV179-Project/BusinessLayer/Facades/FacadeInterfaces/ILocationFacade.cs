@@ -23,6 +23,8 @@ namespace BusinessLayer.Facades.FacadeInterfaces
 
         List<LocationDto> ListAllSubmitted();
 
+        List<LocationDto> ListAllAdded();
+
         void CheckLocationValidity(LocationDto locationDto);
     }
 }
