@@ -47,7 +47,7 @@ namespace Application.Controllers
             _userFacade.Update(user);
             var changeduser = _userFacade.GetUserByMail(passedMail);*/
             //return View(user);
-            var x = _userFacade.DeleteLoggedUserAsync(int.Parse(passedMail));
+            var x = _userFacade.DeleteAsync(int.Parse(passedMail));
             return new ContentResult() { Content = "IT WORKED YAY"};
         }
 
@@ -184,7 +184,7 @@ namespace Application.Controllers
         {
             try
             {
-                await _userFacade.DeleteLoggedUserAsync(id);
+                await _userFacade.DeleteAsync(id);
                 return RedirectToAction("Index", "Home");
             }
             catch (Exception)
@@ -212,16 +212,22 @@ namespace Application.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(int id)
+        public async Task<IActionResult> Edit(UserModel userModel)
         {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             try
             {
-                var user = await _userFacade.GetAsync(id);
+                var user = await _userFacade.GetAsync(int.Parse(User.Identity.Name));
+                user.Name = userModel.Name;
+                user.MailAddress = userModel.MailAddress;
                 await _userFacade.UpdateAsync(user);
             }
             catch (Exception)
             {
-                
+                ModelState.AddModelError("", "Something went wrong while editing user.");
             }
             return View("Profile");
         }
@@ -247,14 +253,13 @@ namespace Application.Controllers
         {
             try
             {
-                var id = User.Identity.Name;
-                var user = await _userFacade.GetAsync(int.Parse(id));
+                var user = await _userFacade.GetAsync(int.Parse(User.Identity.Name));
                 user.PasswordHash = HashingUtils.Encode(pswdModel.Password);
                 await _userFacade.UpdateAsync(user);
             }
             catch (Exception)
             {
-
+                ModelState.AddModelError("", "Unable to change password.");
             }
             return View("Profile");
         }

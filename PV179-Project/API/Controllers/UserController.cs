@@ -60,7 +60,7 @@ namespace API.Controllers
         [ApiVersion("1.0")]
         public async Task<ActionResult> Delete([Range(1, int.MaxValue)] int id)
         {
-            await _userFacade.DeleteLoggedUserAsync(id);
+            await _userFacade.DeleteAsync(id);
             return Ok();
         }
 

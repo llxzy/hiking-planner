@@ -84,13 +84,16 @@ namespace BusinessLayer.Facades.FacadeImplementations
         {
             using (var uow = unitOfWorkProvider.Create())
             {
+                if (_userService.EmailAlreadyExists(userDto.MailAddress))
+                {
+                    throw new ArgumentException("User with this email already exists!");
+                }
                 _userService.Update(userDto);
                 await uow.CommitAsync();
             }
         }
 
-        //Logged user can delete his/hers/their profile
-        public async Task DeleteLoggedUserAsync(int id)
+        public async Task DeleteAsync(int id)
         {
             using (var uow = unitOfWorkProvider.Create())
             {

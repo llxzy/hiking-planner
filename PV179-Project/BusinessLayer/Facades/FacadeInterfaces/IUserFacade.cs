@@ -18,8 +18,7 @@ namespace BusinessLayer.Facades.FacadeInterfaces
 
         Task UpdateAsync(UserDto userDto);
 
-        //Logged user can delete his/hers/their profile
-        Task DeleteLoggedUserAsync(int id);
+        Task DeleteAsync(int id);
 
         Task<string> GetUserMailAsync(int id);
     }
