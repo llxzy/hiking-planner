@@ -20,7 +20,7 @@ namespace BusinessLayer.Facades.FacadeImplementations
             tripLocationService = tripLocation;
         }
 
-        public async Task AddTripLocationToTrip(LocationDto locationDto, TripDto tripDto)
+        public async Task AddTripLocationToTripAsync(LocationDto locationDto, TripDto tripDto)
         {
             //CheckIfTripExists(tripDto.Id);
             if (_tripService.GetAsync(tripDto.Id).Result == null)
@@ -70,12 +70,12 @@ namespace BusinessLayer.Facades.FacadeImplementations
             return result;
         }
 
-        public async Task Create(TripDto tripDto)
+        public async Task CreateAsync(TripDto tripDto)
         {
             //TODO check tripDto validity
             using (var uow = unitOfWorkProvider.Create())
             {
-                await _tripService.Create(tripDto);
+                await _tripService.CreateAsync(tripDto);
                 await uow.CommitAsync();
             }
         }
@@ -88,7 +88,7 @@ namespace BusinessLayer.Facades.FacadeImplementations
             }
         }
 
-        public async Task Update(TripDto tripDto)
+        public async Task UpdateAsync(TripDto tripDto)
         {
             if (_tripService.GetAsync(tripDto.Id).Result == null)
             {
@@ -104,7 +104,7 @@ namespace BusinessLayer.Facades.FacadeImplementations
             }
         }
 
-        public async Task Delete(int tripId)
+        public async Task DeleteAsync(int tripId)
         {
             if (_tripService.GetAsync(tripId).Result == null)
             {
@@ -113,7 +113,7 @@ namespace BusinessLayer.Facades.FacadeImplementations
 
             using (var uow = unitOfWorkProvider.Create())
             {
-                await _tripService.Delete(tripId);
+                await _tripService.DeleteAsync(tripId);
                 await uow.CommitAsync();
             }
         }

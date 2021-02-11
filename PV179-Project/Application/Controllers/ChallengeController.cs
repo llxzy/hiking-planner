@@ -35,7 +35,7 @@ namespace Application.Controllers
             //netreba ho vycucat z prihlaseneho uzivatela?
 
             var user = await _userFacade.GetAsync(challengeCreateModel.UserId);
-            await _challengeFacade.Create(challengeCreateModel.TripCount, user, challengeCreateModel.Type);
+            await _challengeFacade.CreateAsync(challengeCreateModel.TripCount, user, challengeCreateModel.Type);
             return RedirectToAction("Profile", "User");
         }
     }

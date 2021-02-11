@@ -18,7 +18,7 @@ namespace BusinessLayer.Services.Implementations
         public UserService (IRepository<User> repository, QueryObjectBase<User, UserDto, UserFilterDto, IQuery<User>> userQueryObject) 
             : base(repository, userQueryObject) {}
         
-        public async Task<string> GetUserEmail(int userId)
+        public async Task<string> GetUserEmailAsync(int userId)
         {
             var user = await Repository.GetByIdAsync(userId);
             var userDto = Mapper.Map<UserDto>(user);
@@ -34,7 +34,7 @@ namespace BusinessLayer.Services.Implementations
             return user.Items?.FirstOrDefault();
         }
 
-        public bool EmailAlreadyExistsAsync(string mail)
+        public bool EmailAlreadyExists(string mail)
         {
             var res = QueryObject.ExecuteQuery(new UserFilterDto { MailAddress = mail });
             return (res.Items.Count >= 1);

@@ -33,7 +33,7 @@ namespace Application.Controllers
         {
             var user = await _userFacade.GetAsync(id);
             user.Role = makeMod ? UserRole.Moderator : UserRole.RegularUser;
-            await _userFacade.Update(user);
+            await _userFacade.UpdateAsync(user);
             //return RedirectToAction("Profile", "User");
             return View("../User/Profile", _mapper.Map<UserModel>(user));
         }

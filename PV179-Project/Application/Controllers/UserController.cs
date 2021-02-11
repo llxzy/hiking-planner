@@ -47,7 +47,7 @@ namespace Application.Controllers
             _userFacade.Update(user);
             var changeduser = _userFacade.GetUserByMail(passedMail);*/
             //return View(user);
-            var x = _userFacade.DeleteLoggedUser(int.Parse(passedMail));
+            var x = _userFacade.DeleteLoggedUserAsync(int.Parse(passedMail));
             return new ContentResult() { Content = "IT WORKED YAY"};
         }
 
@@ -78,7 +78,7 @@ namespace Application.Controllers
             };
             try
             {
-                await _userFacade.RegisterNewUser(user);
+                await _userFacade.RegisterNewUserAsync(user);
             }
             catch (Exception)
             {
@@ -169,7 +169,7 @@ namespace Application.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Search(string searchTerm)
+        public IActionResult Search(string searchTerm)
         {
             var user = _userFacade.GetUserByMail(searchTerm);
             if (user == null)
@@ -184,7 +184,7 @@ namespace Application.Controllers
         {
             try
             {
-                await _userFacade.DeleteLoggedUser(id);
+                await _userFacade.DeleteLoggedUserAsync(id);
                 return RedirectToAction("Index", "Home");
             }
             catch (Exception)
@@ -217,7 +217,7 @@ namespace Application.Controllers
             try
             {
                 var user = await _userFacade.GetAsync(id);
-                await _userFacade.Update(user);
+                await _userFacade.UpdateAsync(user);
             }
             catch (Exception)
             {
@@ -250,7 +250,7 @@ namespace Application.Controllers
                 var id = User.Identity.Name;
                 var user = await _userFacade.GetAsync(int.Parse(id));
                 user.PasswordHash = HashingUtils.Encode(pswdModel.Password);
-                await _userFacade.Update(user);
+                await _userFacade.UpdateAsync(user);
             }
             catch (Exception)
             {

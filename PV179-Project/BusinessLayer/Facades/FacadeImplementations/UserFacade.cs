@@ -17,7 +17,7 @@ namespace BusinessLayer.Facades.FacadeImplementations
             _userService = service;
         }
 
-        public async Task RegisterNewUser(UserRegistrationDto userRegDto)
+        public async Task RegisterNewUserAsync(UserRegistrationDto userRegDto)
         {
             if (userRegDto == null)
             {
@@ -25,11 +25,11 @@ namespace BusinessLayer.Facades.FacadeImplementations
             }
             using (var uow = unitOfWorkProvider.Create())
             {
-                if (_userService.EmailAlreadyExistsAsync(userRegDto.MailAddress))
+                if (_userService.EmailAlreadyExists(userRegDto.MailAddress))
                 {
                     throw new ArgumentException("User already exists.");
                 }
-                await _userService.Create(new UserDto()
+                await _userService.CreateAsync(new UserDto()
                 {
                     Name = userRegDto.Name,
                     MailAddress = userRegDto.MailAddress,
@@ -63,11 +63,11 @@ namespace BusinessLayer.Facades.FacadeImplementations
             return true;
         }
 
-        public async Task Create(UserDto userDto)
+        public async Task CreateAsync(UserDto userDto)
         {
             using (var uow = unitOfWorkProvider.Create())
             {
-                await _userService.Create(userDto);
+                await _userService.CreateAsync(userDto);
                 await uow.CommitAsync();
             }
         }
@@ -80,7 +80,7 @@ namespace BusinessLayer.Facades.FacadeImplementations
             }
         }
 
-        public async Task Update(UserDto userDto)
+        public async Task UpdateAsync(UserDto userDto)
         {
             using (var uow = unitOfWorkProvider.Create())
             {
@@ -90,18 +90,18 @@ namespace BusinessLayer.Facades.FacadeImplementations
         }
 
         //Logged user can delete his/hers/their profile
-        public async Task DeleteLoggedUser(int id)
+        public async Task DeleteLoggedUserAsync(int id)
         {
             using (var uow = unitOfWorkProvider.Create())
             {
-                await _userService.Delete(id);
+                await _userService.DeleteAsync(id);
                 await uow.CommitAsync();
             }
         }
 
-        public async Task<string> GetUserMail(int id)
+        public async Task<string> GetUserMailAsync(int id)
         {
-            return await _userService.GetUserEmail(id);
+            return await _userService.GetUserEmailAsync(id);
         } 
     }
 }

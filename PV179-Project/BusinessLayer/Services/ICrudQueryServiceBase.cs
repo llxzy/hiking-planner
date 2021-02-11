@@ -10,10 +10,10 @@ namespace BusinessLayer.Services
     {
         public Task<TDto> GetAsync(int id);
 
-        public Task Create(TDto entityDto);
+        public Task CreateAsync(TDto entityDto);
 
         public void Update(TDto entityDto);
 
-        public Task Delete(int id);
+        public Task DeleteAsync(int id);
     }
 }

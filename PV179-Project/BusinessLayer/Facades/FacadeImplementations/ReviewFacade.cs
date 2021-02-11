@@ -25,7 +25,7 @@ namespace BusinessLayer.Facades.FacadeImplementations
             _tripService = tripService;
         }
 
-        public async Task Create(string text, int tripId, int userId)
+        public async Task CreateAsync(string text, int tripId, int userId)
         {
             using (var uow = unitOfWorkProvider.Create())
             {
@@ -35,10 +35,9 @@ namespace BusinessLayer.Facades.FacadeImplementations
                 {
                     throw new NullReferenceException("parameters not found");
                 }
-                await _reviewService.CreateReview(text, trip, user);
+                await _reviewService.CreateReviewAsync(text, trip, user);
                 await uow.CommitAsync();
             }
-            
         }
 
         public async Task<ReviewDto> GetAsync(int id)
@@ -49,7 +48,7 @@ namespace BusinessLayer.Facades.FacadeImplementations
             }
         }
 
-        public async Task Update(ReviewDto reviewDto)
+        public async Task UpdateAsync(ReviewDto reviewDto)
         {
             using (var uow = unitOfWorkProvider.Create())
             {
@@ -58,16 +57,16 @@ namespace BusinessLayer.Facades.FacadeImplementations
             }
         }
 
-        public async Task Delete(int reviewId)
+        public async Task DeleteAsync(int reviewId)
         {
             using (var uow = unitOfWorkProvider.Create())
             {
-                await _reviewService.Delete(reviewId);
+                await _reviewService.DeleteAsync(reviewId);
                 await uow.CommitAsync();
             }
         }
 
-        public async Task VoteReview(bool up, int reviewId, int userId)
+        public async Task VoteReviewAsync(bool up, int reviewId, int userId)
         {
             using (var uow = unitOfWorkProvider.Create())
             {
@@ -127,7 +126,7 @@ namespace BusinessLayer.Facades.FacadeImplementations
             }
         }
 
-        public async Task<List<ReviewDto>> ListFlagged(int userId, int? authorId, int? tripId)
+        public async Task<List<ReviewDto>> ListFlaggedAsync(int userId, int? authorId, int? tripId)
         {
             var user = await _userService.GetAsync(userId);
             if (user == null)

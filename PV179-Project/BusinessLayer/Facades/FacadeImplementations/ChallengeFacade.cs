@@ -22,7 +22,7 @@ namespace BusinessLayer.Facades.FacadeImplementations
             _userService = userService;
         }
 
-        public async Task Create(int count, int userId, ChallengeType type)
+        public async Task CreateAsync(int count, int userId, ChallengeType type)
         {
             using (var uow = unitOfWorkProvider.Create())
             {
@@ -79,7 +79,7 @@ namespace BusinessLayer.Facades.FacadeImplementations
             }
         }
 
-        public async Task Create(int count, UserDto user, ChallengeType type)
+        public async Task CreateAsync(int count, UserDto user, ChallengeType type)
         {
             using (var uow = unitOfWorkProvider.Create())
             {
@@ -106,7 +106,7 @@ namespace BusinessLayer.Facades.FacadeImplementations
                 };
                 //user.Challenges.Add(challengeDto);
                 //_userService.Update(user);
-                await _challengeService.Create(challengeDto);
+                await _challengeService.CreateAsync(challengeDto);
                 await uow.CommitAsync();
             }
         }
@@ -128,15 +128,15 @@ namespace BusinessLayer.Facades.FacadeImplementations
             }
         }
 
-        public async Task Delete(int challengeId)
+        public async Task DeleteAsync(int challengeId)
         {
             using (var uow = unitOfWorkProvider.Create())
             {
-                await _challengeService.Delete(challengeId);
+                await _challengeService.DeleteAsync(challengeId);
             }
         }
 
-        public async Task FinishChallenge(int challengeId)
+        public async Task FinishChallengeAsync(int challengeId)
         {
             using (var uow = unitOfWorkProvider.Create())
             {

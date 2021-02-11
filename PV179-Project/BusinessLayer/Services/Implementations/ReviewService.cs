@@ -21,7 +21,7 @@ namespace BusinessLayer.Services.Implementations
         {
         }
 
-        public async Task CreateReview(string text, TripDto trip, UserDto user)
+        public async Task CreateReviewAsync(string text, TripDto trip, UserDto user)
         {
             var result = new ReviewDto()
             {
@@ -30,7 +30,7 @@ namespace BusinessLayer.Services.Implementations
                 Author = user,
                 UserReviewVotes = new List<UserReviewVoteDto>()
             };
-            await Create(result);
+            await CreateAsync(result);
         }
 
         public List<ReviewDto> ListReviewsByAuthor(int authorId)

@@ -36,7 +36,7 @@ namespace API.Controllers
         {
             //await _challengeFacade.Create(dto.Count, dto.Id, dto.Type);
             var user = await _userFacade.GetAsync(dto.UserId);
-            await _challengeFacade.Create(dto.TripCount, user, dto.Type);
+            await _challengeFacade.CreateAsync(dto.TripCount, user, dto.Type);
             return Ok();
         }
 
@@ -54,7 +54,7 @@ namespace API.Controllers
             {
                 return NotFound();
             }
-            await _challengeFacade.FinishChallenge(challenge.Id);
+            await _challengeFacade.FinishChallengeAsync(challenge.Id);
             return Ok();
 
         }

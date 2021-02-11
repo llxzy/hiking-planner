@@ -31,7 +31,7 @@ namespace BusinessLayer.Services
             return e != null ? Mapper.Map<TDto>(e) : null;
         }
 
-        public async Task Create(TDto entityDto)
+        public async Task CreateAsync(TDto entityDto)
         {
             await Repository.CreateAsync(Mapper.Map<TEntity>(entityDto));
         }
@@ -41,7 +41,7 @@ namespace BusinessLayer.Services
             Repository.Update(Mapper.Map<TEntity>(entityDto));
         }
 
-        public async Task Delete(int id)
+        public async Task DeleteAsync(int id)
         {
             await Repository.DeleteAsync(id);
         }

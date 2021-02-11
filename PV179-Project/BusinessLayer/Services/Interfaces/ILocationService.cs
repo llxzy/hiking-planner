@@ -14,7 +14,7 @@ namespace BusinessLayer.Services.Interfaces
 
         public List<LocationDto> GetAllSubmitted(object range = null);
 
-        public Task AcceptSubmission(int locationId);
+        public Task AcceptSubmissionAsync(int locationId);
 
         List<LocationDto> ListAllWithinDistance(double lat, double lon, double maxdist);
 

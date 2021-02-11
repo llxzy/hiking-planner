@@ -87,7 +87,7 @@ namespace Application.Controllers
         [HttpPost]
         public async Task<IActionResult> DeleteTrip(string Id)
         {
-            await _tripFacade.Delete(int.Parse(Id));
+            await _tripFacade.DeleteAsync(int.Parse(Id));
             return RedirectToAction("Profile", "User");
         }
         
@@ -135,11 +135,11 @@ namespace Application.Controllers
                 }
             }
             
-            await _tripFacade.Create(tripDto);
+            await _tripFacade.CreateAsync(tripDto);
             return RedirectToAction("Profile", "User");
         }
 
-        public async Task<IActionResult> ManageLocations(int tripId)
+        public IActionResult ManageLocations(int tripId)
         {
             var locations = _locationFacade.ListAllSubmitted();
             return View(new TripAddLocationModel
@@ -154,7 +154,7 @@ namespace Application.Controllers
         {
             var location = await _locationFacade.GetLocationByIdAsync(locationId);
             var trip = await _tripFacade.GetTripByIdAsync(tripId);
-            await _tripFacade.AddTripLocationToTrip(location, trip);
+            await _tripFacade.AddTripLocationToTripAsync(location, trip);
             return View("ManageLocations", new TripAddLocationModel
                 {
                     TripId = tripId,

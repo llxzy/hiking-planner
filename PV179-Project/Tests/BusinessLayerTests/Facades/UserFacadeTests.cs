@@ -30,7 +30,7 @@ namespace Tests.BusinessLayerTests.Facades
 
                 fakeUserService.GetUserByMail(Arg.Any<string>()).Returns(new UserDto());
                 fakeUserService.GetUserByMail(FAKE_USER_MAIL).Returns(fakeUserDto);
-                fakeUserService.EmailAlreadyExistsAsync(FAKE_USER_MAIL).Returns(true);
+                fakeUserService.EmailAlreadyExists(FAKE_USER_MAIL).Returns(true);
                 
                 fakeUserFacade = new UserFacade(fakeUnitOfWorkProvider, fakeUserService);
             }
@@ -58,14 +58,14 @@ namespace Tests.BusinessLayerTests.Facades
             [Test]
             public void RegisterNewUser_NullUserDto_ThrowsArgumentException()
             {
-                Assert.ThrowsAsync<ArgumentException>(() => fakeUserFacade.RegisterNewUser(null));
+                Assert.ThrowsAsync<ArgumentException>(() => fakeUserFacade.RegisterNewUserAsync(null));
             }
 
 
             [Test]
             public void RegisterNewUser_UserAlreadyExists_ThrowsArgumentException()
             {
-                Assert.ThrowsAsync<ArgumentException>(() => fakeUserFacade.RegisterNewUser(fakeRegistrationDto));
+                Assert.ThrowsAsync<ArgumentException>(() => fakeUserFacade.RegisterNewUserAsync(fakeRegistrationDto));
             }
             
 

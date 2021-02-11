@@ -21,7 +21,7 @@ namespace BusinessLayer.Services.Implementations
         {
         }
 
-        public async Task AddArrivalTime(int tripLocationId, DateTime time)
+        public async Task AddArrivalTimeAsync(int tripLocationId, DateTime time)
         {
             var tripLocDto = await GetAsync(tripLocationId);
             tripLocDto.ArrivalTime = time;

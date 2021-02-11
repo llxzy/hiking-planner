@@ -23,7 +23,7 @@ namespace BusinessLayer.Facades.FacadeImplementations
             {
                 CheckLocationValidity(locationDto);
 
-                await _locationService.Create(locationDto);
+                await _locationService.CreateAsync(locationDto);
                 await uow.CommitAsync();
             }
         }
@@ -51,7 +51,7 @@ namespace BusinessLayer.Facades.FacadeImplementations
         {
             using (var uow = unitOfWorkProvider.Create())
             {
-                await _locationService.Delete(id);
+                await _locationService.DeleteAsync(id);
                 await uow.CommitAsync();
             }
         }
@@ -101,10 +101,6 @@ namespace BusinessLayer.Facades.FacadeImplementations
         //move to utils?
         public void CheckLocationValidity(LocationDto locationDto)
         {
-            //if (_locationService.GetAsync(locationDto.Id) == null) {
-            //    throw new NullReferenceException("Location with this id not found.");
-            //}
-
             if (string.IsNullOrWhiteSpace(locationDto.Name))
             {
                 throw new ArgumentException("Location name can not be empty.");

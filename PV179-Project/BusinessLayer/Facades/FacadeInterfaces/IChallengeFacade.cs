@@ -8,15 +8,15 @@ namespace BusinessLayer.Facades.FacadeInterfaces
 {
     public interface IChallengeFacade : IDisposable
     {
-        Task Create(int count, int userId, ChallengeType type);
+        Task CreateAsync(int count, int userId, ChallengeType type);
 
         Task<ChallengeDto> GetAsync(int id);
 
         Task Update(ChallengeDto challengeDto);
 
-        Task Delete(int challengeId);
+        Task DeleteAsync(int challengeId);
 
-        Task FinishChallenge(int challengeId);
+        Task FinishChallengeAsync(int challengeId);
 
         List<ChallengeDto> ListAllUsersChallenges(int userId);
 
@@ -24,7 +24,7 @@ namespace BusinessLayer.Facades.FacadeInterfaces
 
         List<ChallengeDto> ListFinishedChallenges(int userId);
 
-        Task Create(int count, UserDto user, ChallengeType type);
+        Task CreateAsync(int count, UserDto user, ChallengeType type);
 
 
 

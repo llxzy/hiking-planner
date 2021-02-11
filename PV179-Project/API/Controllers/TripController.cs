@@ -45,7 +45,7 @@ namespace API.Controllers
         public async Task<ActionResult> CreateNewTrip([FromBody] TripDto tripDto)
         {
             // TODO trip create dto
-            await _tripFacade.Create(tripDto);
+            await _tripFacade.CreateAsync(tripDto);
             return Ok();
         }
 
@@ -53,7 +53,7 @@ namespace API.Controllers
         [ApiVersion("1.0")]
         public async Task<ActionResult> DeleteTrip([Range(1, int.MaxValue)] int tripId)
         {
-            await _tripFacade.Delete(tripId);
+            await _tripFacade.DeleteAsync(tripId);
             return Ok();
         }
 

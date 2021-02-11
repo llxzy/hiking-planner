@@ -43,7 +43,7 @@ namespace Application.Controllers
             try
             {
                 var authorId = int.Parse(User.Identity.Name);
-                await _reviewFacade.Create(reviewCreateModel.Text, reviewCreateModel.TripId, authorId);
+                await _reviewFacade.CreateAsync(reviewCreateModel.Text, reviewCreateModel.TripId, authorId);
             }
             catch (Exception)
             {
@@ -57,7 +57,7 @@ namespace Application.Controllers
         {
             try
             {
-                await _reviewFacade.Delete(id);
+                await _reviewFacade.DeleteAsync(id);
             }
             catch (Exception)
             {

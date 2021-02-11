@@ -9,18 +9,18 @@ namespace BusinessLayer.Facades.FacadeInterfaces
 {
     public interface ITripFacade : IDisposable
     {
-        Task AddTripLocationToTrip(LocationDto locationDto, TripDto tripDto);
+        Task AddTripLocationToTripAsync(LocationDto locationDto, TripDto tripDto);
 
         List<TripDto> GetAllTripsSorted();
 
         List<TripDto> GetAllUserTrips(int userId);
 
-        Task Create(TripDto tripDto);
+        Task CreateAsync(TripDto tripDto);
 
         Task<TripDto> GetTripByIdAsync(int id);
 
-        Task Update(TripDto tripDto);
+        Task UpdateAsync(TripDto tripDto);
 
-        Task Delete(int tripId);
+        Task DeleteAsync(int tripId);
     }
 }

@@ -7,7 +7,7 @@ namespace BusinessLayer.Services.Interfaces
 {
     public interface IReviewService : ICrudQueryServiceBase<ReviewDto>
     {
-        Task CreateReview(string text, TripDto trip, UserDto user);
+        Task CreateReviewAsync(string text, TripDto trip, UserDto user);
         
         List<ReviewDto> ListReviewsByAuthor(int authorId);
 

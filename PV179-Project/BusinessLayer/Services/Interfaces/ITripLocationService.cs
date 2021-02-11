@@ -8,6 +8,6 @@ namespace BusinessLayer.Services.Interfaces
 {
     public interface ITripLocationService : ICrudQueryServiceBase<TripLocationDto>
     {
-        Task AddArrivalTime(int tripLocationId, DateTime time);
+        Task AddArrivalTimeAsync(int tripLocationId, DateTime time);
     }
 }

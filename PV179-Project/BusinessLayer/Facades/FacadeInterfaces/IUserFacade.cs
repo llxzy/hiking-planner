@@ -6,21 +6,21 @@ namespace BusinessLayer.Facades.FacadeInterfaces
 {
     public interface IUserFacade : IDisposable
     {
-        Task RegisterNewUser(UserRegistrationDto userRegDto);
+        Task RegisterNewUserAsync(UserRegistrationDto userRegDto);
 
         UserDto GetUserByMail(string mail);
 
         bool VerifyUserLogin(string mail, string pswdHash);
 
-        Task Create(UserDto userDto);
+        Task CreateAsync(UserDto userDto);
 
         Task<UserDto> GetAsync(int id);
 
-        Task Update(UserDto userDto);
+        Task UpdateAsync(UserDto userDto);
 
         //Logged user can delete his/hers/their profile
-        Task DeleteLoggedUser(int id);
+        Task DeleteLoggedUserAsync(int id);
 
-        Task<string> GetUserMail(int id);
+        Task<string> GetUserMailAsync(int id);
     }
 }

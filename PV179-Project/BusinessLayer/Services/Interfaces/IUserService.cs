@@ -9,9 +9,9 @@ namespace BusinessLayer.Services.Interfaces
 
         //public Task<string> GetPasswordHash(int userId);//added
 
-        public bool EmailAlreadyExistsAsync(string mail);
+        public bool EmailAlreadyExists(string mail);
 
-        Task<string> GetUserEmail(int userId);
+        Task<string> GetUserEmailAsync(int userId);
 
         //public Task<bool> VerifyUser(int userId, string pswdHash);
 

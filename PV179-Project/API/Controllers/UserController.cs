@@ -52,7 +52,7 @@ namespace API.Controllers
         public async Task<ActionResult> Post([FromBody] UserRegistrationDto user)
         {
             //user.Id = 1;
-            await _userFacade.RegisterNewUser(user);
+            await _userFacade.RegisterNewUserAsync(user);
             return Ok();
         }
 
@@ -60,7 +60,7 @@ namespace API.Controllers
         [ApiVersion("1.0")]
         public async Task<ActionResult> Delete([Range(1, int.MaxValue)] int id)
         {
-            await _userFacade.DeleteLoggedUser(id);
+            await _userFacade.DeleteLoggedUserAsync(id);
             return Ok();
         }
 
@@ -68,7 +68,7 @@ namespace API.Controllers
         [ApiVersion("1.0")]
         public async Task<ActionResult> Patch([FromBody] UserDto user)
         {
-            await _userFacade.Update(user);
+            await _userFacade.UpdateAsync(user);
             return Ok();
         }
 
@@ -76,7 +76,7 @@ namespace API.Controllers
         [ApiVersion("1.0")]
         public async Task<ActionResult> Put([FromBody] UserDto user)
         {
-            await _userFacade.Update(user);
+            await _userFacade.UpdateAsync(user);
             return Ok();
         }
     }

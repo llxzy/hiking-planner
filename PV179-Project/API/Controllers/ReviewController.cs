@@ -24,7 +24,7 @@ namespace API.Controllers
         {
             try
             {
-                await _reviewFacade.Create(text, tripId, userId);
+                await _reviewFacade.CreateAsync(text, tripId, userId);
             }
             catch (NullReferenceException)
             {
@@ -39,7 +39,7 @@ namespace API.Controllers
         {
             try
             {
-                var reviews = await _reviewFacade.ListFlagged(userId, null, null);
+                var reviews = await _reviewFacade.ListFlaggedAsync(userId, null, null);
                 return Ok(reviews);
             }
             catch (Exception)

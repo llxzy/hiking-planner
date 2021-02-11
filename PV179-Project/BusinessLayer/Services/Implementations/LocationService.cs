@@ -27,7 +27,7 @@ namespace BusinessLayer.Services.Implementations
         {
         }
 
-        public async Task AcceptSubmission(int locationId)
+        public async Task AcceptSubmissionAsync(int locationId)
         {
             var loc = await GetAsync(locationId);
             loc.PermanentlyAdded = true;
