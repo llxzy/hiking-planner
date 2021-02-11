@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
-using BusinessLayer.DataTransferObjects;
-using BusinessLayer.Facades.FacadeImplementations;
-using Microsoft.AspNetCore.Mvc;
+using API.Models;
+using AutoMapper;
 using BusinessLayer.Facades.FacadeInterfaces;
+using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
@@ -12,51 +12,28 @@ namespace API.Controllers
     [Route("api/v{version:apiVersion}/[controller]")]
     public class TripController : ControllerBase
     {
-        /*
-         * TODO
-         * returning custom exception message if exception occured
-         */
         private readonly ITripFacade _tripFacade;
+        private readonly IUserFacade _userFacade;
+        private readonly IMapper _mapper = new Mapper(new MapperConfiguration(ApiMappingConfig.ConfigureMap));
 
-        public TripController(ITripFacade facade)
+        public TripController(ITripFacade facade, IUserFacade userFacade)
         {
             _tripFacade = facade;
+            _userFacade = userFacade;
         }
-        
-        [HttpGet]
-        [ApiVersion("1.0")]
-        [Route("api/v1/AllTrips")]
-        public async Task<ActionResult<List<TripDto>>> GetTrips()
-        {
-            return Ok( _tripFacade.GetAllTripsSorted());
-        }
-        
+
         [HttpGet]
         [ApiVersion("1.0")]
         [Route("api/v1/UserTrips")]
-        public async Task<ActionResult<List<TripDto>>> GetTripsByUser([Range(1, int.MaxValue)] int userId)
+        public async Task<ActionResult<List<TripShowModel>>> GetTripsByUser([EmailAddress] string mailAddress)
         {
-            return Ok( _tripFacade.GetAllUserTrips(userId));
+            var user = _userFacade.GetUserByMail(mailAddress);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            var trips = _tripFacade.GetAllUserTrips(user.Id);
+            return Ok(_mapper.Map<List<TripShowModel>>(trips));
         }
-
-        [HttpPost]
-        [ApiVersion("1.0")]
-        [Route("api/v1/Trips")]
-        public async Task<ActionResult> CreateNewTrip([FromBody] TripDto tripDto)
-        {
-            // TODO trip create dto
-            await _tripFacade.CreateAsync(tripDto);
-            return Ok();
-        }
-
-        [HttpDelete]
-        [ApiVersion("1.0")]
-        public async Task<ActionResult> DeleteTrip([Range(1, int.MaxValue)] int tripId)
-        {
-            await _tripFacade.DeleteAsync(tripId);
-            return Ok();
-        }
-
-
     }
 }

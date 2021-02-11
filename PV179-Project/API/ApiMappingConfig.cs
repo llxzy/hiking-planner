@@ -1,7 +1,6 @@
 using API.Models;
 using AutoMapper;
 using BusinessLayer.DataTransferObjects;
-using DataAccessLayer.DataClasses;
 
 namespace API
 {

@@ -1,17 +1,14 @@
-using System.Text.Json.Serialization;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using BusinessLayer;
 using DataAccessLayer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 
 namespace API
@@ -26,24 +23,11 @@ namespace API
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        // original public void ConfigureServices(IServiceCollection services)
         public void ConfigureServices(IServiceCollection services)
         {
-            // Setup for database context connection
             services.AddDbContext<DatabaseContext>(options => options
-                .UseNpgsql(@"Host=localhost;Database=tripdb;Username=postgres;Password=postgres;Port=5432")
-                .EnableSensitiveDataLogging()); //added*/
+                .UseNpgsql(@"Host=localhost;Database=tripdb;Username=postgres;Password=postgres;Port=5432"));
 
-            //services.AddDbContext<DatabaseContext>(options => options
-            //    .UseSqlServer(@"Data Source=172.26.2.97\SQLEXPRESS,1433;User ID=pv178project;Password=eiGhtdRagon178;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"));
-            
-            // stopping json from loading cyclic references
-            services.AddMvc().AddJsonOptions(opt =>
-            {
-                //opt.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.;
-                opt.JsonSerializerOptions.MaxDepth = 0;
-            });
-            
             services.AddApiVersioning(x =>
             {
                 x.DefaultApiVersion = new ApiVersion(1, 0);

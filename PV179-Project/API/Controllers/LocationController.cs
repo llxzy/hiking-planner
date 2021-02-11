@@ -1,5 +1,7 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
-using BusinessLayer.DataTransferObjects;
+using API.Models;
+using AutoMapper;
 using BusinessLayer.Facades.FacadeInterfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,27 +12,19 @@ namespace API.Controllers
     public class LocationController : ControllerBase
     {
         private readonly ILocationFacade _locationFacade;
+        private readonly IMapper _mapper = new Mapper(new MapperConfiguration(ApiMappingConfig.ConfigureMap));
 
         public LocationController(ILocationFacade facade)
         {
             _locationFacade = facade;
         }
 
-        [HttpPost]
+        [HttpGet]
         [ApiVersion("1.0")]
-        public async Task<ActionResult> AddLocation(LocationDto location)
+        public async Task<ActionResult<List<LocationShowModel>>> GetAllLocations()
         {
-            await _locationFacade.CreateAsync(location);
-            return Ok();
+            var locations = _locationFacade.ListAllAdded();
+            return Ok(_mapper.Map<List<LocationShowModel>>(locations));
         }
-
-        [HttpPatch]
-        [ApiVersion("1.0")]
-        public async Task<ActionResult> UpdateLocation(LocationDto location)
-        {
-            await _locationFacade.UpdateAsync(location);
-            return Ok();
-        }
-
     }
 }

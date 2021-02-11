@@ -1,9 +1,10 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
+using API.Models;
+using AutoMapper;
 using BusinessLayer.DataTransferObjects;
 using BusinessLayer.Facades.FacadeInterfaces;
-using DataAccessLayer.Enums;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -14,7 +15,8 @@ namespace API.Controllers
     {
         private readonly IChallengeFacade _challengeFacade;
         private readonly IUserFacade _userFacade;
-
+        private readonly IMapper _mapper = new Mapper(new MapperConfiguration(ApiMappingConfig.ConfigureMap));
+        
         public ChallengeController(IChallengeFacade facade, IUserFacade userFacade)
         {
             _challengeFacade = facade;
@@ -23,41 +25,24 @@ namespace API.Controllers
 
         [HttpGet]
         [ApiVersion("1.0")]
-        public async Task<ActionResult<List<ChallengeDto>>> GetUserChallenges([Range(1, int.MaxValue)] int userId)
+        public async Task<ActionResult<List<ChallengeShowModel>>> GetUserChallenges([EmailAddress] string mailAddress)
         {
-            var list = _challengeFacade.ListAllUsersChallenges(userId);
-            return Ok(list);
+            var user = _userFacade.GetUserByMail(mailAddress);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            var challenges = _challengeFacade.ListAllUsersChallenges(user.Id);
+            return Ok(_mapper.Map<List<ChallengeShowModel>>(challenges));
         }
-
+        
         [HttpPost]
         [ApiVersion("1.0")]
-        //public async Task<ActionResult> CreateChallenge([FromBody] ChallengeType challenge, int userId, int count)
         public async Task<ActionResult> CreateChallenge([FromBody] ChallengeCreateDto dto)
         {
-            //await _challengeFacade.Create(dto.Count, dto.Id, dto.Type);
             var user = await _userFacade.GetAsync(dto.UserId);
             await _challengeFacade.CreateAsync(dto.TripCount, user, dto.Type);
             return Ok();
         }
-
-        [HttpPatch]
-        [ApiVersion("1.0")]
-        public async Task<ActionResult> FinishChallenge([FromBody] ChallengeDto challenge)
-        {
-            if (challenge == null)
-            {
-                return BadRequest();
-            }
-
-            var chall = await _challengeFacade.GetAsync(challenge.Id);
-            if (chall == null)
-            {
-                return NotFound();
-            }
-            await _challengeFacade.FinishChallengeAsync(challenge.Id);
-            return Ok();
-
-        }
-
     }
 }

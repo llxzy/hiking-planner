@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
-using BusinessLayer.DataTransferObjects;
+using API.Models;
+using AutoMapper;
 using BusinessLayer.Facades.FacadeInterfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,35 +14,21 @@ namespace API.Controllers
     public class ReviewController : ControllerBase
     {
         private readonly IReviewFacade _reviewFacade;
+        private readonly IMapper _mapper = new Mapper(new MapperConfiguration(ApiMappingConfig.ConfigureMap));
 
         public ReviewController(IReviewFacade facade)
         {
             _reviewFacade = facade;
         }
 
-        [HttpPost]
-        [ApiVersion("1.0")]
-        public async Task<ActionResult> CreateReview([FromBody] string text, int tripId, int userId)
-        {
-            try
-            {
-                await _reviewFacade.CreateAsync(text, tripId, userId);
-            }
-            catch (NullReferenceException)
-            {
-                return BadRequest();
-            }
-            return Ok();
-        }
-
         [HttpGet]
         [ApiVersion("1.0")]
-        public async Task<ActionResult<List<ReviewDto>>> GetAllFlaggedReviews(int userId)
+        public async Task<ActionResult<List<ReviewShowModel>>> GetUsersReviews([Range(0, int.MaxValue)]int userId)
         {
             try
             {
-                var reviews = await _reviewFacade.ListFlaggedAsync(userId, null, null);
-                return Ok(reviews);
+                var reviews = _reviewFacade.ListAuthorReviews(userId);
+                return Ok(_mapper.Map<List<ReviewShowModel>>(reviews));
             }
             catch (Exception)
             {
