@@ -14,7 +14,7 @@ namespace API.Controllers
     public class ReviewController : ControllerBase
     {
         private readonly IReviewFacade _reviewFacade;
-        private readonly IMapper _mapper = new Mapper(new MapperConfiguration(ApiMappingConfig.ConfigureMap));
+        private readonly IMapper       _mapper = new Mapper(new MapperConfiguration(ApiMappingConfig.ConfigureMap));
 
         public ReviewController(IReviewFacade facade)
         {

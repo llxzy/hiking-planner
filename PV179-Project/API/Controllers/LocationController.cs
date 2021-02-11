@@ -12,7 +12,7 @@ namespace API.Controllers
     public class LocationController : ControllerBase
     {
         private readonly ILocationFacade _locationFacade;
-        private readonly IMapper _mapper = new Mapper(new MapperConfiguration(ApiMappingConfig.ConfigureMap));
+        private readonly IMapper         _mapper = new Mapper(new MapperConfiguration(ApiMappingConfig.ConfigureMap));
 
         public LocationController(ILocationFacade facade)
         {

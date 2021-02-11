@@ -13,7 +13,7 @@ namespace API.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserFacade _userFacade;
-        private readonly IMapper _mapper = new Mapper(new MapperConfiguration(ApiMappingConfig.ConfigureMap));
+        private readonly IMapper     _mapper = new Mapper(new MapperConfiguration(ApiMappingConfig.ConfigureMap));
 
         public UserController(IUserFacade userFacade)
         {

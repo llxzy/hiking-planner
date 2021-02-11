@@ -14,8 +14,8 @@ namespace API.Controllers
     public class ChallengeController : ControllerBase
     {
         private readonly IChallengeFacade _challengeFacade;
-        private readonly IUserFacade _userFacade;
-        private readonly IMapper _mapper = new Mapper(new MapperConfiguration(ApiMappingConfig.ConfigureMap));
+        private readonly IUserFacade      _userFacade;
+        private readonly IMapper          _mapper = new Mapper(new MapperConfiguration(ApiMappingConfig.ConfigureMap));
         
         public ChallengeController(IChallengeFacade facade, IUserFacade userFacade)
         {

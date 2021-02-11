@@ -16,8 +16,8 @@ namespace Application.Controllers
     public class AdminController : Controller
     {
         private readonly IUserFacade _userFacade;
-        private ILocationFacade _locationFacade;
-        private readonly IMapper _mapper = new Mapper(new MapperConfiguration(ApplicationMappingConfig.ConfigureMap));
+        private ILocationFacade      _locationFacade;
+        private readonly IMapper     _mapper = new Mapper(new MapperConfiguration(ApplicationMappingConfig.ConfigureMap));
 
         public AdminController(IUserFacade userFacade, ILocationFacade locationFacade)
         {

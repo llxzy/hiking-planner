@@ -10,7 +10,7 @@ namespace Application.Controllers
     public class ReviewController : Controller
     {
         private readonly IReviewFacade _reviewFacade;
-        private readonly IMapper mapper = new Mapper(new MapperConfiguration(ApplicationMappingConfig.ConfigureMap));
+        private readonly IMapper       mapper = new Mapper(new MapperConfiguration(ApplicationMappingConfig.ConfigureMap));
 
         public ReviewController(IReviewFacade facade)
         {
