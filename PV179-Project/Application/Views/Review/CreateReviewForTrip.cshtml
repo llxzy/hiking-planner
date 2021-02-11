@@ -1,0 +1,15 @@
+﻿@model Application.Models.ReviewModels.ReviewCreateModel
+
+<h3>Add new review for trip with id @Model.TripId</h3>
+
+<br />
+
+<div class="row">
+    <div class="col-md-4">
+        @using (Html.BeginForm("Create", "Review", new { tripId = Model.TripId }))
+        {
+            @Html.TextAreaFor(m => m.Text, new { id = "reviewTextArea", maxlength = "300", placeholder = "Write your review here...", @class = "classss", cols = 100, @rows = 4 })
+            <input type="submit" value="Add review" class="btn btn-primary" />
+        }
+    </div>
+</div>

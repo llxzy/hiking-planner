@@ -31,6 +31,9 @@ namespace Application.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateChallenge(ChallengeCreateModel challengeCreateModel)
         {
+            //challengeCreateModel ma userID???
+            //netreba ho vycucat z prihlaseneho uzivatela?
+
             var user = await _userFacade.GetAsync(challengeCreateModel.UserId);
             await _challengeFacade.Create(challengeCreateModel.TripCount, user, challengeCreateModel.Type);
             return RedirectToAction("Profile", "User");

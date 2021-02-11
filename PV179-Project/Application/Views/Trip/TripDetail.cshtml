@@ -15,9 +15,9 @@
         Edit
     </button>
 
-    using (Html.BeginForm("DeleteTrip", "Trip", new {Id = Model.Id}))
+    using (Html.BeginForm("DeleteTrip", "Trip", new { Id = Model.Id }))
     {
-        <input type="submit" value="Delete" class="btn btn-primary"/>
+        <input type="submit" value="Delete" class="btn btn-primary" />
     }
 }
 
@@ -58,8 +58,8 @@
         }
 
     </ol>
-    
-    
+
+
     <a class="create-button" asp-area="" asp-controller="Trip" asp-action="ManageLocations">
         <strong>Add locations</strong>
     </a>
@@ -69,40 +69,43 @@
         @Html.DisplayNameFor(model => model.Reviews)
     </h2>
 
-    <a class="create-button" asp-area="" asp-controller="Challenge" asp-action="CreateChallenge">
-            <strong>Add review</strong>
-    </a>
+    @if (User.Identity.IsAuthenticated)
+    {
+        <a href="@Url.Action("CreateReviewForTrip","Review", new { tripId = Model.Id })" class="">ADD REVIEW</a>
+    }
+
+
     @{
         foreach (var review in Model.Reviews)
         {
-        <div class="rd">
+            <div class="rd">
 
-            <p class="rp">
-                <strong>@review.Author.Name</strong> (@review.Author.MailAddress)
-            </p>
+                <p class="rp">
+                    <strong>@review.Author.Name</strong> (@review.Author.MailAddress)
+                </p>
 
-            <p class="review-text">
-                @review.Text
-            </p>
-            <a class="review-vote" asp-area="" asp-controller="Review" asp-action="Upvote">
-                🡅 @review.UpvoteCount
-            </a>
-            <a class="review-vote" asp-area="" asp-controller="Review" asp-action="Downvote">
-                🡇 @review.DownvoteCount
-            </a>
-            @if (User.Identity.IsAuthenticated && (int.Parse(User.Identity.Name) == Model.Author.Id 
-                || User.IsInRole("Administrator") || User.IsInRole("Moderator")))
-            {
-            <p> |</p>
-            @using (Html.BeginForm("Delete", "Review", new { id = review.Id, tripId = review.ReviewedTrip.Id },
-                FormMethod.Post, null, htmlAttributes: new { @class = "delete-review-form", @style = "display: inline-block;" }))
+                <p class="review-text">
+                    @review.Text
+                </p>
+                <a class="review-vote" asp-area="" asp-controller="Review" asp-action="Upvote">
+                    🡅 @review.UpvoteCount
+                </a>
+                <a class="review-vote" asp-area="" asp-controller="Review" asp-action="Downvote">
+                    🡇 @review.DownvoteCount
+                </a>
+                @if (User.Identity.IsAuthenticated && (int.Parse(User.Identity.Name) == Model.Author.Id
+               || User.IsInRole("Administrator") || User.IsInRole("Moderator")))
                 {
-                    <input type="submit" value="Delete" class="delete-review-btn" style="border: 0px; background: transparent;" />
+                    <p> |</p>
+                    @using (Html.BeginForm("Delete", "Review", new { id = review.Id, tripId = review.ReviewedTrip.Id },
+                   FormMethod.Post, null, htmlAttributes: new { @class = "delete-review-form", @style = "display: inline-block;" }))
+                    {
+                        <input type="submit" value="Delete" class="delete-review-btn" style="border: 0px; background: transparent;" />
+                    }
+
                 }
 
-            }
-
-        </div>
+            </div>
         }
     }
 </div>
