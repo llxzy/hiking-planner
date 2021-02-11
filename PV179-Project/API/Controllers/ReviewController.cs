@@ -14,28 +14,26 @@ namespace API.Controllers
     public class ReviewController : ControllerBase
     {
         private readonly IReviewFacade _reviewFacade;
+        private readonly IUserFacade _userFacade;
         private readonly IMapper _mapper = new Mapper(new MapperConfiguration(ApiMappingConfig.ConfigureMap));
 
-        public ReviewController(IReviewFacade facade)
+        public ReviewController(IReviewFacade facade, IUserFacade userFacade)
         {
             _reviewFacade = facade;
+            _userFacade = userFacade;
         }
 
         [HttpGet]
         [ApiVersion("1.0")]
-        public async Task<ActionResult<List<ReviewShowModel>>> GetUsersReviews([Range(0, int.MaxValue)]int userId)
+        public async Task<ActionResult<List<ReviewShowModel>>> GetUsersReviews([EmailAddress] string mailAddress)
         {
-            try
+            var user = _userFacade.GetUserByMail(mailAddress);
+            if (user == null)
             {
-                var reviews = _reviewFacade.ListAuthorReviews(userId);
-                return Ok(_mapper.Map<List<ReviewShowModel>>(reviews));
+                return NotFound();
             }
-            catch (Exception)
-            {
-                return BadRequest();
-            }
-
+            var reviews = _reviewFacade.ListAuthorReviews(user.Id);
+            return Ok(_mapper.Map<List<ReviewShowModel>>(reviews));
         }
- 
     }
 }
