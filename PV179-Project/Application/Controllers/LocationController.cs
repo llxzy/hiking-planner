@@ -13,7 +13,7 @@ namespace Application.Controllers
     public class LocationController : Controller
     {
         private ILocationFacade _locationFacade;
-        private IMapper mapper = new Mapper(new MapperConfiguration(ApplicationMappingConfig.ConfigureMap));
+        private IMapper         mapper = new Mapper(new MapperConfiguration(ApplicationMappingConfig.ConfigureMap));
 
         public LocationController(ILocationFacade facade)
         {

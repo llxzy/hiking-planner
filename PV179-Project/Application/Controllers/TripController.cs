@@ -17,17 +17,17 @@ namespace Application.Controllers
 {
     public class TripController : Controller
     {
-        private ITripFacade _tripFacade;
-        private IReviewFacade _reviewFacade;
-        private IUserFacade _userFacade;
+        private ITripFacade     _tripFacade;
+        private IReviewFacade   _reviewFacade;
+        private IUserFacade     _userFacade;
         private ILocationFacade _locationFacade;
-        private IMapper mapper = new Mapper(new MapperConfiguration(ApplicationMappingConfig.ConfigureMap));
+        private IMapper         mapper = new Mapper(new MapperConfiguration(ApplicationMappingConfig.ConfigureMap));
 
         public TripController(ITripFacade facade, IReviewFacade reviewFacade, IUserFacade userFacade, ILocationFacade locationFacade)
         {
-            _tripFacade = facade;
-            _reviewFacade = reviewFacade;
-            _userFacade = userFacade;
+            _tripFacade     = facade;
+            _reviewFacade   = reviewFacade;
+            _userFacade     = userFacade;
             _locationFacade = locationFacade;
         }
         

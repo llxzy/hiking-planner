@@ -9,7 +9,7 @@ namespace Application.Models.UserModels
     public class UserChangePasswordModel
     {
         [Required]
-        public string Password { get; set; }
+        public string Password        { get; set; }
 
         [Required]
         [Compare("Password", ErrorMessage = "Passwords do not match")]

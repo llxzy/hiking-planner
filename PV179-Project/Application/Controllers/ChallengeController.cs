@@ -7,7 +7,7 @@ namespace Application.Controllers
 {
     public class ChallengeController : Controller
     {
-        private IChallengeFacade _challengeFacade;
+        private IChallengeFacade     _challengeFacade;
         private readonly IUserFacade _userFacade;
         
         public ChallengeController(IChallengeFacade facade, IUserFacade userFacade)

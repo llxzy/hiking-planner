@@ -14,7 +14,7 @@ namespace API.Controllers
     {
         private readonly ITripFacade _tripFacade;
         private readonly IUserFacade _userFacade;
-        private readonly IMapper _mapper = new Mapper(new MapperConfiguration(ApiMappingConfig.ConfigureMap));
+        private readonly IMapper     _mapper = new Mapper(new MapperConfiguration(ApiMappingConfig.ConfigureMap));
 
         public TripController(ITripFacade facade, IUserFacade userFacade)
         {

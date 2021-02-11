@@ -5,7 +5,7 @@ namespace Application.Models.TripModels
 {
     public class TripAddLocationModel
     {
-        public int TripId { get; set; }
+        public int                 TripId    { get; set; }
         public List<LocationModel> Locations { get; set; }
     }
 }
