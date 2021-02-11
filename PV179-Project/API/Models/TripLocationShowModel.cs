@@ -2,6 +2,6 @@ namespace API.Models
 {
     public class TripLocationShowModel
     {
-        public LocationShowModel Locations { get; set; }
+        public LocationShowModel AssociatedLocation { get; set; }
     }
 }
