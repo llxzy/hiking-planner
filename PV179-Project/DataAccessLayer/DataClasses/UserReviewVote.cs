@@ -11,6 +11,5 @@ namespace DataAccessLayer.DataClasses
         [ForeignKey(nameof(AssociatedReviewId))]
         public virtual Review AssociatedReview   { get; set; }
         public bool           Upvoted            { get; set; }
-        
     }
 }

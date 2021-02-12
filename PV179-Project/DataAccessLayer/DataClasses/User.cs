@@ -17,6 +17,5 @@ namespace DataAccessLayer.DataClasses
         public virtual ICollection<Challenge>      Challenges      { get; set; } 
         public UserRole                            Role            { get; set; }
         public virtual ICollection<UserReviewVote> UserReviewVotes { get; set; }
-
     }
 }

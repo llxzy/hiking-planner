@@ -18,13 +18,11 @@ namespace DataAccessLayer
         {
             Database.EnsureCreated();
         }
-
         
         public DatabaseContext(DbContextOptions options) : base(options)
         {
             Database.EnsureCreated();
         }
-
         
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
