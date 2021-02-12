@@ -4,7 +4,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace DataAccessLayer.Migrations
 {
-    public partial class initial : Migration
+    public partial class sixth : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -97,10 +97,7 @@ namespace DataAccessLayer.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     ReviewedTripId = table.Column<int>(type: "integer", nullable: false),
                     AuthorId = table.Column<int>(type: "integer", nullable: false),
-                    Text = table.Column<string>(type: "character varying(300)", maxLength: 300, nullable: true),
-                    Flagged = table.Column<bool>(type: "boolean", nullable: false),
-                    UpvoteCount = table.Column<int>(type: "integer", nullable: false),
-                    DownvoteCount = table.Column<int>(type: "integer", nullable: false)
+                    Text = table.Column<string>(type: "character varying(300)", maxLength: 300, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -127,6 +124,7 @@ namespace DataAccessLayer.Migrations
                     AssociatedLocationId = table.Column<int>(type: "integer", nullable: false),
                     ArrivalTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn)
                 },
                 constraints: table =>
                 {
@@ -176,7 +174,9 @@ namespace DataAccessLayer.Migrations
                 {
                     AssociatedUserId = table.Column<int>(type: "integer", nullable: false),
                     AssociatedReviewId = table.Column<int>(type: "integer", nullable: false),
+                    Upvoted = table.Column<bool>(type: "boolean", nullable: false),
                     Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn)
                 },
                 constraints: table =>
                 {

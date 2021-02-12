@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using DataAccessLayer.DataClasses;
 using Infrastructure.UnitOfWork;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Query
 {
@@ -9,6 +10,12 @@ namespace Infrastructure.Query
     {
         public TripQuery(IUnitOfWorkProvider provider) : base(provider)
         {
+            /*Queryable = Queryable
+                .Include(t => t.Participants)
+                .Include(t => t.Author)
+                .Include(t => t.Reviews)
+                .Include(t => t.TripLocations)
+                .ThenInclude(tl => tl.AssociatedLocation);*/
         }
 
         public TripQuery FilterByStartDate(DateTime date)

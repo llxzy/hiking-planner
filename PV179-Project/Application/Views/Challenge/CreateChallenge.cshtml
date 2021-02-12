@@ -6,36 +6,24 @@
 
 <h1>Create Challenge</h1>
 
-<h4>Challange Create Model</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="CreateChallenge">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Type" class="control-label">Type</label>
-                <select asp-for="Type" class="form-control">
-                    <option value="0">Daily</option>
-                    <option value="1">Weekly</option>
-                    <option value="2">Monthly</option>
-                    <option value="3">Yearly</option>
-                </select>
-                <span asp-validation-for="Type" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="StartDate" class="control-label">Start date</label>
-                <input asp-for="StartDate" class="form-control" />
-                <span asp-validation-for="StartDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="TripCount" class="control-label">Desired trip count</label>
-                <input asp-for="TripCount" class="form-control" />
-                <span asp-validation-for="TripCount" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+        @using (Html.BeginForm("CreateChallenge", "Challenge", new { userId = int.Parse(User.Identity.Name) }))
+        {
+            <label asp-for="Type" class="control-label">Type</label>
+            <select asp-for="Type" class="form-control">
+                <option value="0">Daily</option>
+                <option value="1">Weekly</option>
+                <option value="2">Monthly</option>
+                <option value="3">Yearly</option>
+            </select>
+            <span asp-validation-for="Type" class="text-danger"></span>
+            <label asp-for="TripCount" class="control-label">Desired trip count</label>
+            <input asp-for="TripCount" class="form-control" />
+            <span asp-validation-for="TripCount" class="text-danger"></span>
+            <input type="submit" value="Add review" class="btn btn-primary" />
+        }
     </div>
 </div>
 

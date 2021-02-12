@@ -10,6 +10,7 @@ namespace BusinessLayer.DataTransferObjects
         public DateTime StartDate                  { get; set; }
         public bool Done                           { get; set; }
         public List<TripLocationDto> TripLocations { get; set; }
+        public int AuthorId { get; set; }
         public UserDto Author                      { get; set; }
         public string Description                  { get; set; }
         public string Title                        { get; set; }

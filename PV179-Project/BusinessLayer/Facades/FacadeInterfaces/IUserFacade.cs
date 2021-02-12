@@ -1,5 +1,6 @@
 ﻿using BusinessLayer.DataTransferObjects;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace BusinessLayer.Facades.FacadeInterfaces
@@ -21,5 +22,7 @@ namespace BusinessLayer.Facades.FacadeInterfaces
         Task DeleteAsync(int id);
 
         Task<string> GetUserMailAsync(int id);
+
+        List<UserDto> GetAllUsers();
     }
 }

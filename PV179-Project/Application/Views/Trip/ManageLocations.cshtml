@@ -5,7 +5,7 @@
 
 <br>
 
-@using (Html.BeginForm("Index", "Location"))
+@using (Html.BeginForm("ManageLocations", "Trip", new {tripId = Model.TripId}))
 {
     <p>
         Filter by name: @Html.TextBox("searchName")
@@ -35,13 +35,6 @@
             <th>
                 Type
             </th>
-            <!--
-            <th>
-                Lat
-            </th>
-            <th>
-                Long
-            </th>-->
             <th>
                 Number of visits
             </th>
@@ -58,14 +51,6 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Type)
             </td>
-            <!--
-            <td>
-                @Html.DisplayFor(modelItem => item.Lat)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Long)
-            </td>
-            -->
             <td>
                 @Html.DisplayFor(modelItem => item.VisitCount)
             </td>

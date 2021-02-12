@@ -27,7 +27,7 @@ namespace Application.Controllers
             if (!string.IsNullOrEmpty(searchName))
             {
                 locs = locs
-                    .Where(s => s.Name.ToLower().Contains(searchName.ToLower()))
+                    .Where(s => s.Name.ToLower().Contains(searchName.ToLower().Trim()))
                     .ToList();
             }
 

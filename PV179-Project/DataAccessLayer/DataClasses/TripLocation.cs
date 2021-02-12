@@ -8,13 +8,11 @@ namespace DataAccessLayer.DataClasses
         public int AssociatedTripId        { get; set; }
 
         [ForeignKey(nameof(AssociatedTripId))]
-        public Trip AssociatedTrip         { get; set; }
+        public virtual Trip AssociatedTrip         { get; set; }
 
         public int AssociatedLocationId    { get; set; }
 
         [ForeignKey(nameof(AssociatedLocationId))]
-        public Location AssociatedLocation { get; set; }
-
-        public DateTime ArrivalTime        { get; set; }
+        public virtual Location AssociatedLocation { get; set; }
     }
 }

@@ -21,18 +21,6 @@ namespace BusinessLayer.Services.Implementations
         {
         }
 
-        public async Task CreateReviewAsync(string text, TripDto trip, UserDto user)
-        {
-            var result = new ReviewDto()
-            {
-                Text = text,
-                ReviewedTrip = trip,
-                Author = user,
-                UserReviewVotes = new List<UserReviewVoteDto>()
-            };
-            await CreateAsync(result);
-        }
-
         public List<ReviewDto> ListReviewsByAuthor(int authorId)
         {
             return QueryObject.ExecuteQuery(new ReviewFilterDto()
@@ -47,36 +35,6 @@ namespace BusinessLayer.Services.Implementations
             {
                 ReviewedTripId = tripId.ToString(),
                 AuthorId = authorId?.ToString()
-            }).Items.ToList();
-        }
-
-        public List<ReviewDto> ListFlaggedReviews(int? authorId, int? tripId)
-        {
-            return QueryObject.ExecuteQuery(new ReviewFilterDto()
-            {
-                Flagged = "true",
-                AuthorId = authorId?.ToString(),
-                ReviewedTripId = tripId?.ToString()
-            }).Items.ToList();
-        }
-
-        public List<ReviewDto> ListUpvotedReviews(int? authorId, int? tripId)
-        {
-            return QueryObject.ExecuteQuery(new ReviewFilterDto()
-            {
-                Upvotes = "true",
-                AuthorId = authorId?.ToString(),
-                ReviewedTripId = tripId?.ToString()
-            }).Items.ToList();
-        }
-
-        public List<ReviewDto> ListDownvotedReviews(int? authorId, int? tripId)
-        {
-            return QueryObject.ExecuteQuery(new ReviewFilterDto()
-            {
-                Downvotes = "true",
-                AuthorId = authorId?.ToString(),
-                ReviewedTripId = tripId?.ToString()
             }).Items.ToList();
         }
     }

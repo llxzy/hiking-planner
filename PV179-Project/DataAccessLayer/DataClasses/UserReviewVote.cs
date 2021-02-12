@@ -2,14 +2,15 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DataAccessLayer.DataClasses
 {
-    public class UserReviewVote : BaseEntity
+    public class UserReviewVote
     {
         public int AssociatedUserId    { get; set; }
         [ForeignKey(nameof(AssociatedUserId))]
-        public User AssociatedUser     { get; set; }
+        public virtual User AssociatedUser     { get; set; }
         public int AssociatedReviewId  { get; set; }
         [ForeignKey(nameof(AssociatedReviewId))]
-        public Review AssociatedReview { get; set; }
+        public virtual Review AssociatedReview { get; set; }
+        public bool Upvoted { get; set; }
         
     }
 }

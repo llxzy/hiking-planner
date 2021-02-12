@@ -16,11 +16,6 @@ namespace Application.Controllers
             _userFacade = userFacade;
 
         }
-        // GET
-        public IActionResult Index()
-        {
-            return View();
-        }
         
         [HttpGet]
         public IActionResult CreateChallenge()
@@ -31,11 +26,9 @@ namespace Application.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateChallenge(ChallengeCreateModel challengeCreateModel)
         {
-            //challengeCreateModel ma userID???
-            //netreba ho vycucat z prihlaseneho uzivatela?
-
-            var user = await _userFacade.GetAsync(challengeCreateModel.UserId);
-            await _challengeFacade.CreateAsync(challengeCreateModel.TripCount, user, challengeCreateModel.Type);
+            await _challengeFacade.CreateAsync(challengeCreateModel.TripCount, 
+                challengeCreateModel.UserId, 
+                challengeCreateModel.Type);
             return RedirectToAction("Profile", "User");
         }
     }

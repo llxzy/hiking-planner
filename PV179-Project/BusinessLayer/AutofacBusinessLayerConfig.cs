@@ -76,7 +76,6 @@ namespace BusinessLayer
                 .InstancePerDependency();
 
             
-            // ________________________________
             builder.RegisterType<TripLocationQuery>()
                 .As<IQuery<TripLocation>>()
                 .InstancePerDependency();

@@ -7,9 +7,9 @@ namespace DataAccessLayer.DataClasses
     {
         public int UserId { get; set; }
         [ForeignKey(nameof(UserId))]
-        public User User  { get; set; }
+        public virtual User User  { get; set; }
         public int TripId { get; set; }
         [ForeignKey(nameof(TripId))]
-        public Trip Trip  { get; set; }
+        public virtual Trip Trip  { get; set; }
     }
 }

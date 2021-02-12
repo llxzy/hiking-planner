@@ -1,17 +1,15 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Application.Models;
-using BusinessLayer.Facades.FacadeInterfaces;
-using BusinessLayer.DataTransferObjects;
-using Application.Models.TripModels;
+using API.Models;
 using Application.Models.LocationModels;
-using Application.Models.TripLocationModels;
+using Application.Models.TripModels;
 using Application.Models.UserModels;
-using Application.Models.ReviewModels;
 using AutoMapper;
+using BusinessLayer.DataTransferObjects;
+using BusinessLayer.Facades.FacadeInterfaces;
+using DataAccessLayer.Enums;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Application.Controllers
 {
@@ -30,12 +28,6 @@ namespace Application.Controllers
             _userFacade     = userFacade;
             _locationFacade = locationFacade;
         }
-        
-        public IActionResult Index()
-        {
-            return View();
-        }
-
 
         public IActionResult ListAllTrips()
         {
@@ -48,40 +40,9 @@ namespace Application.Controllers
             var trip = await _tripFacade.GetTripByIdAsync(tripId);
             if (trip == null)
             {
-                return RedirectToAction("Index", "Trip");
+                return RedirectToAction("ListAllTrips", "Trip");
             }
-            //todo return View(mapper for tripdto to tripmodel)
-            //TODO fix mapping
-            var reviews = _reviewFacade.ListReviewsByTrip(trip.Id, null);//@trip.Author.Id);
-            var reviewModels = new List<ReviewModel>();
-            foreach (var r in reviews)
-            {
-                //TODO DELETE LATER OR FACE CONSEQUENCES
-                var jirik = _userFacade.GetAsync(26).Result;
-                r.Author = jirik;
-                reviewModels.Add(mapper.Map<ReviewModel>(r));
-            }
-
-            return View(new TripModel
-            {
-                // :'(
-                Id = trip.Id,
-                Title = trip.Title,
-                Author = mapper.Map<UserModel>(trip.Author),
-                Description = trip.Description,
-                Done = trip.Done,
-                StartDate = trip.StartDate,
-                TripLocations = trip.TripLocations
-                    .Select(a => 
-                        new TripLocationModel
-                        {
-                            AssociatedLocation = new LocationModel {Name = a.AssociatedLocation.Name},
-                            ArrivalTime = a.ArrivalTime
-                        })
-                    .ToList(),
-                Reviews = reviewModels
-            });
-            //return View(mapper.Map<TripModel>(trip));
+            return View(mapper.Map<TripModel>(trip));
         }
 
         [HttpPost]
@@ -104,62 +65,107 @@ namespace Application.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(TripCreateModel tripCreateModel)
         {
-            //var tripDto = mapper.Map<TripDto>(tripCreateModel);
-            
-            var author = await _userFacade.GetAsync(int.Parse(User.Identity.Name));
-            
+            //var author = await _userFacade.GetAsync(int.Parse(User.Identity.Name));
             var tripDto = new TripDto()
             {
-                Author = author,
+                AuthorId = int.Parse(User.Identity.Name),
                 Title = tripCreateModel.Title,
                 Description = tripCreateModel.Description,
                 StartDate = tripCreateModel.StartDate,
                 Done = tripCreateModel.Done,
                 Participants = new List<UserTripDto>()
             };
-            
-            
-            if (!string.IsNullOrEmpty(tripCreateModel.Participants))
-            {
-                foreach (var p in tripCreateModel.Participants.Split(','))
-                {
-                    var user = _userFacade.GetUserByMail(p.Trim());
-                    if (user != null)
-                    {
-                        tripDto.Participants.Add(new UserTripDto()
-                        {
-                            User = user,
-                            Trip = tripDto
-                        });
-                    }
-                }
-            }
-            
             await _tripFacade.CreateAsync(tripDto);
             return RedirectToAction("Profile", "User");
         }
 
-        public IActionResult ManageLocations(int tripId)
+        public IActionResult ManageLocations(int tripId, string searchName, string searchType)
         {
             var locations = _locationFacade.ListAllAdded();
+
+            var locs = mapper.Map<List<LocationModel>>(locations
+                .Where(l => l.Trips.All(tl => tl.AssociatedTrip.Id != tripId)));
+            if (!string.IsNullOrEmpty(searchName))
+            {
+                locs = locs.Where(l => l.Name.ToLower().Contains(searchName.ToLower().Trim())).ToList();
+            }
+            if (!string.IsNullOrEmpty(searchType))
+            {
+                locs = locs.Where(l => (int)l.Type == int.Parse(searchType)).ToList();
+            }
+            
             return View(new TripAddLocationModel
             {
                 TripId = tripId,
-                Locations = mapper.Map<List<LocationModel>>(locations)
+                Locations = locs
             });
         }
 
-
         public async Task<IActionResult> AddLocation(int tripId, int locationId)
         {
-            var location = await _locationFacade.GetLocationByIdAsync(locationId);
-            var trip = await _tripFacade.GetTripByIdAsync(tripId);
-            await _tripFacade.AddTripLocationToTripAsync(location, trip);
+            await _tripFacade.AddTripLocationToTripAsync(locationId, tripId);
+            var locs = _locationFacade.ListAllAdded();
             return View("ManageLocations", new TripAddLocationModel
                 {
                     TripId = tripId,
-                    Locations = mapper.Map<List<LocationModel>>(_locationFacade.ListAllAdded())
+                    Locations = mapper.Map<List<LocationModel>>(locs
+                        .Where(l => l.Trips.All(tl => tl.AssociatedTrip.Id != tripId)))
                 });
+        }
+        
+        public IActionResult ManageParticipants(int tripId, string searchName, string searchMail)
+        {
+            var users = _userFacade.GetAllUsers();
+
+            var userList = users
+                .Where(u => u.Trips
+                    .All(t => t.TripId != tripId) && u.Id != int.Parse(User.Identity.Name))
+                .Where(u => u.Role != UserRole.Administrator);
+            if (!string.IsNullOrEmpty(searchName))
+            {
+                userList = userList.Where(u => u.Name.ToLower().Contains(searchName.ToLower().Trim()));
+            }
+            if (!string.IsNullOrEmpty(searchMail))
+            {
+                userList = userList.Where(u => u.MailAddress.Equals(searchMail.Trim()));
+            }
+            
+            return View(new UserTripAddModel
+            {
+                TripId = tripId,
+                Users = mapper.Map<List<UserShowModel>>(userList)
+            });
+        }
+        
+        public async Task<IActionResult> AddParticipant(int tripId, int participantId)
+        {
+            var userTripDto = new UserTripDto
+            {
+                UserId = participantId,
+                TripId = tripId
+            };
+            await _tripFacade.CreateUserTripAsync(userTripDto);
+            return View("ManageParticipants", new UserTripAddModel
+            {
+                TripId = tripId,
+                Users = mapper.Map<List<UserShowModel>>(_userFacade.GetAllUsers()
+                    .Where(u => u.Trips
+                        .All(t => t.TripId != tripId) && u.Id != int.Parse(User.Identity.Name))
+                    .Where(u => u.Role != UserRole.Administrator))
+            });
+        }
+
+        public async Task<IActionResult> FinishTrip(int tripId)
+        {
+            var trip = await _tripFacade.GetTripByIdAsync(tripId);
+            trip.Done = true;
+            foreach (var loc in trip.TripLocations)
+            {
+                loc.AssociatedLocation.VisitCount++;
+                await _locationFacade.UpdateAsync(loc.AssociatedLocation);
+            }
+            await _tripFacade.UpdateAsync(trip);
+            return RedirectToAction("TripDetail", "Trip", new {tripId});
         }
     }
 }

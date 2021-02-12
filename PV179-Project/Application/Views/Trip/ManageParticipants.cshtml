@@ -1,0 +1,47 @@
+@model Application.Models.UserModels.UserTripAddModel
+<link rel="stylesheet" href="~/css/custom.css" />
+
+<h1 class="trip-subheader">Users</h1>
+
+<br>
+
+@using (Html.BeginForm("ManageParticipants", "Trip", new {tripId = Model.TripId}))
+{
+    <p>
+        Filter by name: @Html.TextBox("searchName")
+        Filter by mail: @Html.TextBox("searchMail")
+        <input type="submit" class="btn btn-primary" value="Search" />
+    </p>
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Name
+            </th>
+            <th>
+                Email
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Users)
+        {
+        <tr>
+            <td>
+                <strong>@Html.DisplayFor(modelItem => item.Name)</strong>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MailAddress)
+            </td>
+            <td>
+                @using (Html.BeginForm("AddParticipant", "Trip", new { tripId = Model.TripId, participantId = item.Id }))
+                {
+                    <input type="submit" value="Add" class="btn btn-primary"  />
+                }
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>

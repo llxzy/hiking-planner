@@ -9,15 +9,21 @@
     @Html.DisplayFor(model => model.Title)
 </h1>
 
-@if (User.Identity.IsAuthenticated && int.Parse(User.Identity.Name) == Model.Author.Id) //TODO && int.Parse(User.Identity.Name) == Model.Author.Id)
+@if (User.Identity.IsAuthenticated && int.Parse(User.Identity.Name) == Model.Author.Id)
 {
-    <button class="trip-detail-button">
-        Edit
-    </button>
+    <input type="submit" value="Edit" class="btn btn-primary" />
 
     using (Html.BeginForm("DeleteTrip", "Trip", new { Id = Model.Id }))
     {
         <input type="submit" value="Delete" class="btn btn-primary" />
+    }
+
+    if (!Model.Done)
+    {
+        using (Html.BeginForm("FinishTrip", "Trip", new { tripId = Model.Id }))
+        {
+            <input type="submit" value="Set as finished" class="btn btn-primary" />
+        }
     }
 }
 
@@ -72,7 +78,7 @@
             foreach (var t in Model.TripLocations)
             {
                 <li class="trip-location-info">
-                    @t.AssociatedLocation.Name @t.ArrivalTime
+                    @t.AssociatedLocation.Name
                 </li>
             }
         }
@@ -105,11 +111,11 @@
                 <p class="review-text">
                     @review.Text
                 </p>
-                <a class="review-vote" asp-area="" asp-controller="Review" asp-action="Upvote">
-                    🡅 @review.UpvoteCount
+                <a href="@Url.Action("Upvote","Review", new { reviewId = review.Id, tripId = Model.Id })" class="review-vote">
+                    🡅 @review.UserReviewVotes.Count(vote => vote.Upvoted)
                 </a>
-                <a class="review-vote" asp-area="" asp-controller="Review" asp-action="Downvote">
-                    🡇 @review.DownvoteCount
+                <a href="@Url.Action("Downvote","Review", new { reviewId = review.Id, tripId = Model.Id })" class="review-vote">
+                    🡇 @review.UserReviewVotes.Count(vote => !vote.Upvoted)
                 </a>
                 @if (User.Identity.IsAuthenticated && (int.Parse(User.Identity.Name) == Model.Author.Id
                || User.IsInRole("Administrator") || User.IsInRole("Moderator")))
@@ -119,11 +125,8 @@
                     {
                         <input type="submit" value="Delete" class="delete-review-btn" style="border: 0px; background: transparent;" />
                     }
-
                 }
-
             </div>
         }
     }
 </div>
-

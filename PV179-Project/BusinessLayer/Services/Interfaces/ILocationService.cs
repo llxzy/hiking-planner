@@ -14,7 +14,7 @@ namespace BusinessLayer.Services.Interfaces
 
         List<LocationDto> GetAllAdded();
 
-        List<LocationDto> GetAllSubmitted(object range = null);
+        List<LocationDto> GetAllSubmitted();
 
         Task AcceptSubmissionAsync(int locationId);
 

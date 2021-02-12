@@ -21,8 +21,8 @@ namespace Infrastructure.Query
             Provider = provider;
             provider.Create(); // added
             PageSize = 10; // some default value, can be changed
-            //Queryable = Provider.GetUnitOfWorkInstance().Context.Set<TEntity>();
-            Queryable = GetQueryableWithIncludes();
+            Queryable = Provider.GetUnitOfWorkInstance().Context.Set<TEntity>();
+            //Queryable = GetQueryableWithIncludes();
         }
 
         private IQueryable<TEntity> GetQueryableWithIncludes()

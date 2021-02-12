@@ -1,4 +1,5 @@
-﻿using DataAccessLayer.Enums;
+﻿using System.Collections.Generic;
+using DataAccessLayer.Enums;
 
 namespace BusinessLayer.DataTransferObjects
 
@@ -11,5 +12,6 @@ namespace BusinessLayer.DataTransferObjects
         public double Long           { get; set; }
         public bool PermanentlyAdded { get; set; }
         public int VisitCount        { get; set; }
+        public List<TripLocationDto> Trips { get; set; }
     }
 }

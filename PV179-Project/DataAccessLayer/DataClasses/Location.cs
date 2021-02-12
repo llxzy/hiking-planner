@@ -14,6 +14,6 @@ namespace DataAccessLayer.DataClasses
         public double Long           { get; set; }
         public int VisitCount        { get; set; }
         public bool PermanentlyAdded { get; set; }
-        public ICollection<TripLocation> Trips { get; set; }
+        public virtual ICollection<TripLocation> Trips { get; set; }
     }
 }

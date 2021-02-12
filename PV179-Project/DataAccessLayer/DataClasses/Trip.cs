@@ -7,14 +7,14 @@ namespace DataAccessLayer.DataClasses
 {
     public class Trip : BaseEntity
     {
-        public DateTime StartDate                 { get; set; }
+        public DateTime StartDate { get; set; }
         public bool Done                          { get; set; }
-        public ICollection<Review> Reviews        { get; set; }
-        public IList<TripLocation> TripLocations  { get; set; }
+        public virtual ICollection<Review> Reviews        { get; set; }
+        public virtual IList<TripLocation> TripLocations  { get; set; }
         public int AuthorId                       { get; set; }
         [ForeignKey(nameof(AuthorId))] 
-        public User Author                        { get; set; }
-        public ICollection<UserTrip> Participants { get; set; }
+        public virtual User Author                        { get; set; }
+        public virtual ICollection<UserTrip> Participants { get; set; }
         [MaxLength(300)]
         public string Description                 { get; set; }
         [MaxLength(40)]

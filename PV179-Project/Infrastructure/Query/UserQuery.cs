@@ -10,10 +10,6 @@ namespace Infrastructure.Query
     {
         public UserQuery(IUnitOfWorkProvider provider) : base(provider)
         {
-            Queryable = Queryable
-                .Include(u => u.Challenges)
-                .Include(u => u.Trips)
-                .Include(u => u.UserReviewVotes);
         }
 
         public UserQuery FilterByName(string userName)

@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using BusinessLayer.DataTransferObjects;
@@ -38,6 +39,11 @@ namespace BusinessLayer.Services.Implementations
         {
             var res = QueryObject.ExecuteQuery(new UserFilterDto { MailAddress = mail });
             return (res.Items.Count >= 1);
+        }
+
+        public List<UserDto> GetAllUsers()
+        {
+            return QueryObject.ExecuteQuery(new UserFilterDto()).Items.ToList();
         }
 
     }

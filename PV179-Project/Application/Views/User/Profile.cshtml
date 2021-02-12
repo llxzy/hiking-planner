@@ -60,13 +60,14 @@
     </dl>
 
     <h2 class="trip-subheader">
-        Active challenges (@Model.Challenges.Where(a => a.Finished == false).Count()):
+        Active challenges (@Model.Challenges.Count(a => a.Finished == false)):
     </h2>
 
     @{
-        var yearly = Model.Challenges.Where(c => c.Type == ChallengeType.Yearly);
-        var monthly = Model.Challenges.Where(c => c.Type == ChallengeType.Monthly);
-        var weekly = Model.Challenges.Where(c => c.Type == ChallengeType.Weekly);
+        var yearly = Model.Challenges.Where(c => c.Type == ChallengeType.Yearly && !c.Finished).ToList();
+        var monthly = Model.Challenges.Where(c => c.Type == ChallengeType.Monthly && !c.Finished).ToList();
+        var weekly = Model.Challenges.Where(c => c.Type == ChallengeType.Weekly && !c.Finished).ToList();
+        var daily = Model.Challenges.Where(c => c.Type == ChallengeType.Daily && !c.Finished).ToList();
         @if (yearly.Count() > 0)
         {
             <div class="tp-div" style="margin:5px">
@@ -110,9 +111,21 @@
                 }
             </div>
         }
+        
+        @if (daily.Count() > 0)
+        {
+            <div class="tp-div" style="margin:5px">
+                <h3 class="tp-title">Daily challenges</h3>
+                @foreach (var c in daily) {
+                    <p class="tp-description">
+                        Start date: @c.StartDate.Date.ToShortDateString(),
+                        Trip goal: @c.TripCount
+                    </p>
+                }
+            </div>
+        }
     }
 
-    <br />
 
     <a class="create-button" asp-area="" asp-controller="Challenge" asp-action="CreateChallenge">
         <strong>+ Create new challenge</strong>

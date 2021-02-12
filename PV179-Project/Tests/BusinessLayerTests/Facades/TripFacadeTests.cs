@@ -15,6 +15,7 @@ namespace Tests.BusinessLayerTests.Facades
         private ITripService fakeTripService;
         private ITripLocationService fakeTripLocationService;
         private IUnitOfWorkProvider fakeUnitOfWorkProvider;
+        private IUserTripService fakeUserTripService;
         private TripFacade fakeTripFacade;
         
         [SetUp]
@@ -23,6 +24,7 @@ namespace Tests.BusinessLayerTests.Facades
             fakeTripService = Substitute.For<ITripService>();
             fakeTripLocationService = Substitute.For<ITripLocationService>();
             fakeUnitOfWorkProvider = Substitute.For<IUnitOfWorkProvider>();
+            fakeUserTripService = Substitute.For<IUserTripService>();
 
             fakeTripService.GetAllUserTrips(Arg.Any<int>())
                 .Returns(new List<TripDto> { TestObjects.tripA1, TestObjects.tripA2 });
@@ -32,7 +34,7 @@ namespace Tests.BusinessLayerTests.Facades
             fakeTripService.GetAllTripsSortedByNewest()
                 .Returns(TestObjects.sortedTrips);
             
-            fakeTripFacade = new TripFacade(fakeUnitOfWorkProvider, fakeTripService, fakeTripLocationService);
+            fakeTripFacade = new TripFacade(fakeUnitOfWorkProvider, fakeTripService, fakeTripLocationService, fakeUserTripService);
         }
 
         [Test]

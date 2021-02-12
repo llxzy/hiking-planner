@@ -8,7 +8,7 @@ namespace DataAccessLayer.DataClasses
     {
         public int UserId         { get; set; }
         [ForeignKey(nameof(UserId))]
-        public User User          { get; set; }
+        public virtual User User          { get; set; }
         public ChallengeType Type { get; set; }
         public int TripCount      { get; set; }
         public bool Finished      { get; set; }

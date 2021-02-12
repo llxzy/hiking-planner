@@ -21,23 +21,5 @@ namespace Infrastructure.Query
             Queryable = Queryable.Where(r => r.AuthorId == authorId);
             return this;
         }
-
-        public ReviewQuery FilterByFlagged()
-        {
-            Queryable = Queryable.Where(r => r.Flagged);
-            return this;
-        }
-
-        public ReviewQuery FilterByUpvotedOnly()
-        {
-            Queryable = Queryable.Where(r => (r.UpvoteCount - r.DownvoteCount) >= 0);
-            return this;
-        }
-
-        public ReviewQuery FilterByDownvotedOnly()
-        {
-            Queryable = Queryable.Where(r => (r.UpvoteCount - r.DownvoteCount) < 0);
-            return this;
-        }
     }
 }

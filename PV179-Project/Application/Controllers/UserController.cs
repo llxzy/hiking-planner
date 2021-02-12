@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Application.Models;
 
 namespace Application.Controllers
 {
@@ -37,25 +38,7 @@ namespace Application.Controllers
         {
             return View();
         }
-
-        [HttpPost]
-        public IActionResult FindUser2(string passedMail)
-        {
-           // var user = _userFacade.GetUserByMail(passedMail);
-            /*
-            user.Name = "Petko Hlineny";
-            _userFacade.Update(user);
-            var changeduser = _userFacade.GetUserByMail(passedMail);*/
-            //return View(user);
-            var x = _userFacade.DeleteAsync(int.Parse(passedMail));
-            return new ContentResult() { Content = "IT WORKED YAY"};
-        }
-
-
-        /*
-         * defaultne je to HttpGet, zavola View = User.Create
-         * obsahuje submit button, ktory ked stlacis tak zavola HttpPost Create (metoda pod touto)
-         */
+        
         [HttpGet("Register")]
         public IActionResult Register()
         {
@@ -86,10 +69,8 @@ namespace Application.Controllers
                 return RedirectToAction("Index", "Home");
             }
             return RedirectToAction("Login", "User");
-            //return new ContentResult() { Content = user.Name + user.MailAddress };
         }
         
-
         [HttpGet("Login")]
         public IActionResult Login()
         {
@@ -107,7 +88,6 @@ namespace Application.Controllers
             var user = _userFacade.GetUserByMail(userModel.MailAddress);
             try
             {
-                //var password = BusinessLayer.Utils.HashingUtils.Encode(userModel.Password);
                 _userFacade.VerifyUserLogin(userModel.MailAddress, userModel.Password);
                 await CreateClaimsAndSignInAsync(user);
                 return RedirectToAction("Index", "Home");
@@ -144,17 +124,13 @@ namespace Application.Controllers
         [HttpGet("Profile")]
         public IActionResult Profile()
         {
-            // TODO USERS ID IS STORED IN User.Identity.Name;
             var id = User.Identity?.Name;
             if (id == null)
             {
                 return RedirectToAction("Index", "Home");
             }
             var user = _userFacade.GetAsync(int.Parse(id)).Result;
-            var challenges = _challengeFacade.ListAllUsersChallenges(int.Parse(id));
-            user.Challenges = challenges;
-
-            var trips = _tripFacade.GetAllUserTrips(int.Parse(id));
+            var trips = _tripFacade.GetAllUserTrips(user.Id);
             var userTrips = new List<UserTripDto>();
             foreach (var trip in trips)
             {
@@ -185,6 +161,7 @@ namespace Application.Controllers
             try
             {
                 await _userFacade.DeleteAsync(id);
+                await HttpContext.SignOutAsync();
                 return RedirectToAction("Index", "Home");
             }
             catch (Exception)
@@ -208,11 +185,11 @@ namespace Application.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
-            return View(mapper.Map<UserModel>(user));
+            return View(mapper.Map<UserCreateModel>(user));
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(UserModel userModel)
+        public async Task<IActionResult> Edit(UserCreateModel userModel)
         {
             if (!User.Identity.IsAuthenticated)
             {
@@ -221,15 +198,21 @@ namespace Application.Controllers
             try
             {
                 var user = await _userFacade.GetAsync(int.Parse(User.Identity.Name));
+                if (!HashingUtils.Validate(userModel.Password,user.PasswordHash))
+                {
+                    return RedirectToAction("Edit", "User");
+                }
                 user.Name = userModel.Name;
                 user.MailAddress = userModel.MailAddress;
                 await _userFacade.UpdateAsync(user);
+                return View("Profile", mapper.Map<UserModel>(user));
             }
             catch (Exception)
             {
                 ModelState.AddModelError("", "Something went wrong while editing user.");
             }
-            return View("Profile");
+
+            return BadRequest();
         }
 
         [HttpGet]
@@ -251,18 +234,10 @@ namespace Application.Controllers
         [HttpPost]
         public async Task<IActionResult> ChangePassword(UserChangePasswordModel pswdModel)
         {
-            try
-            {
-                var user = await _userFacade.GetAsync(int.Parse(User.Identity.Name));
-                user.PasswordHash = HashingUtils.Encode(pswdModel.Password);
-                await _userFacade.UpdateAsync(user);
-            }
-            catch (Exception)
-            {
-                ModelState.AddModelError("", "Unable to change password.");
-            }
-            return View("Profile");
+            var user = await _userFacade.GetAsync(int.Parse(User.Identity.Name));
+            user.PasswordHash = HashingUtils.Encode(pswdModel.Password);
+            await _userFacade.UpdateAsync(user);
+            return View("Profile", mapper.Map<UserModel>(user));
         }
-        
     }
 }

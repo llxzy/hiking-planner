@@ -20,18 +20,6 @@ namespace BusinessLayer.QueryObjects
             query = string.IsNullOrWhiteSpace(filter.AuthorId)
                 ? query
                 : ((ReviewQuery) query).FilterByAuthorId(int.Parse(filter.AuthorId));
-
-            query = string.IsNullOrWhiteSpace(filter.Flagged)
-                ? query
-                : ((ReviewQuery) query).FilterByFlagged();
-
-            query = string.IsNullOrWhiteSpace(filter.Upvotes)
-                ? query
-                : ((ReviewQuery) query).FilterByUpvotedOnly();
-
-            query = string.IsNullOrWhiteSpace(filter.Downvotes)
-                ? query
-                : ((ReviewQuery) query).FilterByDownvotedOnly();
             
             return query;
         }

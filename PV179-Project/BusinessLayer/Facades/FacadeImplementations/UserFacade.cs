@@ -3,6 +3,7 @@ using BusinessLayer.Facades.FacadeInterfaces;
 using BusinessLayer.Services.Interfaces;
 using Infrastructure.UnitOfWork;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -84,10 +85,9 @@ namespace BusinessLayer.Facades.FacadeImplementations
         {
             using (var uow = unitOfWorkProvider.Create())
             {
-                if (_userService.EmailAlreadyExists(userDto.MailAddress))
-                {
-                    throw new ArgumentException("User with this email already exists!");
-                }
+                
+                
+                
                 _userService.Update(userDto);
                 await uow.CommitAsync();
             }
@@ -105,6 +105,15 @@ namespace BusinessLayer.Facades.FacadeImplementations
         public async Task<string> GetUserMailAsync(int id)
         {
             return await _userService.GetUserEmailAsync(id);
-        } 
+        }
+
+
+        public List<UserDto> GetAllUsers()
+        {
+            using (unitOfWorkProvider.Create())
+            {
+                return _userService.GetAllUsers();
+            }
+        }
     }
 }

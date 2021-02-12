@@ -4,40 +4,41 @@ using BusinessLayer.Services.Interfaces;
 using Infrastructure.UnitOfWork;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 
 namespace BusinessLayer.Facades.FacadeImplementations
 {
     public class TripFacade : FacadeBase, ITripFacade
     {
         private readonly ITripService _tripService;
-        private readonly ITripLocationService tripLocationService;
+        private readonly ITripLocationService _tripLocationService;
+        private readonly IUserTripService _userTripService;
 
-        public TripFacade(IUnitOfWorkProvider provider, ITripService trip, ITripLocationService tripLocation) 
+        public TripFacade(IUnitOfWorkProvider provider, ITripService trip, ITripLocationService tripLocation, IUserTripService userTripService) 
             : base(provider)
         {
             _tripService = trip;
-            tripLocationService = tripLocation;
+            _tripLocationService = tripLocation;
+            _userTripService = userTripService;
         }
 
-        public async Task AddTripLocationToTripAsync(LocationDto locationDto, TripDto tripDto)
+        public async Task AddTripLocationToTripAsync(int locationId, int tripId)
         {
-            //CheckIfTripExists(tripDto.Id);
-            if (_tripService.GetAsync(tripDto.Id).Result == null)
+            if (_tripService.GetAsync(tripId).Result == null)
             {
                 throw new ArgumentException("Trip with this ID does not exist.");
             }
-
-            //check tripLocationDto validity
-
             using (var uow = unitOfWorkProvider.Create())
             {
-                tripDto.TripLocations.Add(new TripLocationDto
+                var tripLocation = new TripLocationDto
                 {
-                    AssociatedLocation = locationDto,
-                    AssociatedTrip = tripDto
-                });
-                _tripService.Update(tripDto);
+                    AssociatedLocationId = locationId,
+                    AssociatedTripId = tripId
+                };
+                await _tripLocationService.CreateAsync(tripLocation);
                 await uow.CommitAsync();
             }
         }
@@ -114,6 +115,15 @@ namespace BusinessLayer.Facades.FacadeImplementations
             using (var uow = unitOfWorkProvider.Create())
             {
                 await _tripService.DeleteAsync(tripId);
+                await uow.CommitAsync();
+            }
+        }
+
+        public async Task CreateUserTripAsync(UserTripDto userTrip)
+        {
+            using (var uow = unitOfWorkProvider.Create())
+            {
+                await _userTripService.CreateAsync(userTrip);
                 await uow.CommitAsync();
             }
         }

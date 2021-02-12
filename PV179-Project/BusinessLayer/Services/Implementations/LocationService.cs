@@ -34,7 +34,7 @@ namespace BusinessLayer.Services.Implementations
             Update(loc);
         }
 
-        public List<LocationDto> GetAllSubmitted(object range = null)
+        public List<LocationDto> GetAllSubmitted()
         {
             return QueryObject.ExecuteQuery(new LocationFilterDto { PermanentlyAdded = "false" }).Items.ToList();
         }

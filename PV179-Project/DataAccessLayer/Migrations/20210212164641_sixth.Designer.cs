@@ -10,8 +10,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DataAccessLayer.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20210211153005_initial")]
-    partial class initial
+    [Migration("20210212164641_sixth")]
+    partial class sixth
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -94,21 +94,12 @@ namespace DataAccessLayer.Migrations
                     b.Property<int>("AuthorId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("DownvoteCount")
-                        .HasColumnType("integer");
-
-                    b.Property<bool>("Flagged")
-                        .HasColumnType("boolean");
-
                     b.Property<int>("ReviewedTripId")
                         .HasColumnType("integer");
 
                     b.Property<string>("Text")
                         .HasMaxLength(300)
                         .HasColumnType("character varying(300)");
-
-                    b.Property<int>("UpvoteCount")
-                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
@@ -162,7 +153,9 @@ namespace DataAccessLayer.Migrations
                         .HasColumnType("timestamp without time zone");
 
                     b.Property<int>("Id")
-                        .HasColumnType("integer");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .UseIdentityByDefaultColumn();
 
                     b.HasKey("AssociatedLocationId", "AssociatedTripId");
 
@@ -208,7 +201,12 @@ namespace DataAccessLayer.Migrations
                         .HasColumnType("integer");
 
                     b.Property<int>("Id")
-                        .HasColumnType("integer");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .UseIdentityByDefaultColumn();
+
+                    b.Property<bool>("Upvoted")
+                        .HasColumnType("boolean");
 
                     b.HasKey("AssociatedUserId", "AssociatedReviewId");
 

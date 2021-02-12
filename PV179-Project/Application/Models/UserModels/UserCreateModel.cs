@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Application.Models.UserModels
 {
-    public class UserCreateModel
+    public class UserCreateModel : BaseModel
     {
         [Required]
         [StringLength(40, ErrorMessage = "Maximum length for username is 40 characters")]

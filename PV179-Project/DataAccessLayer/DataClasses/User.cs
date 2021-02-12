@@ -13,15 +13,10 @@ namespace DataAccessLayer.DataClasses
         [MaxLength(50)]
         public string MailAddress                          { get; set; }
         public string PasswordHash                         { get; set; }
-        public ICollection<UserTrip> Trips { get; set; } = new List<UserTrip>();
-        public ICollection<Challenge> Challenges           { get; set; } 
+        public virtual ICollection<UserTrip> Trips { get; set; }
+        public virtual ICollection<Challenge> Challenges           { get; set; } 
         public UserRole Role                               { get; set; }
-        public ICollection<UserReviewVote> UserReviewVotes { get; set; }
+        public virtual ICollection<UserReviewVote> UserReviewVotes { get; set; }
 
-        /*
-        public User()
-        {
-            Challenges = new List<Challenge>();
-        }*/
     }
 }

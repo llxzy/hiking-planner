@@ -7,6 +7,7 @@ using BusinessLayer.Facades.FacadeInterfaces;
 using BusinessLayer.Services.Interfaces;
 using DataAccessLayer.Enums;
 using Infrastructure.UnitOfWork;
+using Microsoft.EntityFrameworkCore;
 
 namespace BusinessLayer.Facades.FacadeImplementations
 {
@@ -15,27 +16,23 @@ namespace BusinessLayer.Facades.FacadeImplementations
         private readonly IReviewService _reviewService;
         private readonly IUserService _userService;
         private readonly ITripService _tripService;
+        private readonly IUserReviewVoteService _userReviewVoteService;
         
         public ReviewFacade(IUnitOfWorkProvider provider, 
             IReviewService service, IUserService userService,
-            ITripService tripService) : base(provider)
+            ITripService tripService, IUserReviewVoteService userReviewVoteService) : base(provider)
         {
             _reviewService = service;
             _userService = userService;
             _tripService = tripService;
+            _userReviewVoteService = userReviewVoteService;
         }
 
-        public async Task CreateAsync(string text, int tripId, int userId)
+        public async Task CreateAsync(ReviewDto review)
         {
             using (var uow = unitOfWorkProvider.Create())
             {
-                var user = await _userService.GetAsync(userId);
-                var trip = await _tripService.GetAsync(tripId);
-                if (user == null || trip == null)
-                {
-                    throw new NullReferenceException("parameters not found");
-                }
-                await _reviewService.CreateReviewAsync(text, trip, user);
+                await _reviewService.CreateAsync(review);
                 await uow.CommitAsync();
             }
         }
@@ -71,37 +68,30 @@ namespace BusinessLayer.Facades.FacadeImplementations
             using (var uow = unitOfWorkProvider.Create())
             {
                 var review = await _reviewService.GetAsync(reviewId);
-                var user = await _userService.GetAsync(userId);
+                //var user = await _userService.GetAsync(userId);
                 // check if user has voted
                 if (review.UserReviewVotes.Any(a => a.AssociatedUser.Id == userId))
                 {
                     return;
                 }
 
-                if (up)
-                {
-                    review.UpvoteCount++;
-                }
-                else
-                {
-                    review.DownvoteCount++;
-                }
+                //_reviewService.Update(review);
+                //uow.Context.Entry(review).State = EntityState.Detached;
+                //await uow.CommitAsync();
 
                 //create new review dto containing information that user has voted
                 var userReview = new UserReviewVoteDto()
                 {
-                    AssociatedUser = user,
-                    AssociatedReview = review
+                    AssociatedUserId = userId,
+                    AssociatedReviewId = reviewId,
+                    Upvoted = up
                 };
-                review.UserReviewVotes.Add(userReview);
-                user.UserReviewVotes.Add(userReview);
-                _reviewService.Update(review);
-                _userService.Update(user);
+                
+                await _userReviewVoteService.CreateAsync(userReview);
                 await uow.CommitAsync();
             }
         }
 
-        //todo this like this?
         public List<ReviewDto> ListAuthorReviews(int authorId)
         {
             using (var uow = unitOfWorkProvider.Create())
@@ -109,37 +99,7 @@ namespace BusinessLayer.Facades.FacadeImplementations
                 return _reviewService.ListReviewsByAuthor(authorId);
             }
         }
-
-        public List<ReviewDto> ListUpvotedReviews(int? authorId, int? tripId)
-        {
-            using (var uow = unitOfWorkProvider.Create())
-            {
-                return _reviewService.ListUpvotedReviews(authorId, tripId);
-            }
-        }
         
-        public List<ReviewDto> ListDownvoted(int? authorId, int? tripId)
-        {
-            using (var uow = unitOfWorkProvider.Create())
-            {
-                return _reviewService.ListDownvotedReviews(authorId, tripId);
-            }
-        }
-
-        public async Task<List<ReviewDto>> ListFlaggedAsync(int userId, int? authorId, int? tripId)
-        {
-            var user = await _userService.GetAsync(userId);
-            if (user == null)
-            {
-                throw new NullReferenceException("user doesn't exist");
-            }
-            if (user.Role == UserRole.RegularUser)
-            {
-                throw new InvalidOperationException("insufficient privileges");
-            }
-            return _reviewService.ListFlaggedReviews(authorId, tripId);
-        }
-
         public List<ReviewDto> ListReviewsByTrip(int tripId, int? authorId)
         {
             return _reviewService.ListReviewsByTrip(tripId, authorId);

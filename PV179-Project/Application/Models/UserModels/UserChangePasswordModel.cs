@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Application.Models.UserModels
 {
-    public class UserChangePasswordModel
+    public class UserChangePasswordModel : BaseModel
     {
         [Required]
         public string Password        { get; set; }
