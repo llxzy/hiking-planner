@@ -9,7 +9,7 @@
     @Html.DisplayFor(model => model.Title)
 </h1>
 
-@if (User.Identity.IsAuthenticated) //TODO && int.Parse(User.Identity.Name) == Model.Author.Id)
+@if (User.Identity.IsAuthenticated && int.Parse(User.Identity.Name) == Model.Author.Id) //TODO && int.Parse(User.Identity.Name) == Model.Author.Id)
 {
     <button class="trip-detail-button">
         Edit
@@ -44,9 +44,29 @@
         </dd>
     </dl>
     <h2 class="trip-subheader">
+        Participants
+    </h2>
+    
+    <ol type="1">
+            @{
+                foreach (var t in Model.Participants)
+                {
+                    <li class="trip-location-info">
+                        @t.User.Name (@t.User.MailAddress)
+                    </li>
+                }
+            }
+    </ol>
+    
+    <a href="@Url.Action("ManageParticipants","Trip", new { tripId= Model.Id })" class="create-button">+ Add participants</a>
+
+    <br/>
+    <br/>
+    <h2 class="trip-subheader">
         Locations
     </h2>
-
+    
+    
     <ol type="1">
         @{
             foreach (var t in Model.TripLocations)
@@ -58,20 +78,18 @@
         }
 
     </ol>
+    
+    <a href="@Url.Action("ManageLocations","Trip", new { tripId= Model.Id })" class="create-button">+ Add location</a>
 
-
-    <a class="create-button" asp-area="" asp-controller="Trip" asp-action="ManageLocations">
-        <strong>Add locations</strong>
-    </a>
-    <a href="@Url.Action("ManageLocations","Trip", new { tripId= Model.Id })" class="trip-preview trip-redirect-a">Add location</a>
-
+    <br/>
+    <br/>
     <h2 class="trip-subheader">
         @Html.DisplayNameFor(model => model.Reviews)
     </h2>
 
     @if (User.Identity.IsAuthenticated)
     {
-        <a href="@Url.Action("CreateReviewForTrip","Review", new { tripId = Model.Id })" class="">ADD REVIEW</a>
+        <a href="@Url.Action("CreateReviewForTrip","Review", new { tripId = Model.Id })" class="create-button">+ Add review</a>
     }
 
 
@@ -96,7 +114,6 @@
                 @if (User.Identity.IsAuthenticated && (int.Parse(User.Identity.Name) == Model.Author.Id
                || User.IsInRole("Administrator") || User.IsInRole("Moderator")))
                 {
-                    <p> |</p>
                     @using (Html.BeginForm("Delete", "Review", new { id = review.Id, tripId = review.ReviewedTrip.Id },
                    FormMethod.Post, null, htmlAttributes: new { @class = "delete-review-form", @style = "display: inline-block;" }))
                     {
