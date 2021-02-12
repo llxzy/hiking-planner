@@ -30,12 +30,6 @@ namespace Application.Controllers
         { 
             return View();
         }
-
-        public IActionResult FindUser()
-        {
-            return View();
-        }
-        
         
         [HttpGet("Register")]
         public IActionResult Register()
