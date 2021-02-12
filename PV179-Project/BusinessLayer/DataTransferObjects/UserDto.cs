@@ -1,6 +1,4 @@
 ﻿using System.Collections.Generic;
-using BusinessLayer.DataTransferObjects.QueryDTOs;
-using DataAccessLayer.DataClasses;
 using DataAccessLayer.Enums;
 
 namespace BusinessLayer.DataTransferObjects

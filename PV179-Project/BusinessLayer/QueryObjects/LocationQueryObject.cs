@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using AutoMapper;
 using BusinessLayer.DataTransferObjects;
 using BusinessLayer.DataTransferObjects.Filters;
 using DataAccessLayer.DataClasses;
@@ -12,9 +9,7 @@ namespace BusinessLayer.QueryObjects
 {
     public class LocationQueryObject : QueryObjectBase<Location, LocationDto, LocationFilterDto, IQuery<Location>>
     {
-        public LocationQueryObject(IQuery<Location> query) : base(query)
-        {
-        }
+        public LocationQueryObject(IQuery<Location> query) : base(query) { }
 
         public override IQuery<Location> ApplyFilter(IQuery<Location> query, LocationFilterDto filter)
         {

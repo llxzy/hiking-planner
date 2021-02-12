@@ -2,13 +2,12 @@ using AutoMapper;
 using BusinessLayer.DataTransferObjects;
 using BusinessLayer.DataTransferObjects.Filters;
 using BusinessLayer.DataTransferObjects.QueryDTOs;
-using BusinessLayer.Services.Implementations;
 using DataAccessLayer.DataClasses;
 using Infrastructure.Query;
 
 namespace BusinessLayer
 {
-    public class MappingConfig
+    public static class MappingConfig
     {
         public static void ConfigureMap(IMapperConfigurationExpression config)
         {

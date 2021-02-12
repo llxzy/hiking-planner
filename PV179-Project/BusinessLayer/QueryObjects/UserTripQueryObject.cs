@@ -7,8 +7,6 @@ namespace BusinessLayer.QueryObjects
 {
     public class UserTripQueryObject : QueryObjectBase<UserTrip, UserTripDto, FilterDtoBase, IQuery<UserTrip>>
     {
-        public UserTripQueryObject(IQuery<UserTrip> query) : base(query)
-        {
-        }
+        public UserTripQueryObject(IQuery<UserTrip> query) : base(query) { }
     }
 }

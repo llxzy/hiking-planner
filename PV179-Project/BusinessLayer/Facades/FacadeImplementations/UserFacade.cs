@@ -1,11 +1,11 @@
-﻿using BusinessLayer.DataTransferObjects;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using BusinessLayer.DataTransferObjects;
 using BusinessLayer.Facades.FacadeInterfaces;
 using BusinessLayer.Services.Interfaces;
+using BusinessLayer.Utils;
 using Infrastructure.UnitOfWork;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace BusinessLayer.Facades.FacadeImplementations
 {
@@ -24,7 +24,7 @@ namespace BusinessLayer.Facades.FacadeImplementations
             {
                 throw new ArgumentException("User data can't be null.");
             }
-            using (var uow = unitOfWorkProvider.Create())
+            using (var uow = _unitOfWorkProvider.Create())
             {
                 if (_userService.EmailAlreadyExists(userRegDto.MailAddress))
                 {
@@ -34,7 +34,7 @@ namespace BusinessLayer.Facades.FacadeImplementations
                 {
                     Name = userRegDto.Name,
                     MailAddress = userRegDto.MailAddress,
-                    PasswordHash = Utils.HashingUtils.Encode(userRegDto.Password)
+                    PasswordHash = HashingUtils.Encode(userRegDto.Password)
                 });
                 await uow.CommitAsync();
             }
@@ -42,7 +42,7 @@ namespace BusinessLayer.Facades.FacadeImplementations
 
         public UserDto GetUserByMail(string mail)
         {
-            using (unitOfWorkProvider.Create())
+            using (_unitOfWorkProvider.Create())
             {
                 return _userService.GetUserByMail(mail);
             }
@@ -52,12 +52,11 @@ namespace BusinessLayer.Facades.FacadeImplementations
         {
             var user = _userService.GetUserByMail(mail);
             
-            // cant compare user with new userdto
             if (user == new UserDto() || user == null)
             {
                 throw new ArgumentException("User with this email address not found.");
             }
-            if (!Utils.HashingUtils.Validate(password, user.PasswordHash))
+            if (!HashingUtils.Validate(password, user.PasswordHash))
             {
                 throw new ArgumentException("Incorrect password!");
             }
@@ -66,7 +65,7 @@ namespace BusinessLayer.Facades.FacadeImplementations
 
         public async Task CreateAsync(UserDto userDto)
         {
-            using (var uow = unitOfWorkProvider.Create())
+            using (var uow = _unitOfWorkProvider.Create())
             {
                 await _userService.CreateAsync(userDto);
                 await uow.CommitAsync();
@@ -75,7 +74,7 @@ namespace BusinessLayer.Facades.FacadeImplementations
 
         public async Task<UserDto> GetAsync(int id)
         {
-            using (var uow = unitOfWorkProvider.Create())
+            using (_unitOfWorkProvider.Create())
             {
                 return await _userService.GetAsync(id);
             }
@@ -83,11 +82,8 @@ namespace BusinessLayer.Facades.FacadeImplementations
 
         public async Task UpdateAsync(UserDto userDto)
         {
-            using (var uow = unitOfWorkProvider.Create())
+            using (var uow = _unitOfWorkProvider.Create())
             {
-                
-                
-                
                 _userService.Update(userDto);
                 await uow.CommitAsync();
             }
@@ -95,7 +91,7 @@ namespace BusinessLayer.Facades.FacadeImplementations
 
         public async Task DeleteAsync(int id)
         {
-            using (var uow = unitOfWorkProvider.Create())
+            using (var uow = _unitOfWorkProvider.Create())
             {
                 await _userService.DeleteAsync(id);
                 await uow.CommitAsync();
@@ -108,9 +104,9 @@ namespace BusinessLayer.Facades.FacadeImplementations
         }
 
 
-        public List<UserDto> GetAllUsers()
+        public IEnumerable<UserDto> GetAllUsers()
         {
-            using (unitOfWorkProvider.Create())
+            using (_unitOfWorkProvider.Create())
             {
                 return _userService.GetAllUsers();
             }

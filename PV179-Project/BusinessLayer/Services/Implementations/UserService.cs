@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using AutoMapper;
 using BusinessLayer.DataTransferObjects;
 using BusinessLayer.DataTransferObjects.Filters;
 using BusinessLayer.QueryObjects;
@@ -14,11 +13,9 @@ namespace BusinessLayer.Services.Implementations
 {
     public class UserService : CrudQueryServiceBase<User, UserDto, UserFilterDto>, IUserService
     {
-        /*public UserService (IRepository<User> repository, UserQueryObject userQueryObject) :
-            base(repository, userQueryObject) {}*/
         public UserService (IRepository<User> repository, 
             QueryObjectBase<User, UserDto, UserFilterDto, IQuery<User>> userQueryObject) 
-            : base(repository, userQueryObject) {}
+            : base(repository, userQueryObject) { }
         
         public async Task<string> GetUserEmailAsync(int userId)
         {
@@ -42,10 +39,9 @@ namespace BusinessLayer.Services.Implementations
             return (res.Items.Count >= 1);
         }
 
-        public List<UserDto> GetAllUsers()
+        public IEnumerable<UserDto> GetAllUsers()
         {
             return QueryObject.ExecuteQuery(new UserFilterDto()).Items.ToList();
         }
-
     }
 }

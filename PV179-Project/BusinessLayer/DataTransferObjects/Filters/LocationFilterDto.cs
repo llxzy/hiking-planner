@@ -1,8 +1,4 @@
 ﻿using BusinessLayer.DataTransferObjects.QueryDTOs;
-using DataAccessLayer.Enums;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace BusinessLayer.DataTransferObjects.Filters
 {
@@ -12,10 +8,7 @@ namespace BusinessLayer.DataTransferObjects.Filters
         public string Type             { get; set; }
         public string PermanentlyAdded { get; set; }
         public string VisitCount       { get; set; }
-        
         public string Lat              { get; set; }
         public string Long             { get; set; }
-        public string Maxdist          { get; set; }
-
     }
 }

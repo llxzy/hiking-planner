@@ -1,4 +1,3 @@
-using AutoMapper;
 using BusinessLayer.DataTransferObjects;
 using BusinessLayer.DataTransferObjects.Filters;
 using DataAccessLayer.DataClasses;
@@ -8,9 +7,7 @@ namespace BusinessLayer.QueryObjects
 {
     public class ReviewQueryObject : QueryObjectBase<Review, ReviewDto, ReviewFilterDto, IQuery<Review>>
     {
-        public ReviewQueryObject(IQuery<Review> query) : base(query)
-        {
-        }
+        public ReviewQueryObject(IQuery<Review> query) : base(query) { }
 
         public override IQuery<Review> ApplyFilter(IQuery<Review> query, ReviewFilterDto filter)
         {

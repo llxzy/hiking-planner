@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using DataAccessLayer.DataClasses;
 
 namespace BusinessLayer.DataTransferObjects
 {
@@ -17,6 +15,5 @@ namespace BusinessLayer.DataTransferObjects
 
         public List<ReviewDto>       Reviews       { get; set; }
         public List<UserTripDto>     Participants  { get; set; }
-
     }
 }

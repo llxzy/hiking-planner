@@ -9,13 +9,12 @@ namespace BusinessLayer.QueryObjects
         where TQuery : IQuery<TEntity>
         where TFilter : FilterDtoBase
     {
-        protected IQuery<TEntity> Query; //private? / BaseQuery
+        protected IQuery<TEntity> Query;
 
-        private IMapper _mapper;
+        private readonly IMapper _mapper;
 
         public QueryObjectBase(TQuery query)
         {
-            //_mapper = mapper;
             _mapper = new Mapper(new MapperConfiguration(MappingConfig.ConfigureMap));
             Query = query;
         }

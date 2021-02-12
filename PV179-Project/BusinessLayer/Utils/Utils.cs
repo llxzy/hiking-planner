@@ -6,7 +6,7 @@ namespace BusinessLayer.Utils
     {
         public static DateTime ParseDate(string dateString)
         {
-            // format DD/MM/YYYY
+            // DD/MM/YYYY
             var dateSplit = dateString.Split('/');
             return new DateTime(int.Parse(dateSplit[2]), int.Parse(dateSplit[1]), int.Parse(dateSplit[0]));
         }

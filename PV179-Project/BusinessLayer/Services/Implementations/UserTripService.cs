@@ -12,8 +12,6 @@ namespace BusinessLayer.Services.Implementations
     {
         public UserTripService(IRepository<UserTrip> repository, 
             QueryObjectBase<UserTrip, UserTripDto, FilterDtoBase, IQuery<UserTrip>> qob) 
-            : base(repository, qob)
-        {
-        }
+            : base(repository, qob) { }
     }
 }

@@ -12,14 +12,14 @@ namespace BusinessLayer.Facades.FacadeImplementations
     public class LocationFacade : FacadeBase, ILocationFacade
     {
         private readonly ILocationService _locationService;
-        public LocationFacade(IUnitOfWorkProvider provider, ILocationService locService) : base(provider)
+        public LocationFacade(IUnitOfWorkProvider provider, ILocationService locationService) : base(provider)
         {
-            _locationService = locService;
+            _locationService = locationService;
         }
 
         public async Task CreateAsync(LocationDto locationDto)
         {
-            using (var uow = unitOfWorkProvider.Create())
+            using (var uow = _unitOfWorkProvider.Create())
             {
                 CheckLocationValidity(locationDto);
 
@@ -30,7 +30,7 @@ namespace BusinessLayer.Facades.FacadeImplementations
 
         public async Task<LocationDto> GetLocationByIdAsync(int id)
         {
-            using (unitOfWorkProvider.Create())
+            using (_unitOfWorkProvider.Create())
             {
                 return await _locationService.GetAsync(id);
             }
@@ -38,7 +38,7 @@ namespace BusinessLayer.Facades.FacadeImplementations
 
         public async Task UpdateAsync(LocationDto locationDto)
         {
-            using (var uow = unitOfWorkProvider.Create())
+            using (var uow = _unitOfWorkProvider.Create())
             {
                 CheckLocationValidity(locationDto);
                 
@@ -49,17 +49,16 @@ namespace BusinessLayer.Facades.FacadeImplementations
 
         public async Task DeleteAsync(int id)
         {
-            using (var uow = unitOfWorkProvider.Create())
+            using (var uow = _unitOfWorkProvider.Create())
             {
                 await _locationService.DeleteAsync(id);
                 await uow.CommitAsync();
             }
         }
 
-
         public List<LocationDto> ListAllSortedByName(string locationName)
         {
-            using (unitOfWorkProvider.Create())
+            using (_unitOfWorkProvider.Create())
             {
                  return _locationService.ListAllSortedByName(locationName);
             }
@@ -67,16 +66,15 @@ namespace BusinessLayer.Facades.FacadeImplementations
 
         public List<LocationDto> ListAllSortedByType(string locationName)
         {
-            using (unitOfWorkProvider.Create())
+            using (_unitOfWorkProvider.Create())
             {
                 return _locationService.ListAllSortedByType(locationName);
             }
-            
         }
 
         public List<LocationDto> ListAllSortedByVisit()
         {
-            using (unitOfWorkProvider.Create())
+            using (_unitOfWorkProvider.Create())
             {
                 return _locationService.ListAllSortedByVisit();
             }     
@@ -84,7 +82,7 @@ namespace BusinessLayer.Facades.FacadeImplementations
 
         public List<LocationDto> ListAllSubmitted()
         {
-            using (unitOfWorkProvider.Create())
+            using (_unitOfWorkProvider.Create())
             {
                 return _locationService.GetAllSubmitted();
             }
@@ -92,14 +90,13 @@ namespace BusinessLayer.Facades.FacadeImplementations
 
         public List<LocationDto> ListAllAdded()
         {
-            using (unitOfWorkProvider.Create())
+            using (_unitOfWorkProvider.Create())
             {
                 return _locationService.GetAllAdded();
             }
         }
-
-        //move to utils?
-        public void CheckLocationValidity(LocationDto locationDto)
+        
+        private void CheckLocationValidity(LocationDto locationDto)
         {
             if (string.IsNullOrWhiteSpace(locationDto.Name))
             {
@@ -110,16 +107,6 @@ namespace BusinessLayer.Facades.FacadeImplementations
             {
                 throw new ArgumentException("Invalid location type.");
             }
-            /*
-            if (locationDto.Lat == 0)
-            {
-
-            }
-            if (locationDto.Long == 0)
-            {
-
-            }
-            */
         }
     }
 }

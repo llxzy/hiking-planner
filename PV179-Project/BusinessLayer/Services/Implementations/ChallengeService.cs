@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using AutoMapper;
 using BusinessLayer.DataTransferObjects;
 using BusinessLayer.DataTransferObjects.Filters;
 using BusinessLayer.QueryObjects;
@@ -18,9 +17,7 @@ namespace BusinessLayer.Services.Implementations
     {
         public ChallengeService(IRepository<Challenge> repository, 
             QueryObjectBase<Challenge, ChallengeDto, ChallengeFilterDto, IQuery<Challenge>> qob) 
-            : base(repository, qob)
-        {
-        }
+            : base(repository, qob) { }
 
         public bool SetAsFinished(int challengeId)
         {

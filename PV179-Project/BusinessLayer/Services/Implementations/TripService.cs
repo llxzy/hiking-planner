@@ -14,9 +14,7 @@ namespace BusinessLayer.Services.Implementations
     {
         public TripService(IRepository<Trip> repository, 
             QueryObjectBase<Trip, TripDto, TripFilterDto, IQuery<Trip>> qob) 
-            : base(repository, qob)
-        {
-        }
+            : base(repository, qob) { }
 
         public List<TripDto> GetAllUserTrips(int userId)
         {

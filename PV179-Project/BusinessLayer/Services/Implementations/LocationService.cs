@@ -1,16 +1,12 @@
-﻿using BusinessLayer.DataTransferObjects;
-using BusinessLayer.DataTransferObjects.Filters;
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Text;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using BusinessLayer.DataTransferObjects;
+using BusinessLayer.DataTransferObjects.Filters;
+using BusinessLayer.QueryObjects;
+using BusinessLayer.Services.Interfaces;
 using DataAccessLayer.DataClasses;
 using Infrastructure;
-using AutoMapper;
-using BusinessLayer.QueryObjects;
-using System.Linq;
-using BusinessLayer.Services.Interfaces;
 using Infrastructure.Query;
 
 namespace BusinessLayer.Services.Implementations
@@ -23,9 +19,7 @@ namespace BusinessLayer.Services.Implementations
         public LocationService(
             IRepository<Location> repository,
             QueryObjectBase<Location, LocationDto, LocationFilterDto, IQuery<Location>> qob ) 
-            : base(repository, qob) 
-        {
-        }
+            : base(repository, qob) { }
 
         public async Task AcceptSubmissionAsync(int locationId)
         {
@@ -41,7 +35,7 @@ namespace BusinessLayer.Services.Implementations
 
         public List<LocationDto> GetAllAdded()
         {
-            return QueryObject.ExecuteQuery(new LocationFilterDto {PermanentlyAdded = "true"}).Items.ToList();
+            return QueryObject.ExecuteQuery(new LocationFilterDto { PermanentlyAdded = "true" }).Items.ToList();
         }
 
         public List<LocationDto> ListAllSortedByName(string locationName)

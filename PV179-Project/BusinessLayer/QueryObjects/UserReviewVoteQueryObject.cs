@@ -7,8 +7,6 @@ namespace BusinessLayer.QueryObjects
 {
     public class UserReviewVoteQueryObject : QueryObjectBase<UserReviewVote, UserReviewVoteDto, FilterDtoBase, IQuery<UserReviewVote>>
     {
-        public UserReviewVoteQueryObject(IQuery<UserReviewVote> query) : base(query)
-        {
-        }
+        public UserReviewVoteQueryObject(IQuery<UserReviewVote> query) : base(query) { }
     }
 }

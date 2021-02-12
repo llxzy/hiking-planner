@@ -1,6 +1,4 @@
-using System;
 using BusinessLayer.DataTransferObjects.QueryDTOs;
-using DataAccessLayer.Enums;
 
 namespace BusinessLayer.DataTransferObjects.Filters
 {
@@ -10,6 +8,5 @@ namespace BusinessLayer.DataTransferObjects.Filters
         public string Type      { get; set; }
         public string Finished  { get; set; }
         public string StartDate { get; set; }
-        
     }
 }

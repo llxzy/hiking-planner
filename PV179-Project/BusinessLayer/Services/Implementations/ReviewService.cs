@@ -1,10 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
 using BusinessLayer.DataTransferObjects;
 using BusinessLayer.DataTransferObjects.Filters;
-using BusinessLayer.DataTransferObjects.QueryDTOs;
 using BusinessLayer.QueryObjects;
 using BusinessLayer.Services.Interfaces;
 using DataAccessLayer.DataClasses;
@@ -17,9 +14,7 @@ namespace BusinessLayer.Services.Implementations
     {
         public ReviewService(IRepository<Review> repository, 
             QueryObjectBase<Review, ReviewDto, ReviewFilterDto, IQuery<Review>> qob) 
-            : base(repository, qob)
-        {
-        }
+            : base(repository, qob) { }
 
         public List<ReviewDto> ListReviewsByAuthor(int authorId)
         {

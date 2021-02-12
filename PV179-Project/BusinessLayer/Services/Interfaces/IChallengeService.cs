@@ -7,12 +7,8 @@ namespace BusinessLayer.Services.Interfaces
     public interface IChallengeService : ICrudQueryServiceBase<ChallengeDto>
     {
         bool SetAsFinished(int challengeId);
-
         List<ChallengeDto> ListAll(int userId);
-
         List<ChallengeDto> ListSortedByType(int userId, ChallengeType type);
-
         List<ChallengeDto> ListFinished(int userId, bool finished);
-
     }
 }

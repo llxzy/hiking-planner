@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -17,7 +16,7 @@ namespace BusinessLayer.Utils
         public static bool Validate(string input, string expected)
         {
             var hashedInput = Encode(input);
-            return String.Equals(hashedInput, expected, StringComparison.CurrentCultureIgnoreCase);
+            return string.Equals(hashedInput, expected, StringComparison.CurrentCultureIgnoreCase);
         }
     }
 }

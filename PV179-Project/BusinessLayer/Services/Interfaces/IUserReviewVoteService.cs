@@ -4,5 +4,6 @@ namespace BusinessLayer.Services.Interfaces
 {
     public interface IUserReviewVoteService : ICrudQueryServiceBase<UserReviewVoteDto>
     {
+        
     }
 }

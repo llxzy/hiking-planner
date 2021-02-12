@@ -1,5 +1,3 @@
-using DataAccessLayer.DataClasses;
-
 namespace BusinessLayer.DataTransferObjects
 {
     public class UserReviewVoteDto

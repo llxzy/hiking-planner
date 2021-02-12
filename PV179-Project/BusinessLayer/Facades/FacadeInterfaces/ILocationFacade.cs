@@ -8,23 +8,13 @@ namespace BusinessLayer.Facades.FacadeInterfaces
     public interface ILocationFacade : IDisposable
     {
         Task CreateAsync(LocationDto locationDto);
-        
         Task<LocationDto> GetLocationByIdAsync(int id);
-
         Task UpdateAsync(LocationDto locationDto);
-
         Task DeleteAsync(int id);
-
         List<LocationDto> ListAllSortedByName(string locationName);
-
         List<LocationDto> ListAllSortedByType(string locationName);
-
         List<LocationDto> ListAllSortedByVisit();
-
         List<LocationDto> ListAllSubmitted();
-
         List<LocationDto> ListAllAdded();
-
-        void CheckLocationValidity(LocationDto locationDto);
     }
 }

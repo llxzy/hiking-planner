@@ -1,5 +1,4 @@
 using System;
-using AutoMapper;
 using BusinessLayer.DataTransferObjects;
 using BusinessLayer.DataTransferObjects.Filters;
 using DataAccessLayer.DataClasses;
@@ -10,9 +9,7 @@ namespace BusinessLayer.QueryObjects
 {
     public class ChallengeQueryObject : QueryObjectBase<Challenge, ChallengeDto, ChallengeFilterDto, IQuery<Challenge>>
     {
-        public ChallengeQueryObject(IQuery<Challenge> query) : base( query)
-        {
-        }
+        public ChallengeQueryObject(IQuery<Challenge> query) : base(query) { }
         
         public override IQuery<Challenge> ApplyFilter(IQuery<Challenge> query, ChallengeFilterDto filter)
         {
