@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using DataAccessLayer.Enums;
-using System.Threading.Tasks;
+﻿using DataAccessLayer.Enums;
 
 namespace Application.Models.LocationModels
 {

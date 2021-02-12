@@ -1,11 +1,9 @@
 ﻿using Application.Models.ReviewModels;
-using AutoMapper;
+using BusinessLayer.DataTransferObjects;
 using BusinessLayer.Facades.FacadeInterfaces;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
-using Application.Models.TripModels;
-using BusinessLayer.DataTransferObjects;
 
 namespace Application.Controllers
 {
@@ -14,7 +12,6 @@ namespace Application.Controllers
         private readonly IReviewFacade _reviewFacade;
         private readonly IUserFacade   _userFacade;
         private readonly ITripFacade   _tripFacade;
-        private readonly IMapper       mapper = new Mapper(new MapperConfiguration(ApplicationMappingConfig.ConfigureMap));
 
         public ReviewController(IReviewFacade facade, IUserFacade userFacade, ITripFacade tripFacade)
         {
@@ -69,13 +66,13 @@ namespace Application.Controllers
         public async Task<IActionResult> Upvote(int reviewId, int tripId)
         {
             await _reviewFacade.VoteReviewAsync(true, reviewId, int.Parse(User.Identity.Name));
-            return RedirectToAction("TripDetail", "Trip", new { tripId = tripId});
+            return RedirectToAction("TripDetail", "Trip", new { tripId });
         }
         
         public async Task<IActionResult> Downvote(int reviewId, int tripId)
         {
             await _reviewFacade.VoteReviewAsync(false, reviewId, int.Parse(User.Identity.Name));
-            return RedirectToAction("TripDetail", "Trip", new { tripId = tripId });
+            return RedirectToAction("TripDetail", "Trip", new { tripId });
         }
     }
 }

@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Application.Models.TripModels;
+﻿using Application.Models.TripModels;
 using Application.Models.UserModels;
 using BusinessLayer.DataTransferObjects;
+using System.Collections.Generic;
 
 namespace Application.Models.ReviewModels
 {
@@ -13,11 +10,8 @@ namespace Application.Models.ReviewModels
         public int                      AuthorId        { get; set; }
         public int                      ReviewedTripId  { get; set; }
         public TripModel                ReviewedTrip    { get; set; }
-
         public UserModel                Author          { get; set; }
-
         public string                   Text            { get; set; }
-
         public IList<UserReviewVoteDto> UserReviewVotes { get; set; }
     }
 }

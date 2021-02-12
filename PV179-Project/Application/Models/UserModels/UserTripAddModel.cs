@@ -1,5 +1,5 @@
-using System.Collections.Generic;
 using API.Models;
+using System.Collections.Generic;
 
 namespace Application.Models.UserModels
 {

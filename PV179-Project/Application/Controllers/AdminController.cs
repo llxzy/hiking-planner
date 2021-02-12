@@ -1,7 +1,3 @@
-using System;
-using System.Linq;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using Application.Models.LocationModels;
 using Application.Models.UserModels;
 using AutoMapper;
@@ -9,21 +5,26 @@ using BusinessLayer.DataTransferObjects;
 using BusinessLayer.Facades.FacadeInterfaces;
 using DataAccessLayer.Enums;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Routing;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Application.Controllers
 {
     public class AdminController : Controller
     {
-        private readonly IUserFacade _userFacade;
-        private ILocationFacade      _locationFacade;
-        private readonly IMapper     _mapper = new Mapper(new MapperConfiguration(ApplicationMappingConfig.ConfigureMap));
+        private readonly IUserFacade     _userFacade;
+        private readonly ILocationFacade _locationFacade;
+
+        private readonly IMapper _mapper = new Mapper(new MapperConfiguration(ApplicationMappingConfig.ConfigureMap));
 
         public AdminController(IUserFacade userFacade, ILocationFacade locationFacade)
         {
             _userFacade     = userFacade;
             _locationFacade = locationFacade;
         }
+
         public IActionResult Index()
         {
             return View();
@@ -34,10 +35,8 @@ namespace Application.Controllers
             var user  = await _userFacade.GetAsync(id);
             user.Role = makeMod ? UserRole.Moderator : UserRole.RegularUser;
             await _userFacade.UpdateAsync(user);
-            //return RedirectToAction("Profile", "User");
             return View("../User/Profile", _mapper.Map<UserModel>(user));
         }
-
 
         public IActionResult ShowSubmittedLocations(string searchName, string searchType)
         {

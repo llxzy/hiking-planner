@@ -10,25 +10,22 @@ using System;
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using Application.Models;
 
 namespace Application.Controllers
 {
     public class UserController : Controller
     {
         private readonly IUserFacade _userFacade;
-        private readonly IChallengeFacade _challengeFacade;
         private readonly ITripFacade _tripFacade;
 
-        private readonly IMapper mapper = new Mapper(new MapperConfiguration(ApplicationMappingConfig.ConfigureMap));
+        private readonly IMapper _mapper = new Mapper(new MapperConfiguration(ApplicationMappingConfig.ConfigureMap));
 
-        public UserController(IUserFacade facade, IChallengeFacade challengeFacade, ITripFacade tripFacade)
+        public UserController(IUserFacade facade, ITripFacade tripFacade)
         {
             _userFacade = facade;
-            _challengeFacade = challengeFacade;
             _tripFacade = tripFacade;
         }
-        // GET
+
         public IActionResult Index()
         { 
             return View();
@@ -40,7 +37,6 @@ namespace Application.Controllers
         }
         
         
-        
         [HttpGet("Register")]
         public IActionResult Register()
         {
@@ -48,7 +44,6 @@ namespace Application.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
-
             return View();
         }
 
@@ -80,7 +75,6 @@ namespace Application.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
-
             return View();
         }
 
@@ -105,7 +99,6 @@ namespace Application.Controllers
         {
             var claims = new List<Claim>
             {
-                //Set User Identity Name to actual user Id - easier access with user connected operations
                 new Claim(ClaimTypes.Name, user.Id.ToString())
             };
             claims.Add(new Claim(ClaimTypes.Role, user.Role.ToString()));
@@ -143,7 +136,7 @@ namespace Application.Controllers
                 });
             }
             user.Trips = userTrips;
-            return View(mapper.Map<UserModel>(user));
+            return View(_mapper.Map<UserModel>(user));
         }
 
         [HttpPost]
@@ -154,7 +147,7 @@ namespace Application.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
-            return View("Profile", mapper.Map<UserModel>(user));
+            return View("Profile", _mapper.Map<UserModel>(user));
         }
 
         [HttpPost]
@@ -187,7 +180,7 @@ namespace Application.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
-            return View(mapper.Map<UserCreateModel>(user));
+            return View(_mapper.Map<UserCreateModel>(user));
         }
 
         [HttpPost]
@@ -207,13 +200,12 @@ namespace Application.Controllers
                 user.Name = userModel.Name;
                 user.MailAddress = userModel.MailAddress;
                 await _userFacade.UpdateAsync(user);
-                return View("Profile", mapper.Map<UserModel>(user));
+                return View("Profile", _mapper.Map<UserModel>(user));
             }
             catch (Exception)
             {
                 ModelState.AddModelError("", "Something went wrong while editing user.");
             }
-
             return BadRequest();
         }
 
@@ -221,7 +213,7 @@ namespace Application.Controllers
         public async Task<IActionResult> ChangePassword()
         {
             var id = User.Identity.Name;
-            if (id == null)
+            if (id == null || !User.Identity.IsAuthenticated)
             {
                 return RedirectToAction("Index", "Home");
             }
@@ -239,7 +231,7 @@ namespace Application.Controllers
             var user = await _userFacade.GetAsync(int.Parse(User.Identity.Name));
             user.PasswordHash = HashingUtils.Encode(pswdModel.Password);
             await _userFacade.UpdateAsync(user);
-            return View("Profile", mapper.Map<UserModel>(user));
+            return View("Profile", _mapper.Map<UserModel>(user));
         }
     }
 }

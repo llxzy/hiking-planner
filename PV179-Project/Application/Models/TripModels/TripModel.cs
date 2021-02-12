@@ -1,11 +1,8 @@
-﻿using BusinessLayer.DataTransferObjects;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Application.Models.ReviewModels;
 using Application.Models.TripLocationModels;
 using Application.Models.UserModels;
-using Application.Models.ReviewModels;
+using System;
+using System.Collections.Generic;
 
 namespace Application.Models.TripModels
 {

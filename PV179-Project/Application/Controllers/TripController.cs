@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using API.Models;
+﻿using API.Models;
 using Application.Models.LocationModels;
 using Application.Models.TripModels;
 using Application.Models.UserModels;
@@ -10,21 +7,23 @@ using BusinessLayer.DataTransferObjects;
 using BusinessLayer.Facades.FacadeInterfaces;
 using DataAccessLayer.Enums;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Application.Controllers
 {
     public class TripController : Controller
     {
-        private ITripFacade     _tripFacade;
-        private IReviewFacade   _reviewFacade;
-        private IUserFacade     _userFacade;
-        private ILocationFacade _locationFacade;
-        private IMapper         mapper = new Mapper(new MapperConfiguration(ApplicationMappingConfig.ConfigureMap));
+        private readonly ITripFacade     _tripFacade;
+        private readonly IUserFacade     _userFacade;
+        private readonly ILocationFacade _locationFacade;
 
-        public TripController(ITripFacade facade, IReviewFacade reviewFacade, IUserFacade userFacade, ILocationFacade locationFacade)
+        private readonly IMapper _mapper = new Mapper(new MapperConfiguration(ApplicationMappingConfig.ConfigureMap));
+
+        public TripController(ITripFacade facade, IUserFacade userFacade, ILocationFacade locationFacade)
         {
             _tripFacade     = facade;
-            _reviewFacade   = reviewFacade;
             _userFacade     = userFacade;
             _locationFacade = locationFacade;
         }
@@ -32,7 +31,7 @@ namespace Application.Controllers
         public IActionResult ListAllTrips()
         {
             var tripDtos = _tripFacade.GetAllTripsSorted();
-            return View(mapper.Map<List<TripModel>>(tripDtos));
+            return View(_mapper.Map<List<TripModel>>(tripDtos));
         }
         
         public async Task<IActionResult> TripDetail(int tripId)
@@ -42,7 +41,7 @@ namespace Application.Controllers
             {
                 return RedirectToAction("ListAllTrips", "Trip");
             }
-            return View(mapper.Map<TripModel>(trip));
+            return View(_mapper.Map<TripModel>(trip));
         }
 
         [HttpPost]
@@ -65,7 +64,6 @@ namespace Application.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(TripCreateModel tripCreateModel)
         {
-            //var author = await _userFacade.GetAsync(int.Parse(User.Identity.Name));
             var tripDto = new TripDto()
             {
                 AuthorId     = int.Parse(User.Identity.Name),
@@ -83,21 +81,22 @@ namespace Application.Controllers
         {
             var locations = _locationFacade.ListAllAdded();
 
-            var locs = mapper.Map<List<LocationModel>>(locations
+            var locModels = _mapper.Map<List<LocationModel>>(locations
                 .Where(l => l.Trips.All(tl => tl.AssociatedTrip.Id != tripId)));
+
             if (!string.IsNullOrEmpty(searchName))
             {
-                locs = locs.Where(l => l.Name.ToLower().Contains(searchName.ToLower().Trim())).ToList();
+                locModels = locModels.Where(l => l.Name.ToLower().Contains(searchName.ToLower().Trim())).ToList();
             }
             if (!string.IsNullOrEmpty(searchType))
             {
-                locs = locs.Where(l => (int)l.Type == int.Parse(searchType)).ToList();
+                locModels = locModels.Where(l => (int)l.Type == int.Parse(searchType)).ToList();
             }
             
             return View(new TripAddLocationModel
             {
                 TripId = tripId,
-                Locations = locs
+                Locations = locModels
             });
         }
 
@@ -108,7 +107,7 @@ namespace Application.Controllers
             return View("ManageLocations", new TripAddLocationModel
                 {
                     TripId = tripId,
-                    Locations = mapper.Map<List<LocationModel>>(locs
+                    Locations = _mapper.Map<List<LocationModel>>(locs
                         .Where(l => l.Trips.All(tl => tl.AssociatedTrip.Id != tripId)))
                 });
         }
@@ -121,6 +120,7 @@ namespace Application.Controllers
                 .Where(u => u.Trips
                     .All(t => t.TripId != tripId) && u.Id != int.Parse(User.Identity.Name))
                 .Where(u => u.Role != UserRole.Administrator);
+
             if (!string.IsNullOrEmpty(searchName))
             {
                 userList = userList.Where(u => u.Name.ToLower().Contains(searchName.ToLower().Trim()));
@@ -133,7 +133,7 @@ namespace Application.Controllers
             return View(new UserTripAddModel
             {
                 TripId = tripId,
-                Users = mapper.Map<List<UserShowModel>>(userList)
+                Users = _mapper.Map<List<UserShowModel>>(userList)
             });
         }
         
@@ -145,10 +145,11 @@ namespace Application.Controllers
                 TripId = tripId
             };
             await _tripFacade.CreateUserTripAsync(userTripDto);
+
             return View("ManageParticipants", new UserTripAddModel
             {
                 TripId = tripId,
-                Users = mapper.Map<List<UserShowModel>>(_userFacade.GetAllUsers()
+                Users = _mapper.Map<List<UserShowModel>>(_userFacade.GetAllUsers()
                     .Where(u => u.Trips
                         .All(t => t.TripId != tripId) && u.Id != int.Parse(User.Identity.Name))
                     .Where(u => u.Role != UserRole.Administrator))
@@ -159,12 +160,14 @@ namespace Application.Controllers
         {
             var trip = await _tripFacade.GetTripByIdAsync(tripId);
             trip.Done = true;
+
             foreach (var loc in trip.TripLocations)
             {
                 loc.AssociatedLocation.VisitCount++;
                 await _locationFacade.UpdateAsync(loc.AssociatedLocation);
             }
             await _tripFacade.UpdateAsync(trip);
+
             return RedirectToAction("TripDetail", "Trip", new {tripId});
         }
     }

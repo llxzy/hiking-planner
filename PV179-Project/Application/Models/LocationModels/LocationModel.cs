@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Application.Models.TripLocationModels;
+﻿using Application.Models.TripLocationModels;
 using DataAccessLayer.Enums;
+using System.Collections.Generic;
 
 namespace Application.Models.LocationModels
 {

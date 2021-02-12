@@ -1,19 +1,19 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Application.Models.LocationModels;
+using AutoMapper;
+using BusinessLayer.DataTransferObjects;
+using BusinessLayer.Facades.FacadeInterfaces;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Application.Models.LocationModels;
-using BusinessLayer.DataTransferObjects;
-using BusinessLayer.Facades.FacadeInterfaces;
-using AutoMapper;
 
 namespace Application.Controllers
 {
     public class LocationController : Controller
     {
-        private ILocationFacade _locationFacade;
-        private IMapper         mapper = new Mapper(new MapperConfiguration(ApplicationMappingConfig.ConfigureMap));
+        private readonly ILocationFacade _locationFacade;
+        private readonly IMapper         _mapper = new Mapper(new MapperConfiguration(ApplicationMappingConfig.ConfigureMap));
 
         public LocationController(ILocationFacade facade)
         {
@@ -38,7 +38,7 @@ namespace Application.Controllers
                     .ToList();
             }
 
-            return View(mapper.Map<List<LocationModel>>(locs));
+            return View(_mapper.Map<List<LocationModel>>(locs));
         }
 
         [HttpGet]
@@ -56,12 +56,11 @@ namespace Application.Controllers
         {
             try
             {
-                await _locationFacade.CreateAsync(mapper.Map<LocationDto>(location));
+                await _locationFacade.CreateAsync(_mapper.Map<LocationDto>(location));
             }
             catch(ArgumentException)
             {
                 ModelState.AddModelError("", "Location not valid");
-                //should work & return the same model??
                 return View(location);
             }
             return RedirectToAction("Index", "Location");

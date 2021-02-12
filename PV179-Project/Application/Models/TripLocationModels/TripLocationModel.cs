@@ -1,9 +1,6 @@
-﻿using Application.Models.TripModels;
-using Application.Models.LocationModels;
+﻿using Application.Models.LocationModels;
+using Application.Models.TripModels;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Application.Models.TripLocationModels
 {

@@ -1,5 +1,4 @@
 using System;
-using DataAccessLayer.DataClasses;
 using DataAccessLayer.Enums;
 using Application.Models.UserModels;
 
