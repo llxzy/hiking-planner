@@ -1,10 +1,7 @@
-using System;
 using Autofac;
 using DataAccessLayer;
-using DataAccessLayer.DataClasses;
 using Infrastructure.Query;
 using Infrastructure.UnitOfWork;
-using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure
 {

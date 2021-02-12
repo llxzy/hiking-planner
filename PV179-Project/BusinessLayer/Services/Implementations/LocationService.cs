@@ -76,18 +76,5 @@ namespace BusinessLayer.Services.Implementations
             
             return QueryObject.ExecuteQuery(filter).Items.ToList();
         }
-
-        public List<LocationDto> ListAllWithinDistance(double lat, double lon, double maxdist)
-        {
-            var filter = new LocationFilterDto
-            {
-                PermanentlyAdded = "true",
-                Lat              = lat.ToString(CultureInfo.InvariantCulture),
-                Long             = lon.ToString(CultureInfo.InvariantCulture),
-                Maxdist          = maxdist.ToString(CultureInfo.InvariantCulture)
-            };
-            return QueryObject.ExecuteQuery(filter).Items.ToList();
-        }
-        
     }
 }

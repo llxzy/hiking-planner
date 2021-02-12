@@ -29,14 +29,7 @@ namespace BusinessLayer.QueryObjects
             query = string.IsNullOrWhiteSpace(filter.PermanentlyAdded)
                 ? query
                 : ((LocationQuery) query).FilterByAddedStatus(bool.Parse(filter.PermanentlyAdded));
-
-            query = string.IsNullOrWhiteSpace(filter.Lat)
-                    || string.IsNullOrWhiteSpace(filter.Long)
-                    || string.IsNullOrWhiteSpace(filter.Maxdist)
-                ? query
-                : ((LocationQuery) query).FilterByDistance(double.Parse(filter.Lat),
-                    double.Parse(filter.Long), double.Parse(filter.Maxdist));
-
+            
             return query;
         }
     }

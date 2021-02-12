@@ -5,8 +5,6 @@ namespace Infrastructure.Query
 {
     public class UserTripQuery : QueryBase<UserTrip>
     {
-        public UserTripQuery(IUnitOfWorkProvider provider) : base(provider)
-        {
-        }
+        public UserTripQuery(IUnitOfWorkProvider provider) : base(provider) { }
     }
 }

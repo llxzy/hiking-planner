@@ -1,7 +1,6 @@
 using System;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Reflection;
 using System.Threading.Tasks;
 using Infrastructure.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
@@ -19,29 +18,9 @@ namespace Infrastructure.Query
         public QueryBase(IUnitOfWorkProvider provider)
         {
             Provider  = provider;
-            provider.Create(); // added
-            PageSize  = 10; // some default value, can be changed
+            provider.Create();
+            PageSize  = 10; // default value
             Queryable = Provider.GetUnitOfWorkInstance().Context.Set<TEntity>();
-            //Queryable = GetQueryableWithIncludes();
-        }
-
-        private IQueryable<TEntity> GetQueryableWithIncludes()
-        {
-            var context = Provider.GetUnitOfWorkInstance().Context;
-            var query = context.Set<TEntity>().AsQueryable();
-
-            var navigations = context.Model.FindEntityType(typeof(TEntity))
-                //.GetDeclaredNavigations()
-                .GetDerivedTypesInclusive()
-                .SelectMany(type => type.GetNavigations())
-                .Distinct();
-            
-            foreach (var navigation in navigations)
-            {
-                query = query.Include(navigation.Name);
-            }
-
-            return query;
         }
 
         public IQuery<TEntity> Page(int pageToFetch, int pageSize)

@@ -6,9 +6,7 @@ namespace Infrastructure.Query
 {
     public class ReviewQuery : QueryBase<Review>
     {
-        public ReviewQuery(IUnitOfWorkProvider provider) : base(provider)
-        {
-        }
+        public ReviewQuery(IUnitOfWorkProvider provider) : base(provider) { }
 
         public ReviewQuery FilterByTripId(int tripId)
         {

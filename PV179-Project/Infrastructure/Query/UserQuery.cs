@@ -1,16 +1,12 @@
 using System.Linq;
-using System.Threading.Tasks;
 using DataAccessLayer.DataClasses;
 using Infrastructure.UnitOfWork;
-using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Query
 {
     public class UserQuery : QueryBase<User>
     {
-        public UserQuery(IUnitOfWorkProvider provider) : base(provider)
-        {
-        }
+        public UserQuery(IUnitOfWorkProvider provider) : base(provider) { }
 
         public UserQuery FilterByName(string userName)
         {

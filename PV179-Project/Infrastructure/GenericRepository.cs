@@ -1,8 +1,4 @@
-using System;
-using System.Linq;
 using System.Threading.Tasks;
-using DataAccessLayer;
-using DataAccessLayer.DataClasses;
 using Infrastructure.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
 
@@ -19,11 +15,8 @@ namespace Infrastructure
 
         public Task<TEntity> GetByIdAsync(int id)
         {
-            
             var _context = _unitOfWorkProvider.GetUnitOfWorkInstance().Context;
             return _context.Set<TEntity>().FindAsync(id).AsTask();
-            
-           
         }
 
         public async Task CreateAsync(TEntity entity)

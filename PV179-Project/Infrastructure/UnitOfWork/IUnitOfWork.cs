@@ -1,7 +1,6 @@
 using System;
 using System.Threading.Tasks;
 using DataAccessLayer;
-using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.UnitOfWork
 {

@@ -1,5 +1,4 @@
 using System.Threading.Tasks;
-using DataAccessLayer.DataClasses;
 
 namespace Infrastructure
 {
@@ -9,6 +8,5 @@ namespace Infrastructure
         Task CreateAsync(TEntity entity);
         void Update(TEntity entity);
         Task DeleteAsync(int id);
-        
     }
 }
