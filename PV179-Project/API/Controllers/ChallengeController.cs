@@ -41,7 +41,7 @@ namespace API.Controllers
         public async Task<ActionResult> CreateChallenge([FromBody] ChallengeCreateDto dto)
         {
             var user = await _userFacade.GetAsync(dto.UserId);
-            await _challengeFacade.CreateAsync(dto.TripCount, user, dto.Type);
+            await _challengeFacade.CreateAsync(dto.TripCount, user.Id, dto.Type);
             return Ok();
         }
     }
