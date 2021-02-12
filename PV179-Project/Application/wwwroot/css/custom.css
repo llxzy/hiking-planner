@@ -100,14 +100,6 @@
     color: black;
 }
 
-.create-button {
-    background-color: #f2f7f7;
-    border: 1px solid #dce3e3;
-    border-radius: 5px;
-    margin: 5px;
-    padding: 5px;
-}
-
 .challenge-p {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-size: 13px;
@@ -177,4 +169,22 @@ h1 {
     padding: 2em;
     margin: 1em;
     box-shadow: 1px 1px 6px 1px #0000001f;
+}
+
+.main-button {
+    color: white;
+    background-color: #1b6ec2;
+    border: 2px solid #1b6ec2;
+    border-radius: 5px;
+    outline: none;
+    display: inline-block;
+    margin-right: 7px;
+    padding: 7px 10px 7px 10px;
+}
+
+.main-button:hover {
+    background-color: #155aa1;
+    color: white;
+    text-decoration: none;
+    border: 2px solid #155aa1;
 }
