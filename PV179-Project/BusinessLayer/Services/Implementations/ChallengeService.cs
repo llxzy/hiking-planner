@@ -24,7 +24,7 @@ namespace BusinessLayer.Services.Implementations
 
         public bool SetAsFinished(int challengeId)
         {
-            var challenge = GetAsync(challengeId).Result;
+            var challenge      = GetAsync(challengeId).Result;
             challenge.Finished = true;
             Update(challenge);
             return true;
@@ -44,7 +44,7 @@ namespace BusinessLayer.Services.Implementations
             var filter = new ChallengeFilterDto()
             {
                 UserId = userId.ToString(),
-                Type = type.ToString()
+                Type   = type.ToString()
             };
             filter.SortAccordingTo = nameof(filter.Type);
             var result = QueryObject.ExecuteQuery(filter);
@@ -55,7 +55,7 @@ namespace BusinessLayer.Services.Implementations
         {
             var result = QueryObject.ExecuteQuery(new ChallengeFilterDto()
             {
-                UserId = userId.ToString(),
+                UserId   = userId.ToString(),
                 Finished = finished.ToString()
             });
             return result.Items.ToList();

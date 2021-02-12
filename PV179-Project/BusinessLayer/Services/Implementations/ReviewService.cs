@@ -34,7 +34,7 @@ namespace BusinessLayer.Services.Implementations
             return QueryObject.ExecuteQuery(new ReviewFilterDto()
             {
                 ReviewedTripId = tripId.ToString(),
-                AuthorId = authorId?.ToString()
+                AuthorId       = authorId?.ToString()
             }).Items.ToList();
         }
     }

@@ -14,12 +14,12 @@ namespace BusinessLayer.Facades.FacadeImplementations
     public class ChallengeFacade : FacadeBase, IChallengeFacade
     {
         private readonly IChallengeService _challengeService;
-        private readonly IUserService _userService;
+        private readonly IUserService      _userService;
         
         public ChallengeFacade(IUnitOfWorkProvider provider, IChallengeService challengeService, IUserService userService) : base(provider)
         {
             _challengeService = challengeService;
-            _userService = userService;
+            _userService      = userService;
         }
 
         public async Task CreateAsync(int count, int userId, ChallengeType type)

@@ -82,9 +82,9 @@ namespace BusinessLayer.Services.Implementations
             var filter = new LocationFilterDto
             {
                 PermanentlyAdded = "true",
-                Lat = lat.ToString(CultureInfo.InvariantCulture),
-                Long = lon.ToString(CultureInfo.InvariantCulture),
-                Maxdist = maxdist.ToString(CultureInfo.InvariantCulture)
+                Lat              = lat.ToString(CultureInfo.InvariantCulture),
+                Long             = lon.ToString(CultureInfo.InvariantCulture),
+                Maxdist          = maxdist.ToString(CultureInfo.InvariantCulture)
             };
             return QueryObject.ExecuteQuery(filter).Items.ToList();
         }

@@ -13,16 +13,16 @@ namespace BusinessLayer.Facades.FacadeImplementations
 {
     public class TripFacade : FacadeBase, ITripFacade
     {
-        private readonly ITripService _tripService;
+        private readonly ITripService         _tripService;
         private readonly ITripLocationService _tripLocationService;
-        private readonly IUserTripService _userTripService;
+        private readonly IUserTripService     _userTripService;
 
         public TripFacade(IUnitOfWorkProvider provider, ITripService trip, ITripLocationService tripLocation, IUserTripService userTripService) 
             : base(provider)
         {
-            _tripService = trip;
+            _tripService         = trip;
             _tripLocationService = tripLocation;
-            _userTripService = userTripService;
+            _userTripService     = userTripService;
         }
 
         public async Task AddTripLocationToTripAsync(int locationId, int tripId)

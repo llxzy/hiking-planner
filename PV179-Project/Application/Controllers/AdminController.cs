@@ -21,7 +21,7 @@ namespace Application.Controllers
 
         public AdminController(IUserFacade userFacade, ILocationFacade locationFacade)
         {
-            _userFacade = userFacade;
+            _userFacade     = userFacade;
             _locationFacade = locationFacade;
         }
         public IActionResult Index()
@@ -31,7 +31,7 @@ namespace Application.Controllers
 
         public async Task<IActionResult> ChangeRights(int id, bool makeMod)
         {
-            var user = await _userFacade.GetAsync(id);
+            var user  = await _userFacade.GetAsync(id);
             user.Role = makeMod ? UserRole.Moderator : UserRole.RegularUser;
             await _userFacade.UpdateAsync(user);
             //return RedirectToAction("Profile", "User");

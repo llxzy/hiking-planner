@@ -10,7 +10,7 @@ namespace BusinessLayer.Utils
         public static string Encode(string input)
         {
             var inputAsBytes = Encoding.ASCII.GetBytes(input);
-            var hashAlg = new SHA512Managed();
+            var hashAlg            = new SHA512Managed();
             return Convert.ToHexString(hashAlg.ComputeHash(inputAsBytes));
         }
 

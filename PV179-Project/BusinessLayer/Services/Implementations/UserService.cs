@@ -16,12 +16,13 @@ namespace BusinessLayer.Services.Implementations
     {
         /*public UserService (IRepository<User> repository, UserQueryObject userQueryObject) :
             base(repository, userQueryObject) {}*/
-        public UserService (IRepository<User> repository, QueryObjectBase<User, UserDto, UserFilterDto, IQuery<User>> userQueryObject) 
+        public UserService (IRepository<User> repository, 
+            QueryObjectBase<User, UserDto, UserFilterDto, IQuery<User>> userQueryObject) 
             : base(repository, userQueryObject) {}
         
         public async Task<string> GetUserEmailAsync(int userId)
         {
-            var user = await Repository.GetByIdAsync(userId);
+            var user    = await Repository.GetByIdAsync(userId);
             var userDto = Mapper.Map<UserDto>(user);
             return userDto.MailAddress;
         }

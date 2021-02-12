@@ -12,15 +12,15 @@ namespace Application.Controllers
     public class ReviewController : Controller
     {
         private readonly IReviewFacade _reviewFacade;
-        private readonly IUserFacade _userFacade;
-        private readonly ITripFacade _tripFacade;
+        private readonly IUserFacade   _userFacade;
+        private readonly ITripFacade   _tripFacade;
         private readonly IMapper       mapper = new Mapper(new MapperConfiguration(ApplicationMappingConfig.ConfigureMap));
 
         public ReviewController(IReviewFacade facade, IUserFacade userFacade, ITripFacade tripFacade)
         {
             _reviewFacade = facade;
-            _userFacade = userFacade;
-            _tripFacade = tripFacade;
+            _userFacade   = userFacade;
+            _tripFacade   = tripFacade;
         }
 
         public IActionResult CreateReviewForTrip(int tripId)

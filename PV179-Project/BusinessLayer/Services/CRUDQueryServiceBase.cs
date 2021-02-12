@@ -13,15 +13,15 @@ namespace BusinessLayer.Services
         where TFilter : FilterDtoBase
         
     {
-        protected IRepository<TEntity> Repository;
-        protected IMapper Mapper;
+        protected IRepository<TEntity>                                     Repository;
+        protected IMapper                                                  Mapper;
         protected QueryObjectBase<TEntity, TDto, TFilter, IQuery<TEntity>> QueryObject;
 
         public CrudQueryServiceBase(IRepository<TEntity> repository, 
             QueryObjectBase<TEntity, TDto, TFilter, IQuery<TEntity>> qob)
         {
-            Repository = repository;
-            Mapper = new Mapper(new MapperConfiguration(MappingConfig.ConfigureMap));
+            Repository  = repository;
+            Mapper      = new Mapper(new MapperConfiguration(MappingConfig.ConfigureMap));
             QueryObject = qob;
         }
 

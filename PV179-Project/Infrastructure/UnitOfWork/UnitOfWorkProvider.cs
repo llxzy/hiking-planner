@@ -13,7 +13,6 @@ namespace Infrastructure.UnitOfWork
         public UnitOfWorkProvider(Func<DatabaseContext> contextFactory)
         {
             _contextFactory = contextFactory;
-            // new UnitOfWorkProvider( () => new DbContext() )
         }
         
         public IUnitOfWork Create()

@@ -13,18 +13,18 @@ namespace BusinessLayer.Facades.FacadeImplementations
 {
     public class ReviewFacade : FacadeBase, IReviewFacade
     {
-        private readonly IReviewService _reviewService;
-        private readonly IUserService _userService;
-        private readonly ITripService _tripService;
+        private readonly IReviewService         _reviewService;
+        private readonly IUserService           _userService;
+        private readonly ITripService           _tripService;
         private readonly IUserReviewVoteService _userReviewVoteService;
         
         public ReviewFacade(IUnitOfWorkProvider provider, 
             IReviewService service, IUserService userService,
             ITripService tripService, IUserReviewVoteService userReviewVoteService) : base(provider)
         {
-            _reviewService = service;
-            _userService = userService;
-            _tripService = tripService;
+            _reviewService         = service;
+            _userService           = userService;
+            _tripService           = tripService;
             _userReviewVoteService = userReviewVoteService;
         }
 

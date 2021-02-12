@@ -68,11 +68,11 @@ namespace Application.Controllers
             //var author = await _userFacade.GetAsync(int.Parse(User.Identity.Name));
             var tripDto = new TripDto()
             {
-                AuthorId = int.Parse(User.Identity.Name),
-                Title = tripCreateModel.Title,
-                Description = tripCreateModel.Description,
-                StartDate = tripCreateModel.StartDate,
-                Done = tripCreateModel.Done,
+                AuthorId     = int.Parse(User.Identity.Name),
+                Title        = tripCreateModel.Title,
+                Description  = tripCreateModel.Description,
+                StartDate    = tripCreateModel.StartDate,
+                Done         = tripCreateModel.Done,
                 Participants = new List<UserTripDto>()
             };
             await _tripFacade.CreateAsync(tripDto);

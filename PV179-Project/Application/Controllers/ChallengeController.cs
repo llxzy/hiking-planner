@@ -13,7 +13,7 @@ namespace Application.Controllers
         public ChallengeController(IChallengeFacade facade, IUserFacade userFacade)
         {
             _challengeFacade = facade;
-            _userFacade = userFacade;
+            _userFacade      = userFacade;
 
         }
         

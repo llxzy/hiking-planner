@@ -10,7 +10,9 @@ namespace BusinessLayer.Services.Implementations
 {
     public class UserTripService : CrudQueryServiceBase<UserTrip, UserTripDto, FilterDtoBase>, IUserTripService
     {
-        public UserTripService(IRepository<UserTrip> repository, QueryObjectBase<UserTrip, UserTripDto, FilterDtoBase, IQuery<UserTrip>> qob) : base(repository, qob)
+        public UserTripService(IRepository<UserTrip> repository, 
+            QueryObjectBase<UserTrip, UserTripDto, FilterDtoBase, IQuery<UserTrip>> qob) 
+            : base(repository, qob)
         {
         }
     }

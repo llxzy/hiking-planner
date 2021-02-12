@@ -13,13 +13,13 @@ namespace API.Controllers
     public class ReviewController : ControllerBase
     {
         private readonly IReviewFacade _reviewFacade;
-        private readonly IUserFacade _userFacade;
-        private readonly IMapper _mapper = new Mapper(new MapperConfiguration(ApiMappingConfig.ConfigureMap));
+        private readonly IUserFacade   _userFacade;
+        private readonly IMapper       _mapper = new Mapper(new MapperConfiguration(ApiMappingConfig.ConfigureMap));
 
         public ReviewController(IReviewFacade facade, IUserFacade userFacade)
         {
             _reviewFacade = facade;
-            _userFacade = userFacade;
+            _userFacade   = userFacade;
         }
 
         [HttpGet]

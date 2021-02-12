@@ -10,7 +10,7 @@ namespace Infrastructure.Query
 {
     public class QueryBase<TEntity> : IQuery<TEntity> where TEntity : class, new()
     {
-        public int PageSize     { get; set; }
+        public int  PageSize    { get; set; }
         public int? DesiredPage { get; set; }
         
         protected readonly IUnitOfWorkProvider Provider;
@@ -18,9 +18,9 @@ namespace Infrastructure.Query
 
         public QueryBase(IUnitOfWorkProvider provider)
         {
-            Provider = provider;
+            Provider  = provider;
             provider.Create(); // added
-            PageSize = 10; // some default value, can be changed
+            PageSize  = 10; // some default value, can be changed
             Queryable = Provider.GetUnitOfWorkInstance().Context.Set<TEntity>();
             //Queryable = GetQueryableWithIncludes();
         }
