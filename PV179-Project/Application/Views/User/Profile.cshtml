@@ -131,24 +131,28 @@
         }
     }
 
-    <br />
-
-    <a class="main-button" asp-area="" asp-controller="Challenge" asp-action="CreateChallenge">
-        <strong>+ Create new challenge</strong>
-    </a>
-
-    <br />
-
+    @if (User.Identity.IsAuthenticated && (Model.Id == int.Parse(User.Identity.Name)))
+    {
+        <br />
+        <a class="main-button" asp-area="" asp-controller="Challenge" asp-action="CreateChallenge">
+            <strong>+ Create new challenge</strong>
+        </a>
+        <br />
+    }
+    
     <hr />
-
-
+    
     <h2 class="trip-subheader">@Html.DisplayNameFor(model => model.Trips)</h2>
     <p></p>
-    <a class="main-button" asp-area="" asp-controller="Trip" asp-action="Create">
-        <strong>+ Create new trip</strong>
-    </a>
-    <br />
-    <br />
+    @if (User.Identity.IsAuthenticated && (Model.Id == int.Parse(User.Identity.Name)))
+    {
+        <a class="main-button" asp-area="" asp-controller="Trip" asp-action="Create">
+            <strong>+ Create new trip</strong>
+        </a>
+        <br />
+        <br />
+    }
+    
     @{
         foreach (var trip in Model.Trips)
         {

@@ -111,14 +111,10 @@ namespace Application.Controllers
         }
 
         [HttpGet("Profile")]
-        public IActionResult Profile()
+        public IActionResult Profile(int? userId)
         {
-            var id = User.Identity?.Name;
-            if (id == null)
-            {
-                return RedirectToAction("Index", "Home");
-            }
-            var user = _userFacade.GetAsync(int.Parse(id)).Result;
+            userId ??= int.Parse(User.Identity.Name);
+            var user = _userFacade.GetAsync(userId.Value).Result;
             var trips = _tripFacade.GetAllUserTrips(user.Id);
             var userTrips = new List<UserTripDto>();
             foreach (var trip in trips)
@@ -141,7 +137,7 @@ namespace Application.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
-            return View("Profile", _mapper.Map<UserModel>(user));
+            return RedirectToAction("Profile",  "User", new { userId = user.Id });
         }
 
         [HttpPost]
