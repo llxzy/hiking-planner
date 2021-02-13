@@ -40,9 +40,9 @@
                             <a class="nav-link1" asp-controller="User" asp-action="Register">Register</a>
 
                         }
-                        @if (User.IsInRole("Administrator"))
+                        @if (User.IsInRole("Administrator") || User.IsInRole("Moderator"))
                         {
-                            <a class="nav-link1" asp-controller="Admin" asp-action="Index">Admin Dashboard</a>
+                            <a class="nav-link1" asp-controller="Admin" asp-action="Index">Admin&Mod Dashboard</a>
                         }
 
                     </div>
