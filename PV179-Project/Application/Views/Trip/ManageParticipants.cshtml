@@ -5,7 +5,7 @@
 
 <br>
 
-@using (Html.BeginForm("ManageParticipants", "Trip", new {tripId = Model.TripId}))
+@using (Html.BeginForm("ManageParticipants", "Trip", new { tripId = Model.TripId }))
 {
     <p>
         Filter by name: @Html.TextBox("searchName")
@@ -28,20 +28,25 @@
     <tbody>
         @foreach (var item in Model.Users)
         {
-        <tr>
-            <td>
-                <strong>@Html.DisplayFor(modelItem => item.Name)</strong>
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MailAddress)
-            </td>
-            <td>
-                @using (Html.BeginForm("AddParticipant", "Trip", new { tripId = Model.TripId, participantId = item.Id }))
-                {
-                    <input type="submit" value="Add" class="btn btn-primary"  />
-                }
-            </td>
-        </tr>
+            <tr>
+                <td>
+                    <strong>@Html.DisplayFor(modelItem => item.Name)</strong>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MailAddress)
+                </td>
+                <td>
+                    @using (Html.BeginForm("AddParticipant", "Trip", new { tripId = Model.TripId, participantId = item.Id }))
+                    {
+                        <input type="submit" value="Add" class="btn btn-primary" />
+                    }
+                </td>
+            </tr>
         }
     </tbody>
 </table>
+
+@using (Html.BeginForm("TripDetail", "Trip", new { tripId = Model.TripId }))
+{
+    <input type="submit" value="Back to trip" class="btn btn-primary" />
+}

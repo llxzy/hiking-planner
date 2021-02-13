@@ -5,7 +5,7 @@
 
 <br>
 
-@using (Html.BeginForm("ManageLocations", "Trip", new {tripId = Model.TripId}))
+@using (Html.BeginForm("ManageLocations", "Trip", new { tripId = Model.TripId }))
 {
     <p>
         Filter by name: @Html.TextBox("searchName")
@@ -44,23 +44,29 @@
     <tbody>
         @foreach (var item in Model.Locations)
         {
-        <tr>
-            <td>
-                <strong>@Html.DisplayFor(modelItem => item.Name)</strong>
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Type)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.VisitCount)
-            </td>
-            <td>
-                @using (Html.BeginForm("AddLocation", "Trip", new { tripId = Model.TripId, locationId = item.Id  }))
-                {
-                    <input type="submit" value="Add" class="btn btn-primary"  />
-                }
-            </td>
-        </tr>
+            <tr>
+                <td>
+                    <strong>@Html.DisplayFor(modelItem => item.Name)</strong>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Type)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.VisitCount)
+                </td>
+                <td>
+                    @using (Html.BeginForm("AddLocation", "Trip", new { tripId = Model.TripId, locationId = item.Id }))
+                    {
+                        <input type="submit" value="Add" class="btn btn-primary" />
+                    }
+                </td>
+            </tr>
         }
     </tbody>
 </table>
+
+
+@using (Html.BeginForm("TripDetail", "Trip", new { tripId = Model.TripId}))
+{
+    <input type="submit" value="Back to trip" class="btn btn-primary" />
+}
