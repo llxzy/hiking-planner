@@ -18,15 +18,10 @@ namespace DataAccessLayer
         {
             Database.EnsureCreated();
         }
-        
+
         public DatabaseContext(DbContextOptions options) : base(options)
         {
             Database.EnsureCreated();
-        }
-        
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseLazyLoadingProxies().UseNpgsql(@"Host=localhost;Database=tripdb;Username=postgres;Password=postgres;Port=5432;Include Error Detail=true");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

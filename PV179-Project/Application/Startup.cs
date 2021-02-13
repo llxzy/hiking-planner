@@ -30,9 +30,9 @@ namespace Application
             
             services.AddDbContext<DatabaseContext>(options => options
                 .UseLazyLoadingProxies()
-                .UseNpgsql(@"Host=localhost;Database=tripdb;Username=postgres;Password=postgres;Port=5432"));
-            
+                .UseNpgsql(Configuration.GetConnectionString("PostgreSQL")));
             //cookie authorization
+            
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(o => o.LoginPath = new PathString("/User/Login"));
         }
