@@ -42,7 +42,8 @@ namespace BusinessLayer.Services.Implementations
         {
             var filter = new LocationFilterDto()
             {
-                Name = locationName
+                Name = locationName,
+                PermanentlyAdded = "true"
             };
             filter.SortAccordingTo = nameof(filter.Name);
 
@@ -54,6 +55,7 @@ namespace BusinessLayer.Services.Implementations
             var filter = new LocationFilterDto()
             {
                 Name = locationName,
+                PermanentlyAdded = "true"
             };
             filter.SortAccordingTo = nameof(filter.Type);
 
@@ -64,7 +66,8 @@ namespace BusinessLayer.Services.Implementations
         {
             var filter = new LocationFilterDto
             {
-                UseAscendingOrder = false
+                UseAscendingOrder = false,
+                PermanentlyAdded = "true"
             };
             filter.SortAccordingTo = nameof(filter.VisitCount); 
             
