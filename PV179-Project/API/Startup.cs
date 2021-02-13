@@ -26,7 +26,7 @@ namespace API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<DatabaseContext>(options => options
-                .UseNpgsql(@"Host=localhost;Database=tripdb;Username=postgres;Password=postgres;Port=5432"));
+                .UseNpgsql(Configuration.GetConnectionString("PostgreSQL")));
 
             services.AddApiVersioning(x =>
             {
