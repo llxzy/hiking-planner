@@ -80,9 +80,8 @@
                 @foreach (var c in yearly)
                 {
                     <p class="tp-description">
-                        @c.StartDate.Date.ToShortDateString() /
-                        Trip goal: @c.TripCount /
-                        =
+                        @c.StartDate.Date.ToShortDateString(),
+                        Trip goal: @c.TripCount 
                     </p>
                 }
             </div>
