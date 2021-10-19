@@ -1,9 +1,5 @@
 # Hiking planner
 
-## Link
-
-The application is available at: https://hikingapp.azurewebsites.net/
-
 ## Description
 
 Created as a class project for PV179.  
